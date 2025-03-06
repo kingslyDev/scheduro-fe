@@ -1,16 +1,30 @@
 version: '3.8'
 
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: scheduro-fe
+  nextjs:
+    image: kingslydev/scheduro-fe:latest # Nama repository Anda
+    container_name: nextjs-app
     ports:
-      - '3000:3000'
-    environment:
-      - NODE_ENV=development
+      - '3000' # Port internal untuk Nginx
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx-proxy
+    ports:
+      - '80:80' # Port 80 di host
     volumes:
-      - .:/app
-      - /app/node_modules
+      - ./nginx.conf:/etc/nginx/nginx.conf # Mount nginx.conf
+    depends_on:
+      - nextjs
+    restart: unless-stopped
+
+  watchtower:
+    image: containrrr/watchtower
+    container_name: watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - WATCHTOWER_CLEANUP=true
+      - WATCHTOWER_SCHEDULE=0 0 * * * * # Update setiap jam (opsional)
     restart: unless-stopped
