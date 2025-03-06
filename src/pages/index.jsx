@@ -23,7 +23,7 @@ const ScheduloWebsite = () => {
             </li>
             <li>
               <a href="#" className="font-medium">
-                Features
+                Feature
               </a>
             </li>
             <li>
