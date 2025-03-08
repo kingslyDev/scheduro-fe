@@ -9,11 +9,16 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@fortawesome/free-solid-svg-icons": "^6.7.2",
+    "@fortawesome/react-fontawesome": "^0.2.2",
+    "@heroicons/react": "^2.2.0",
     "@tailwindcss/postcss": "^4.0.10",
+    "framer-motion": "^12.4.10",
     "next": "15.2.1",
     "postcss": "^8.5.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "swiper": "^11.2.5",
     "tailwindcss": "^4.0.10"
   },
   "devDependencies": {
