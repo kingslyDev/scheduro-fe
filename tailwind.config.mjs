@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   content: [
     './pages/**/*.{js,ts,jsx,tsx}', // Untuk Next.js dengan Pages Router
     './components/**/*.{js,ts,jsx,tsx}', // Untuk komponen

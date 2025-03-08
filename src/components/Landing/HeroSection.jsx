@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 const HeroSection = () => {
   return (
-    <section className="flex flex-col md:flex-row justify-between items-center px-4 sm:px-8 md:px-16 py-12 overflow-hidden">
+    <section className="bg-gray-50 flex flex-col md:flex-row justify-between items-center px-4 sm:px-8 md:px-16 py-12 overflow-hidden">
       <motion.div className="w-full md:w-1/2 text-center md:text-left" initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, ease: 'easeOut' }}>
         <motion.h1 className="text-4xl sm:text-5xl font-bold leading-tight" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2, duration: 0.8 }}>
           Seamless
