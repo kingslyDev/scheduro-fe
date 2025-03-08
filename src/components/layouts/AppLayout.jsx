@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback } from '@/Components/ui/avatar';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Toaster } from '@/Components/ui/sonner';
 import { Dialog, Transition } from '@headlessui/react';
 import Head from 'next/head';
