@@ -1,4 +1,4 @@
-import { Badge } from '@/Components/ui/badge';
+import { Badge } from '@/components/ui/badge';
 import { PRIORITY } from '@/lib/utils';
 
 export default function GetPriorityBadge({ priority }) {
