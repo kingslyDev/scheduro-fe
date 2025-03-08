@@ -1,5 +1,5 @@
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { Toaster } from '@/Components/ui/sonner';
+import { Toaster } from '@/components/ui/sonner';
 import { Dialog, Transition } from '@headlessui/react';
 import Head from 'next/head';
 import Link from 'next/link';
