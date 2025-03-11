@@ -13,7 +13,7 @@ export default function CreateWorkspace({ onWorkspaceAdded }) {
   const [open, setOpen] = useState(false);
   const [data, setData] = useState({
     name: '',
-    statusWorkspace: 'On Track',
+    priority: 'On Track',
   });
   const [errors, setErrors] = useState({});
 
@@ -34,7 +34,7 @@ export default function CreateWorkspace({ onWorkspaceAdded }) {
       id: Date.now(),
       name: data.name,
       slug: data.name.toLowerCase().replace(/\s+/g, '-'),
-      statusWorkspace: data.statusWorkspace,
+      priority: data.priority,
     };
 
     const existingWorkspaces = JSON.parse(localStorage.getItem('workspaces')) || [];
@@ -47,7 +47,7 @@ export default function CreateWorkspace({ onWorkspaceAdded }) {
   };
 
   const handleReset = () => {
-    setData({ name: '', statusWorkspace: 'On Track' });
+    setData({ name: '', priority: 'On Track' });
     setErrors({});
   };
 
@@ -85,10 +85,10 @@ export default function CreateWorkspace({ onWorkspaceAdded }) {
           </div>
 
           <div>
-            <InputLabel htmlFor="status" value="Status" className="text-sm font-medium" />
-            <Select value={data.statusWorkspace} onValueChange={(value) => setData({ ...data, statusWorkspace: value })}>
+            <InputLabel htmlFor="priority" value="Priority" className="text-sm font-medium" />
+            <Select value={data.priority} onValueChange={(value) => setData({ ...data, priority: value })}>
               <SelectTrigger className="mt-1 w-full border border-gray-300 rounded-lg px-3 py-2">
-                <SelectValue placeholder="Select status" />
+                <SelectValue placeholder="Select priority" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="On Track">On Track</SelectItem>
