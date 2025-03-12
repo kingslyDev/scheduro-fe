@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState, useMemo, useCallback, useRef } from 'react';
+import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -9,8 +9,8 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
-import AddTaskSidebar from "@/components/AddTaskSidebar";
-import TaskTable from "@/components/TaskTable";
+import AddTaskSidebar from "@/components/task/AddTaskSidebar";
+import TaskTable from "@/components/task/TaskTable";
 
 const TaskManager = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);

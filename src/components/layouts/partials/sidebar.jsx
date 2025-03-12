@@ -3,9 +3,9 @@
 import { useEffect, useState } from 'react';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { cn } from '@/lib/utils';
-import { PiHouse, PiLockKeyOpen, PiPlus, PiSquaresFour, PiUser } from 'react-icons/pi';
+import { PiHouse, PiLockKeyOpen, PiSquaresFour } from 'react-icons/pi';
 import { Sheet, SheetTrigger } from '@/components/ui/sheet';
-import CreateWorkspace from '@/components/CreateWorkspace';
+import CreateWorkspace from '@/components/workspace/CreateWorkspace';
 
 export default function Sidebar({ url }) {
   const [auth, setAuth] = useState(null);
