@@ -12,49 +12,49 @@ const data = [
 
 export default function Dashboard() {
   return (
-    <div className="p-6 space-y-6 grid grid-cols-4 gap-6">
-      <div className="col-span-3 space-y-6">
+    <div className="p-6 space-y-6 grid grid-cols-1 md:grid-cols-4 gap-6">
+      <div className="col-span-1 md:col-span-3 space-y-6">
         <h1 className="text-2xl font-bold">Dashboard</h1>
         
-        <div className="grid grid-cols-3 gap-6">
-          <Card className="w-[300px] h-32 flex items-center justify-start p-4">
-            <CardContent className="p-5 flex items-center space-x-4 w-full">
-              <div className="w-12 h-12 flex items-center justify-center rounded-full bg-gray-200">
-                <Briefcase className="h-6 w-6 text-gray-700" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <Card className="w-full h-24 flex items-center justify-start p-3">
+            <CardContent className="p-4 flex items-center space-x-3 w-full">
+              <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-200">
+                <Briefcase className="h-5 w-5 text-gray-700" />
               </div>
               <div className="flex flex-col">
-                <p className="text-lg font-semibold">Workspace</p>
-                <p className="text-2xl font-bold">10</p>
+                <p className="text-base font-medium">Workspace</p>
+                <p className="text-xl">10</p>
               </div>
             </CardContent>
           </Card>
-          <Card className="w-[300px] h-32 flex items-center justify-start p-4">
-            <CardContent className="p-5 flex items-center space-x-4 w-full">
-              <div className="w-12 h-12 flex items-center justify-center rounded-full bg-gray-200">
-                <ClipboardList className="h-6 w-6 text-gray-700" />
+          <Card className="w-full h-24 flex items-center justify-start p-3">
+            <CardContent className="p-4 flex items-center space-x-3 w-full">
+              <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-200">
+                <ClipboardList className="h-5 w-5 text-gray-700" />
               </div>
               <div className="flex flex-col">
-                <p className="text-lg font-semibold">My Tasks</p>
-                <p className="text-2xl font-bold">22</p>
+                <p className="text-base font-medium">My Tasks</p>
+                <p className="text-xl">22</p>
               </div>
             </CardContent>
           </Card>
-          <Card className="w-[300px] h-32 flex items-center justify-start p-4 self-end">
-            <CardContent className="p-5 flex items-center space-x-4 w-full">
-              <div className="w-12 h-12 flex items-center justify-center rounded-full bg-gray-200">
-                <CheckCircle className="h-6 w-6 text-gray-700" />
+          <Card className="w-full h-24 flex items-center justify-start p-3 self-end">
+            <CardContent className="p-4 flex items-center space-x-3 w-full">
+              <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-200">
+                <CheckCircle className="h-5 w-5 text-gray-700" />
               </div>
               <div className="flex flex-col">
-                <p className="text-lg font-semibold">My Tasks Done</p>
-                <p className="text-2xl font-bold">8</p>
+                <p className="text-base font-medium">My Tasks Done</p>
+                <p className="text-xl">8</p>
               </div>
             </CardContent>
           </Card>
         </div>
         
         <div className="bg-white p-6 rounded-lg shadow-md w-full text-center h-[380px]">
-          <h2 className="text-lg font-semibold mt-8 text-center">Productivity Chart</h2>
-          <ResponsiveContainer width="80%" height={250} className="mx-auto">
+          <h2 className="text-lg font-medium mt-8 text-center">Productivity Chart</h2>
+          <ResponsiveContainer width="100%" height={250} className="mx-auto">
             <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
               <XAxis dataKey="week" />
               <YAxis />
@@ -71,18 +71,18 @@ export default function Dashboard() {
       <div className="col-span-1 space-y-6">
         <div className="bg-gray-100 p-4 rounded-lg text-center">
           <UserCircle className="h-12 w-12 mx-auto" />
-          <p className="text-lg font-semibold">Alex Tan</p>
+          <p className="text-lg font-medium">Alex Tan</p>
           <p className="text-sm text-gray-500">alextan@gmail.com</p>
         </div>
         
         <div className="bg-gray-100 p-4 rounded-lg">
-          <h3 className="text-lg font-semibold text-center">Your To Do List</h3>
+          <h3 className="text-lg font-medium text-center">Your To Do List</h3>
           <ul className="mt-2 space-y-2">
             {[...Array(6)].map((_, i) => (
               <li key={i} className="flex flex-col p-2 bg-white rounded-md shadow space-y-1">
                 <div className="flex items-center space-x-2">
                   <span className="w-8 h-8 bg-blue-500 text-white flex items-center justify-center rounded-full">📄</span>
-                  <span className="font-semibold">Build Tailwind CSS</span>
+                  <span className="font-medium">Build Tailwind CSS</span>
                 </div>
                 <span className="text-sm text-gray-500">9 Maret 2025</span>
               </li>
