@@ -8,6 +8,13 @@ import LoadingState from '@/components/workspace/LoadingState';
 import NotFoundState from '@/components/workspace/NotFoundState';
 import { STATUS } from '@/lib/utils';
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { PiDotsThreeOutlineFill, PiPlus, PiEye } from 'react-icons/pi';
+import AppLayout from '@/components/layouts/AppLayout';
+import { STATUS } from '@/lib/utils';
+import GetPriorityBadge from '@/components/GetPriorityBadge';
+import TaskFormSheet from '@/components/TaskFormSheet';
+import { AnimatePresence, motion } from 'framer-motion';
+
 import { PiDotsThreeOutlineFill } from 'react-icons/pi';
 import { DndContext, closestCenter, DragOverlay } from '@dnd-kit/core';
 
@@ -32,6 +39,8 @@ export default function WorkspaceShow({ workspace: initialWorkspace }) {
   return (
     <>
       <WorkspaceHeader workspace={workspace} />
+      <div className="px-2 sm:px-4 bg">
+        <DndContext sensors={sensors} collisionDetection={closestCenter} onDragStart={handleDragStart} onDragEnd={handleDragEnd} modifiers={[restrictToWindowEdges]}>
       <div className="px-2 sm:px-4">
         <DndContext sensors={sensors} collisionDetection={closestCenter} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
           <div className="mt-8 flex w-full flex-col sm:flex-row gap-16 justify-between">

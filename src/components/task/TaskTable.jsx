@@ -23,7 +23,7 @@ const TaskTable = () => {
         <thead>
           <tr className="bg-[#E6EEFF]">
             <th className="text-left py-3 px-4 font-medium text-gray-700">Title</th>
-            <th className="text-left py-3 px-4 font-medium text-gray-700">Status</th>
+            <th className="text-center py-3 px-4 font-medium text-gray-700">Status</th> {/* Rata tengah */}
             <th className="text-left py-3 px-4 font-medium text-gray-700">Start Date</th>
             <th className="text-left py-3 px-4 font-medium text-gray-700">Due Date</th>
           </tr>
@@ -32,10 +32,12 @@ const TaskTable = () => {
           {tasks.map((task) => (
             <tr key={task.id} className="border-t border-gray-100">
               <td className="py-4 px-4">{task.title}</td>
-              <td className="py-4 px-4">
-                <span className={`px-3 py-1 rounded-full text-sm font-medium ${statusColors[task.status]}`}>
-                  {task.status}
-                </span>
+              <td className="py-4 px-4 text-center"> {/* Rata tengah */}
+                <div className="flex justify-center">
+                  <span className={`px-3 py-1 rounded-full text-sm font-medium ${statusColors[task.status]}`}>
+                    {task.status}
+                  </span>
+                </div>
               </td>
               <td className="py-4 px-4">{task.startDate}</td>
               <td className="py-4 px-4">{task.dueDate}</td>

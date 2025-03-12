@@ -2,30 +2,22 @@ import { Badge } from '@/components/ui/badge';
 import { PRIORITY } from '@/lib/utils';
 
 export default function GetPriorityBadge({ priority }) {
-  const { URGENT, HIGH, MEDIUM, LOW, UNKNOWN } = PRIORITY;
-  let badge, text;
+  console.log("Priority received:", priority); // Debugging
 
-  switch (priority) {
-    case URGENT:
-      badge = 'bg-orange-500 hover:bg-orange-600 text-white';
-      text = URGENT;
-      break;
-    case HIGH:
-      badge = 'bg-blue-900 hover:bg-blue-800 text-white';
-      text = HIGH;
-      break;
-    case MEDIUM:
-      badge = 'bg-blue-500 hover:bg-blue-600 text-white';
-      text = MEDIUM;
-      break;
-    case LOW:
-      badge = 'bg-blue-300 hover:bg-blue-400 text-white';
-      text = LOW;
-      break;
-    default:
-      badge = 'bg-gray-400 hover:bg-gray-500 text-white';
-      text = UNKNOWN;
-  }
+  const { HIGH, MEDIUM, LOW } = PRIORITY;
+  const validPriorities = [HIGH, MEDIUM, LOW];
 
-  return <Badge className={badge}>{text}</Badge>;
+  if (!validPriorities.includes(priority)) return null; // Tidak menampilkan jika priority tidak valid
+
+  const badgeStyles = {
+    [HIGH]: 'bg-blue-900 hover:bg-blue-800 text-white',
+    [MEDIUM]: 'bg-blue-500 hover:bg-blue-600 text-white',
+    [LOW]: 'bg-blue-300 hover:bg-blue-400 text-black'
+  };
+
+  return (
+    <div className="flex justify-center items-center w-full">
+      <Badge className={`${badgeStyles[priority]} border rounded-md px-2 py-1 text-center`}>{priority}</Badge>
+    </div>
+  );
 }

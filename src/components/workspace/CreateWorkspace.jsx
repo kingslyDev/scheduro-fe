@@ -9,12 +9,13 @@ import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '@/components/ui/
 import { PiPlus } from 'react-icons/pi';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Image from 'next/image';
+import { PRIORITY } from '@/lib/utils'; // Pastikan PRIORITY di-import
 
 export default function CreateWorkspace({ onWorkspaceAdded }) {
   const [open, setOpen] = useState(false);
   const [data, setData] = useState({
     name: '',
-    priority: 'On Track',
+    priority: PRIORITY.HIGH, // Pastikan menggunakan nilai dari PRIORITY
   });
   const [errors, setErrors] = useState({});
 
@@ -31,12 +32,17 @@ export default function CreateWorkspace({ onWorkspaceAdded }) {
       return;
     }
 
+    // Pastikan priority yang disimpan valid
+    const validPriority = Object.values(PRIORITY).includes(data.priority) ? data.priority : PRIORITY.MEDIUM;
+
     const newWorkspace = {
       id: Date.now(),
       name: data.name,
       slug: data.name.toLowerCase().replace(/\s+/g, '-'),
-      priority: data.priority,
+      priority: validPriority,
     };
+
+    console.log("Saving workspace:", newWorkspace); // Debugging
 
     const existingWorkspaces = JSON.parse(localStorage.getItem('workspaces')) || [];
     existingWorkspaces.push(newWorkspace);
@@ -48,7 +54,7 @@ export default function CreateWorkspace({ onWorkspaceAdded }) {
   };
 
   const handleReset = () => {
-    setData({ name: '', priority: 'On Track' });
+    setData({ name: '', priority: PRIORITY.HIGH });
     setErrors({});
   };
 
@@ -92,9 +98,9 @@ export default function CreateWorkspace({ onWorkspaceAdded }) {
                 <SelectValue placeholder="Select priority" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="On Track">On Track</SelectItem>
-                <SelectItem value="At Risk">At Risk</SelectItem>
-                <SelectItem value="Off Track">Off Track</SelectItem>
+                <SelectItem value={PRIORITY.HIGH}>HIGH</SelectItem>
+                <SelectItem value={PRIORITY.MEDIUM}>MEDIUM</SelectItem>
+                <SelectItem value={PRIORITY.LOW}>LOW</SelectItem>
               </SelectContent>
             </Select>
           </div>
