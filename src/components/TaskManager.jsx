@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState, useMemo, useCallback, useRef } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -51,11 +51,15 @@ const TaskManager = () => {
 
             {/* Create Task Button */}
             <Button
-              onClick={() => setIsSidebarOpen(true)}
-              className="bg-[#4F74E8] text-white px-4 py-2 ml-auto hover:bg-[#3E5EB8]"
-            >
-              Create Task
-            </Button>
+  onClick={() => {
+    console.log("Tombol Create Task Diklik"); // Debugging
+    setIsSidebarOpen(true);
+  }}
+  className="bg-[#4F74E8] text-white px-4 py-2 ml-auto hover:bg-[#3E5EB8]"
+>
+  Create Task
+</Button>
+
           </div>
 
           {/* Sidebar */}
