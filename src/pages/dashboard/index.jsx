@@ -24,7 +24,7 @@ export default function Dashboard() {
               </div>
               <div className="flex flex-col">
                 <p className="text-base font-medium">Workspace</p>
-                <p className="text-xl">10</p>
+                <p className="text-l">10</p>
               </div>
             </CardContent>
           </Card>
@@ -35,7 +35,7 @@ export default function Dashboard() {
               </div>
               <div className="flex flex-col">
                 <p className="text-base font-medium">My Tasks</p>
-                <p className="text-xl">22</p>
+                <p className="text-l">22</p>
               </div>
             </CardContent>
           </Card>
@@ -46,7 +46,7 @@ export default function Dashboard() {
               </div>
               <div className="flex flex-col">
                 <p className="text-base font-medium">My Tasks Done</p>
-                <p className="text-xl">8</p>
+                <p className="text-l">8</p>
               </div>
             </CardContent>
           </Card>
