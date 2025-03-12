@@ -10,20 +10,18 @@ import { STATUS } from '@/lib/utils';
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { PiDotsThreeOutlineFill, PiPlus, PiEye } from 'react-icons/pi';
 import AppLayout from '@/components/layouts/AppLayout';
-import { STATUS } from '@/lib/utils';
-import GetPriorityBadge from '@/components/GetPriorityBadge';
-import TaskFormSheet from '@/components/TaskFormSheet';
+import GetPriorityBadge from '@/components/task/GetPriorityBadge';
+import TaskFormSheet from '@/components/task/TaskFormSheet';
 import { AnimatePresence, motion } from 'framer-motion';
-
-import { PiDotsThreeOutlineFill } from 'react-icons/pi';
 import { DndContext, closestCenter, DragOverlay } from '@dnd-kit/core';
+import { restrictToWindowEdges } from '@dnd-kit/modifiers'; // Tambahkan jika perlu
 
 export default function WorkspaceShow({ workspace: initialWorkspace }) {
   
-  // Destrukturisasi semua variabel yang diperlukan dari useWorkspaceData
+  // Ambil data workspace dan tugas menggunakan custom hook
   const { workspace, cards, setCards, loading, handleAddTask, saveToLocalStorage, slug } = useWorkspaceData(initialWorkspace);
   
-  // Definisikan statuses sebelum digunakan di useDragAndDrop
+  // Definisikan status yang digunakan dalam drag and drop
   const statuses = Object.values(STATUS);
   
   const { sensors, handleDragStart, handleDragEnd, dropAnimation, activeId, activeCard } = useDragAndDrop(
@@ -40,9 +38,13 @@ export default function WorkspaceShow({ workspace: initialWorkspace }) {
     <>
       <WorkspaceHeader workspace={workspace} />
       <div className="px-2 sm:px-4 bg">
-        <DndContext sensors={sensors} collisionDetection={closestCenter} onDragStart={handleDragStart} onDragEnd={handleDragEnd} modifiers={[restrictToWindowEdges]}>
-      <div className="px-2 sm:px-4">
-        <DndContext sensors={sensors} collisionDetection={closestCenter} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragStart={handleDragStart}
+          onDragEnd={handleDragEnd}
+          modifiers={[restrictToWindowEdges]} // Jika tidak perlu, bisa dihapus
+        >
           <div className="mt-8 flex w-full flex-col sm:flex-row gap-16 justify-between">
             {statuses.map((status) => (
               <StatusColumn key={status} status={status} cards={cards} slug={slug} onAddTask={handleAddTask} activeId={activeId} />
@@ -67,4 +69,9 @@ export default function WorkspaceShow({ workspace: initialWorkspace }) {
   );
 }
 
-WorkspaceShow.layout = (page) => <AppLayout title={page.props.workspace?.name || 'Workspace'}>{page}</AppLayout>;
+// Layout untuk membungkus halaman
+WorkspaceShow.layout = (page) => (
+  <AppLayout title={page.props.workspace?.name || 'Workspace'}>
+    {page}
+  </AppLayout>
+);

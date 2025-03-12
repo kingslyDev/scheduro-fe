@@ -5,14 +5,9 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 import { PiHouse, PiLockKeyOpen, PiSquaresFour, PiPlus } from "react-icons/pi";
 import { Sheet, SheetTrigger } from "@/components/ui/sheet";
-import CreateWorkspace from "@/components/CreateWorkspace";
-import GetPriorityBadge from "@/components/GetPriorityBadge";
-import { useEffect, useState } from 'react';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { cn } from '@/lib/utils';
-import { PiHouse, PiLockKeyOpen, PiSquaresFour } from 'react-icons/pi';
-import { Sheet, SheetTrigger } from '@/components/ui/sheet';
-import CreateWorkspace from '@/components/workspace/CreateWorkspace';
+import CreateWorkspace from "@/components/workspace/CreateWorkspace";
+import GetPriorityBadge from "@/components/task/GetPriorityBadge";
+
 
 export default function Sidebar({ url }) {
   const [auth, setAuth] = useState(null);
