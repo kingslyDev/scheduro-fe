@@ -11,7 +11,6 @@ import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 const StatusColumn = React.memo(({ status, cards, slug, onAddTask, activeId }) => {
   const { setNodeRef, isOver } = useDroppable({ id: status });
   const filteredCards = cards.filter((card) => card.status === status);
-  console.log('Filtered cards for', status, ':', filteredCards); // Tambahkan debugging
 
   return (
     <motion.div
@@ -20,23 +19,23 @@ const StatusColumn = React.memo(({ status, cards, slug, onAddTask, activeId }) =
       transition={{ duration: 0.4 }}
       className="w-full sm:w-1/4 flex flex-col"
     >
-      <div className="flex items-center justify-between mb-3 px-2">
-        <span className="text-base font-semibold">{status}</span>
+      <div className="flex items-center justify-between mb-4 px-4">
+        <span className="text-xl font-semibold text-gray-800">{status}</span>
         <TaskFormSheet
           slug={slug}
           onAddTask={onAddTask}
           initialStatus={status}
           trigger={
-            <div className="h-6 w-6 flex items-center justify-center rounded-full hover:bg-red-100 transition-colors duration-200">
-              <PiPlus className="h-4 w-4 text-foreground hover:text-red-500 cursor-pointer" />
+            <div className="h-8 w-8 flex items-center justify-center rounded-full bg-blue-100 hover:bg-blue-200 transition-colors duration-200">
+              <PiPlus className="h-5 w-5 text-blue-600 cursor-pointer" />
             </div>
           }
         />
       </div>
+
       <div
         ref={setNodeRef}
-        className={`
-          flex-grow space-y-4 bg-gray-50 p-3 rounded-lg min-h-[70vh]
+        className={`flex-grow space-y-4 bg-gray-50 p-3 rounded-lg min-h-[70vh]
           transition-colors duration-300 ease-in-out
           ${isOver && status === 'In Progress' ? 'bg-blue-50 ring-2 ring-blue-300' : ''}
           ${isOver && status === 'Done' ? 'bg-green-50 ring-2 ring-green-300' : ''}
@@ -54,9 +53,9 @@ const StatusColumn = React.memo(({ status, cards, slug, onAddTask, activeId }) =
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="flex items-center justify-center h-24 text-gray-400 text-sm italic"
+                className="flex items-center justify-center h-24 text-gray-500 text-sm italic"
               >
-                Drop tasks here
+                Drag tasks here to get started
               </motion.div>
             )}
           </AnimatePresence>
