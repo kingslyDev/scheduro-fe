@@ -2,7 +2,7 @@ import React from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { motion } from "framer-motion";
-import { PiDotsThreeOutlineFill, PiEye } from "react-icons/pi";
+import { PiDotsThreeOutlineFill } from "react-icons/pi";
 import {
   Card,
   CardHeader,
@@ -11,7 +11,9 @@ import {
 } from "@/components/ui/card";
 import GetPriorityBadge from "@/components/task/GetPriorityBadge";
 
-const CardItem = React.memo(({ card, status, isActive }) => {
+const CardItem = React.memo(({ card, status, isActive, onClick }) => {
+  if (!card || !card.id) return null;
+
   const {
     attributes,
     listeners,
@@ -42,9 +44,8 @@ const CardItem = React.memo(({ card, status, isActive }) => {
         style={style}
         {...attributes}
         {...listeners}
-        className={`
-          relative rounded-xl transition-all duration-200
-          ${isDragging ? "opacity-50" : "opacity-100"}
+        className={`relative rounded-xl transition-all duration-200
+          ${isDragging ? "opacity-50" : "opacity-100"} 
           ${isActive ? "z-10" : "z-0"}
           hover:shadow-md hover:translate-y-[-2px]
           active:shadow-inner active:translate-y-[0px]
@@ -54,12 +55,17 @@ const CardItem = React.memo(({ card, status, isActive }) => {
       >
         <CardHeader className="p-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <CardTitle className="line-clamp-2 text-base">
-                {card.title}
-              </CardTitle>
-              <PiEye className="size-4 text-gray-500 cursor-pointer transition-colors hover:text-blue-500" />
-            </div>
+
+            <CardTitle
+              className="line-clamp-2 text-base text-black-600 cursor-pointer hover:underline"
+              onClick={(e) => {
+                e.stopPropagation();
+                if (onClick) onClick(card);
+              }}
+            >
+              {card.title}
+            </CardTitle>
+
             <div className="relative group">
               <PiDotsThreeOutlineFill className="size-4 cursor-pointer transition-colors hover:text-blue-500" />
               <div className="absolute right-0 mt-1 w-32 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-50">
@@ -74,14 +80,20 @@ const CardItem = React.memo(({ card, status, isActive }) => {
               </div>
             </div>
           </div>
-          <div className="mt-0.5 transform translate-y-[-6px] ml-[-4px]">
-            {" "}
-            {/* Menambahkan margin-left negatif */}
-            <GetPriorityBadge priority={card.priority} />
-          </div>
-          <CardDescription className="line-clamp-4 mt-2">
+
+
+          {card.priority && (
+            <div className="mt-2">
+              <GetPriorityBadge priority={card.priority} />
+            </div>
+          )}
+
+
+          <CardDescription className="line-clamp-4 mt-2 min-h-[40px]">
             {card.description}
           </CardDescription>
+
+
           <div className="absolute bottom-2 right-2 flex space-x-0.5">
             <div className="w-1 h-1 rounded-full bg-gray-300"></div>
             <div className="w-1 h-1 rounded-full bg-gray-300"></div>

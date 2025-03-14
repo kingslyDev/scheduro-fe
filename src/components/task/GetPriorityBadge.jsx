@@ -12,7 +12,7 @@ export default function GetPriorityBadge({ priority }) {
   const badgeStyles = {
     [HIGH]: "bg-blue-900 hover:bg-blue-800 text-white",
     [MEDIUM]: "bg-blue-500 hover:bg-blue-600 text-white",
-    [LOW]: "bg-blue-300 hover:bg-blue-400 text-black",
+    [LOW]: "bg-blue-300 hover:bg-blue-400 text-white",
   };
 
   return (
