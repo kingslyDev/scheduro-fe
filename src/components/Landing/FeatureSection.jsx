@@ -25,27 +25,27 @@ const features = [
 
 export default function FeatureSection() {
   return (
-    <section id="feature" className="text-center py-16 px-4 bg-gray-50">
-      <h3 className="text-[#6387CE] text-2xl font-bold tracking-wider uppercase">FEATURES</h3>
-      <h2 className="text-3xl font-semibold text-gray-900 mt-4 tracking-wider">Everything You Need to Stay on Track</h2>
+    <section id="feature" className="py-16 px-4">
+      <div className="max-w-screen-lg mx-auto text-center">
+        <h3 className="text-[#6387CE] text-xl mb-8 font-bold tracking-wider uppercase">FEATURES</h3>
+        <h2 className="text-2xl font-bold text-gray-900 mt-4 tracking-wider">Everything You Need to Stay on Track</h2>
 
-      <p className="text-xl text-gray-700 mt-4 max-w-2xl mx-auto tracking-wider">
-        Manage your schedule with ease and stay ahead
-        <span className="block text-center text-gray-700 mt-2 font-medium">effortlessly!</span>
-      </p>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-16 mt-12 max-w-screen-lg mx-auto">
-        {features.map((feature, index) => (
-          <Card key={index} className="p-6 flex items-start space-x-4 bg-transparent shadow-none rounded-none border-none transition hover:scale-105">
-            {/* Gambar di sebelah kiri, tanpa pengaruh fleksibilitas */}
-            <img src={feature.icon} alt={feature.title} className="w-20 h-20 rounded-sm flex-shrink-0 ml-4" />
+        <p className="text-l text-gray-700 mt-4 max-w-2xl mx-auto tracking-wider">
+          Manage your schedule with ease and stay ahead
+          <span className="text-l block text-center text-gray-700 mt-2">effortlessly!</span>
+        </p>
 
-            {/* Konten Card */}
-            <CardContent className="text-left">
-              <h4 className="text-lg font-semibold text-gray-900 mb-2">{feature.title}</h4>
-              <p className="text-gray-600">{feature.description}</p>
-            </CardContent>
-          </Card>
-        ))}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 mt-14">
+          {features.map((feature, index) => (
+            <div key={index} className="bg-[#CCDAF1] p-6 rounded-lg shadow-md text-left transition hover:scale-105 flex flex-col items-start">
+              <img src={feature.icon} alt={feature.title} className="w-14 h-14 mb-4 rounded-sm flex-shrink-0 ml-4" />
+              <CardContent className="w-full">
+                <h4 className="text-lg font-semibold text-gray-900 mb-2">{feature.title}</h4>
+                <p className="text-m text-gray-600">{feature.description}</p>
+              </CardContent>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

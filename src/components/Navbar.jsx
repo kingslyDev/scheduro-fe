@@ -42,21 +42,16 @@ const Navbar = ({ className }) => {
               Features
             </Link>
           </li>
-          <li>
-            <Link href="/review" className="font-poppins hover:text-[#6387CE] transition-colors block py-2" onClick={() => setIsMenuOpen(false)}>
-              Review
-            </Link>
-          </li>
         </ul>
         <div className="flex flex-col space-y-3">
-          <Link href="/login" className="bg-[#6387CE] text-white py-2 px-4 rounded-full text-[18px] font-poppins flex justify-center items-center" onClick={() => setIsMenuOpen(false)} style={{ borderRadius: '50px', borderWidth: '2px' }}>
+          <Link href="/login" className="border-[#6387CE] bg-[#6387CE] text-white py-2 px-4 rounded-full text-[16px] font-poppins flex justify-center items-center" onClick={() => setIsMenuOpen(false)} style={{ borderRadius: '40px', borderWidth: '2px' }}>
             Login
           </Link>
           <Link
             href="/register"
-            className="border border-[#6387CE] text-[#6387CE] py-2 px-4 rounded-full text-[18px] font-poppins flex justify-center items-center"
+            className="border border-[#6387CE] text-[#6387CE] py-2 px-4 rounded-full text-[16px] font-poppins flex justify-center items-center"
             onClick={() => setIsMenuOpen(false)}
-            style={{ borderRadius: '50px', borderWidth: '2px' }}
+            style={{ borderRadius: '40px', borderWidth: '2px' }}
           >
             Register
           </Link>
@@ -81,23 +76,18 @@ const Navbar = ({ className }) => {
               Features
             </Link>
           </li>
-          <li className="mx-6">
-            <Link href="/review" className="font-poppins hover:text-[#6387CE] transition-colors">
-              Review
-            </Link>
-          </li>
         </ul>
       </div>
 
       {/* Desktop Auth Buttons */}
       <div className="hidden md:flex items-center mr-2 md:mr-[85px]">
-        <Link href="/login" className="bg-[#6387CE] text-white py-2 px-6 rounded-full text-[20px] font-poppins flex justify-center items-center" style={{ width: '148px', height: '52px', borderRadius: '50px', borderWidth: '2px' }}>
+        <Link href="/login" className="border-[#6387CE] bg-[#6387CE] text-white py-1.5 px-4 rounded-full text-[16px] font-poppins flex justify-center items-center" style={{ width: '120px', height: '40px', borderRadius: '40px', borderWidth: '2px' }}>
           Login
         </Link>
         <Link
           href="/register"
-          className="border border-[#6387CE] text-[#6387CE] py-2 px-6 rounded-full ml-6 text-[20px] font-poppins flex justify-center items-center"
-          style={{ width: '148px', height: '52px', borderRadius: '50px', borderWidth: '2px' }}
+          className="border border-[#6387CE] text-[#6387CE] py-1.5 px-4 rounded-full ml-6 text-[16px] font-poppins flex justify-center items-center"
+          style={{ width: '120px', height: '40px', borderRadius: '40px', borderWidth: '2px' }}
         >
           Register
         </Link>
