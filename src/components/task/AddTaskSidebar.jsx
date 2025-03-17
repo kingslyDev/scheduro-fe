@@ -1,5 +1,5 @@
 "use client";
-import { useState } from 'react';
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -24,8 +24,24 @@ const AddTaskSidebar = ({ open, onClose, onSave }) => {
   const handleSave = () => {
     const newTask = { title, workspace, priority, status, description, startDate, dueDate };
     const storedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    localStorage.setItem("tasks", JSON.stringify([...storedTasks, newTask]));
-    onSave(newTask);
+    const updatedTasks = [...storedTasks, newTask];
+
+    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+
+    if (onSave) {
+      onSave(newTask); 
+    }
+
+    // Reset form setelah menyimpan
+    setTitle("");
+    setWorkspace("frontend");
+    setPriority("medium");
+    setStatus("todo");
+    setDescription("");
+    setStartDate("");
+    setDueDate("");
+    setFile(null);
+
     onClose();
   };
 
@@ -53,7 +69,7 @@ const AddTaskSidebar = ({ open, onClose, onSave }) => {
                 <SelectContent>
                   <SelectItem value="frontend">Frontend</SelectItem>
                   <SelectItem value="backend">Backend</SelectItem>
-                  <SelectItem value="design">Design</SelectItem>
+                  <SelectItem value="design">UI UX Design</SelectItem>
                 </SelectContent>
               </Select>
             </div>
