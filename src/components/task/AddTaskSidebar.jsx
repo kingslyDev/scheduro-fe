@@ -5,15 +5,16 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
-import { CalendarIcon, UploadIcon } from "lucide-react";
+import { UploadIcon } from "lucide-react";
 
-const AddTaskSidebar = ({ open, onClose }) => {
+const AddTaskSidebar = ({ open, onClose, onSave }) => {
   const [title, setTitle] = useState("");
   const [workspace, setWorkspace] = useState("frontend");
   const [priority, setPriority] = useState("medium");
   const [status, setStatus] = useState("todo");
   const [description, setDescription] = useState("");
-  const [deadline, setDeadline] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [dueDate, setDueDate] = useState("");
   const [file, setFile] = useState(null);
 
   const handleFileChange = (event) => {
@@ -21,16 +22,10 @@ const AddTaskSidebar = ({ open, onClose }) => {
   };
 
   const handleSave = () => {
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("workspace", workspace);
-    formData.append("priority", priority);
-    formData.append("status", status);
-    formData.append("description", description);
-    formData.append("deadline", deadline);
-    if (file) formData.append("file", file);
-    
-    console.log("Task data:", Object.fromEntries(formData.entries()));
+    const newTask = { title, workspace, priority, status, description, startDate, dueDate };
+    const storedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    localStorage.setItem("tasks", JSON.stringify([...storedTasks, newTask]));
+    onSave(newTask);
     onClose();
   };
 
@@ -46,7 +41,7 @@ const AddTaskSidebar = ({ open, onClose }) => {
           <div className="space-y-6 flex-1 overflow-y-auto max-h-[70vh]">
             <div className="space-y-2">
               <label className="text-sm font-medium">Title</label>
-              <Input type="text" placeholder="Enter title" className="w-full" value={title} onChange={(e) => setTitle(e.target.value)} />
+              <Input type="text" placeholder="Enter title" value={title} onChange={(e) => setTitle(e.target.value)} className="w-full" />
             </div>
 
             <div className="space-y-2">
@@ -73,6 +68,7 @@ const AddTaskSidebar = ({ open, onClose }) => {
                   <SelectItem value="low">Low</SelectItem>
                   <SelectItem value="medium">Medium</SelectItem>
                   <SelectItem value="high">High</SelectItem>
+                  <SelectItem value="unsorted">Unsorted</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -108,11 +104,13 @@ const AddTaskSidebar = ({ open, onClose }) => {
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-medium">Deadline</label>
-              <div className="relative w-full">
-                <Input type="date" className="w-full" value={deadline} onChange={(e) => setDeadline(e.target.value)} />
-                <CalendarIcon className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
-              </div>
+              <label className="text-sm font-medium">Start Date</label>
+              <Input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} className="w-full" />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Due Date</label>
+              <Input type="date" value={dueDate} onChange={(e) => setDueDate(e.target.value)} className="w-full" />
             </div>
           </div>
 
