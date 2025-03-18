@@ -98,6 +98,7 @@ export default function CreateWorkspace({ onWorkspaceAdded }) {
                 <SelectValue placeholder="Select priority" />
               </SelectTrigger>
               <SelectContent>
+              <SelectItem value={PRIORITY.URGENT}>URGENT</SelectItem>
                 <SelectItem value={PRIORITY.HIGH}>HIGH</SelectItem>
                 <SelectItem value={PRIORITY.MEDIUM}>MEDIUM</SelectItem>
                 <SelectItem value={PRIORITY.LOW}>LOW</SelectItem>

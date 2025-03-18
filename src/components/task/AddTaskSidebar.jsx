@@ -81,10 +81,11 @@ const AddTaskSidebar = ({ open, onClose, onSave }) => {
                   <SelectValue placeholder="Select priority" />
                 </SelectTrigger>
                 <SelectContent>
+                  <SelectItem value="unsorted">Unsorted</SelectItem>
                   <SelectItem value="low">Low</SelectItem>
                   <SelectItem value="medium">Medium</SelectItem>
                   <SelectItem value="high">High</SelectItem>
-                  <SelectItem value="unsorted">Unsorted</SelectItem>
+                  <SelectItem value="urgent">Urgent</SelectItem>
                 </SelectContent>
               </Select>
             </div>
