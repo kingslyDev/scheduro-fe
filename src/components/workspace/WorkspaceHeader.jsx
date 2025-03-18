@@ -1,23 +1,31 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { CardTitle } from "@/components/ui/card";
-import { Pencil } from "lucide-react"; // Import ikon edit
+import { Pencil } from "lucide-react";
 
 const WorkspaceHeader = ({ workspace }) => {
   const [randomImage, setRandomImage] = useState("");
   const [avatar, setAvatar] = useState(null);
 
   useEffect(() => {
-    const randomIndex = Math.floor(Math.random() * 5) + 1; // Pilih angka 1-5
-    setRandomImage(`/images/${randomIndex}.png`); // Path gambar sesuai nama file
-  }, []);
+    // Load saved avatar from localStorage
+    const savedAvatar = localStorage.getItem(`workspace-avatar-${workspace.id}`);
+    if (savedAvatar) {
+      setAvatar(savedAvatar);
+    }
 
-  // Fungsi untuk menangani upload gambar
+    // Generate a random cover image
+    const randomIndex = Math.floor(Math.random() * 5) + 1;
+    setRandomImage(`/images/${randomIndex}.png`);
+  }, [workspace.id]);
+
+  // Handle image upload
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setAvatar(imageUrl);
+      localStorage.setItem(`workspace-avatar-${workspace.id}`, imageUrl); // Save to localStorage
     }
   };
 
@@ -41,7 +49,7 @@ const WorkspaceHeader = ({ workspace }) => {
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.3 }}
             >
-              {/* Label untuk Klik Avatar */}
+              {/* Clickable Avatar */}
               <label htmlFor="avatarUpload" className="cursor-pointer relative">
                 {avatar ? (
                   <img
@@ -54,12 +62,12 @@ const WorkspaceHeader = ({ workspace }) => {
                     {workspace.name?.charAt(0).toUpperCase()}
                   </div>
                 )}
-                {/* Ikon Edit */}
+                {/* Edit Icon */}
                 <div className="absolute bottom-2 right-2 bg-white p-1 rounded-full shadow-md">
                   <Pencil className="h-5 w-5 text-gray-600" />
                 </div>
               </label>
-              {/* Input file tersembunyi */}
+              {/* Hidden file input */}
               <input
                 type="file"
                 id="avatarUpload"
