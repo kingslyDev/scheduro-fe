@@ -1,8 +1,13 @@
-'use client';
+"use client";
 
-import { useState, useCallback, useMemo, useRef } from 'react';
-import { PointerSensor, useSensor, useSensors, defaultDropAnimationSideEffects } from '@dnd-kit/core'; 
-import { arrayMove } from '@dnd-kit/sortable';
+import { useState, useCallback, useMemo, useRef } from "react";
+import {
+  PointerSensor,
+  useSensor,
+  useSensors,
+  defaultDropAnimationSideEffects,
+} from "@dnd-kit/core";
+import { arrayMove } from "@dnd-kit/sortable";
 
 export function useDragAndDrop(cards, statuses, saveToLocalStorage, setCards) {
   const [activeId, setActiveId] = useState(null);
@@ -11,16 +16,14 @@ export function useDragAndDrop(cards, statuses, saveToLocalStorage, setCards) {
 
   cardsRef.current = cards;
 
-  const sensors = useSensors(
-    useSensor(PointerSensor)
-  );
+  const sensors = useSensors(useSensor(PointerSensor));
 
   const dropAnimation = useMemo(
     () => ({
       sideEffects: defaultDropAnimationSideEffects({
         styles: {
           active: {
-            opacity: '0.5',
+            opacity: "0.5",
           },
         },
       }),
@@ -44,7 +47,9 @@ export function useDragAndDrop(cards, statuses, saveToLocalStorage, setCards) {
 
       if (!over || active.id === over.id) return;
 
-      const oldIndex = cardsRef.current.findIndex((card) => card.id === active.id);
+      const oldIndex = cardsRef.current.findIndex(
+        (card) => card.id === active.id
+      );
       if (oldIndex === -1) return;
 
       const updatedCards = [...cardsRef.current];
@@ -52,11 +57,16 @@ export function useDragAndDrop(cards, statuses, saveToLocalStorage, setCards) {
 
       if (statuses.includes(over.id)) {
         draggedCard.status = over.id;
-        const newCards = [...updatedCards.filter((card) => card.id !== active.id), draggedCard];
+        const newCards = [
+          ...updatedCards.filter((card) => card.id !== active.id),
+          draggedCard,
+        ];
         setCards(newCards);
         saveToLocalStorage(newCards);
       } else {
-        const newIndex = cardsRef.current.findIndex((card) => card.id === over.id);
+        const newIndex = cardsRef.current.findIndex(
+          (card) => card.id === over.id
+        );
         if (newIndex === -1) return;
 
         const overCardStatus = cardsRef.current[newIndex].status;
@@ -72,5 +82,12 @@ export function useDragAndDrop(cards, statuses, saveToLocalStorage, setCards) {
     [statuses, saveToLocalStorage, setCards]
   );
 
-  return { sensors, handleDragStart, handleDragEnd, dropAnimation, activeId, activeCard };
+  return {
+    sensors,
+    handleDragStart,
+    handleDragEnd,
+    dropAnimation,
+    activeId,
+    activeCard,
+  };
 }

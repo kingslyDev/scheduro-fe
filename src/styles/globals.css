@@ -4,7 +4,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-
 #about {
   scroll-margin-top: 80px;
 }

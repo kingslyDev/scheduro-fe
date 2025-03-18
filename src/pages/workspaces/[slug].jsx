@@ -10,9 +10,6 @@ import { STATUS } from '@/lib/utils';
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { PiDotsThreeOutlineFill, PiPlus, PiEye } from 'react-icons/pi';
 import AppLayout from '@/components/layouts/AppLayout';
-import GetPriorityBadge from '@/components/task/GetPriorityBadge';
-import TaskFormSheet from '@/components/task/TaskFormSheet';
-import { AnimatePresence, motion } from 'framer-motion';
 import { DndContext, closestCenter, DragOverlay } from '@dnd-kit/core';
 import { restrictToWindowEdges } from '@dnd-kit/modifiers'; // Tambahkan jika perlu
 

@@ -5,8 +5,8 @@ import { useDroppable } from '@dnd-kit/core';
 import { motion, AnimatePresence } from 'framer-motion';
 import TaskFormSheet from '@/components/task/TaskFormSheet';
 import { PiPlus } from 'react-icons/pi';
-import CardItem from './CardItem';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import TaskCard from '../task/TaskCard';
 
 const StatusColumn = React.memo(({ status, cards, slug, onAddTask, activeId }) => {
   const { setNodeRef, isOver } = useDroppable({ id: status });
@@ -46,7 +46,7 @@ const StatusColumn = React.memo(({ status, cards, slug, onAddTask, activeId }) =
             {filteredCards.length > 0 ? (
               <div className="flex flex-col gap-4 min-h-[100px]">
                 {filteredCards.map((card) => (
-                  <CardItem key={card.id} card={card} status={status} isActive={card.id === activeId} />
+                  <TaskCard key={card.id} card={card} status={status} isActive={card.id === activeId} />
                 ))}
               </div>
             ) : (

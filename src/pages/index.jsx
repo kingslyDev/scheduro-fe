@@ -11,7 +11,7 @@ const ScheduloWebsite = () => {
     <div className="font-poppins bg-gray-50">
       {/* Navigation */}
       <Navbar />
-      <main className="pt-20"></main>
+      <main></main>
       {/* Hero Section */}
       <HeroSection />
       {/* Gradient Divider */}
