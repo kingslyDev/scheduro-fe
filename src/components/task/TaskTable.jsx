@@ -40,8 +40,9 @@ const TaskTable = () => {
   };
 
   return (
-    <div className="overflow-x-auto p-4">
-      <table className="w-full border border-gray-200 rounded-lg">
+    <div className="overflow-x-scroll p-4">
+  <table className="w-full min-w-[600px] table-auto border border-gray-200 rounded-lg">
+
         <thead>
           <tr className="bg-[#E6EEFF]">
             <th className="text-left py-3 px-4 font-medium text-gray-700">Title</th>

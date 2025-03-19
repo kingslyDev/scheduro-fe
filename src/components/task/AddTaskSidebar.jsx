@@ -219,17 +219,17 @@ const AddTaskSidebar = ({ open, onClose, onSave }) => {
           </div>
 
           {/* Buttons */}
-          <div className="flex justify-end gap-4 pt-8">
+          <div className="flex flex-col sm:flex-row justify-end gap-4 pt-8 w-full">
             <Button
               variant="outline"
               onClick={onClose}
-              className="w-32 bg-gray-300 text-gray-700"
+              className="w-full sm:w-auto px-6 py-2 bg-gray-300 text-gray-700"
             >
               Cancel
             </Button>
             <Button
               onClick={handleSave}
-              className="w-32 bg-blue-300 text-white hover:bg-blue-500"
+              className="w-full sm:w-auto px-6 py-2 bg-blue-300 text-white hover:bg-blue-500"
             >
               Save
             </Button>
