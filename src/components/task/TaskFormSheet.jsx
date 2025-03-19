@@ -77,12 +77,12 @@ export default function TaskFormSheet({ slug, onAddTask, initialStatus, trigger 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>{trigger}</SheetTrigger>
-      <SheetContent side="right" className="w-1/2 !max-w-[50%] rounded-l-2xl p-8 bg-gray-50 border-l shadow-xl">
+      <SheetContent side="right" className="w-full sm:w-3/4 md:w-1/2 lg:w-1/3 !max-w-full sm:!max-w-[75%] md:!max-w-[50%] lg:!max-w-[33%] rounded-l-2xl p-6 bg-gray-50 border-l shadow-xl">
         <SheetHeader className="mb-6">
           <p className="text-sm text-gray-500">Add new task</p>
         </SheetHeader>
 
-        <form onSubmit={handleSubmit} className="space-y-5 mt-6">
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <InputLabel htmlFor="title" value="Title" className="text-sm font-medium" />
             <TextInput
@@ -93,32 +93,30 @@ export default function TaskFormSheet({ slug, onAddTask, initialStatus, trigger 
               value={task.title}
               onChange={handleChange}
               autoFocus
-              className={`mt-1 w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 ${errors.title ? 'focus:ring-red-500' : 'focus:ring-blue-300'}`}
+              className={`mt-1 w-full border rounded-lg px-3 py-2 focus:outline-none ${errors.title ? 'border-red-500' : 'border-gray-300 focus:ring-blue-300'}`}
             />
             {errors.title && <InputError message={errors.title} />}
           </div>
 
           <div>
             <InputLabel htmlFor="description" value="Description" className="text-sm font-medium" />
-            <TextInput id="description" name="description" type="text" placeholder="Enter task description" value={task.description} onChange={handleChange} className="mt-1 w-full border border-gray-300 rounded-lg px-3 py-2" />
+            <TextInput id="description" name="description" type="text" placeholder="Enter task description" value={task.description} onChange={handleChange} className="mt-1 w-full border rounded-lg px-3 py-2" />
           </div>
 
           <div>
             <InputLabel htmlFor="deadline" value="Deadline" className="text-sm font-medium" />
-            <TextInput id="deadline" name="deadline" type="date" value={task.deadline} onChange={handleChange} className="mt-1 w-full border border-gray-300 rounded-lg px-3 py-2" />
+            <TextInput id="deadline" name="deadline" type="date" value={task.deadline} onChange={handleChange} className="mt-1 w-full border rounded-lg px-3 py-2" />
           </div>
 
           <div>
             <InputLabel htmlFor="status" value="Status" className="text-sm font-medium" />
             <Select value={task.status} onValueChange={(value) => setTask({ ...task, status: value })}>
-              <SelectTrigger className="mt-1 w-full border border-gray-300 rounded-lg px-3 py-2">
+              <SelectTrigger className="mt-1 w-full border rounded-lg px-3 py-2">
                 <SelectValue placeholder="Select status" />
               </SelectTrigger>
               <SelectContent>
                 {Object.values(STATUS).map((status) => (
-                  <SelectItem key={status} value={status}>
-                    {status}
-                  </SelectItem>
+                  <SelectItem key={status} value={status}>{status}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
@@ -127,26 +125,20 @@ export default function TaskFormSheet({ slug, onAddTask, initialStatus, trigger 
           <div>
             <InputLabel htmlFor="priority" value="Priority" className="text-sm font-medium" />
             <Select value={task.priority} onValueChange={(value) => setTask({ ...task, priority: value })}>
-              <SelectTrigger className="mt-1 w-full border border-gray-300 rounded-lg px-3 py-2">
+              <SelectTrigger className="mt-1 w-full border rounded-lg px-3 py-2">
                 <SelectValue placeholder="Select priority" />
               </SelectTrigger>
               <SelectContent>
                 {Object.values(PRIORITY).map((priority) => (
-                  <SelectItem key={priority} value={priority}>
-                    {priority}
-                  </SelectItem>
+                  <SelectItem key={priority} value={priority}>{priority}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
           </div>
 
           <div className="flex justify-end gap-3 mt-6">
-            <Button type="button" variant="outline" className="bg-gray-300 text-gray-700" onClick={() => setOpen(false)}>
-              Cancel
-            </Button>
-            <Button type="submit" className="bg-blue-300 text-white hover:bg-blue-700">
-              Save
-            </Button>
+            <Button type="button" variant="outline" className="bg-gray-300 text-gray-700" onClick={() => setOpen(false)}>Cancel</Button>
+            <Button type="submit" className="bg-blue-500 text-white hover:bg-blue-700">Save</Button>
           </div>
         </form>
       </SheetContent>

@@ -43,7 +43,6 @@ const TaskManager = () => {
   return (
     <div className="min-h-screen bg-white p-4 md:p-6">
       <main className="container mx-auto">
-        <h1 className="text-2xl font-bold mb-4 md:mb-6">Tasks</h1>
         <div className="bg-[#F8FAFF] rounded-lg border border-gray-200 shadow-sm">
           {/* Header */}
           <div className="bg-white p-4 flex flex-wrap items-center gap-4 md:gap-6 rounded-t-lg">
