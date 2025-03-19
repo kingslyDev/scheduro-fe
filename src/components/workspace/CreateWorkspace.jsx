@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import InputError from '@/components/InputError';
 import InputLabel from '@/components/InputLabel';
 import TextInput from '@/components/TextInput';
@@ -9,13 +8,13 @@ import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '@/components/ui/
 import { PiPlus } from 'react-icons/pi';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Image from 'next/image';
-import { PRIORITY } from '@/lib/utils'; // Pastikan PRIORITY di-import
+import { PRIORITY } from '@/lib/utils';
 
 export default function CreateWorkspace({ onWorkspaceAdded }) {
   const [open, setOpen] = useState(false);
   const [data, setData] = useState({
     name: '',
-    priority: PRIORITY.HIGH, // Pastikan menggunakan nilai dari PRIORITY
+    priority: PRIORITY.HIGH,
   });
   const [errors, setErrors] = useState({});
 
@@ -32,17 +31,13 @@ export default function CreateWorkspace({ onWorkspaceAdded }) {
       return;
     }
 
-    // Pastikan priority yang disimpan valid
     const validPriority = Object.values(PRIORITY).includes(data.priority) ? data.priority : PRIORITY.MEDIUM;
-
     const newWorkspace = {
       id: Date.now(),
       name: data.name,
       slug: data.name.toLowerCase().replace(/\s+/g, '-'),
       priority: validPriority,
     };
-
-    console.log("Saving workspace:", newWorkspace); // Debugging
 
     const existingWorkspaces = JSON.parse(localStorage.getItem('workspaces')) || [];
     existingWorkspaces.push(newWorkspace);
@@ -65,13 +60,13 @@ export default function CreateWorkspace({ onWorkspaceAdded }) {
           <PiPlus className="h-4 w-4" />
         </button>
       </SheetTrigger>
-      <SheetContent side="right" className="w-1/2 !max-w-[50%] rounded-l-2xl p-8 bg-gray-50 border-l shadow-xl">
+      <SheetContent side="right" className="w-full sm:w-2/3 md:w-1/2 lg:w-1/3 !max-w-full rounded-l-2xl p-6 bg-gray-50 border-l shadow-xl">
         <SheetHeader className="mb-6">
           <p className="text-sm text-gray-500">Add new workspace</p>
         </SheetHeader>
 
         <div className="flex justify-center">
-          <Image src="https://res.cloudinary.com/dwgwb5vro/image/upload/v1741447763/buku_yxhzod.png" width={300} height={200} alt="Workspace Illustration" />
+          <Image src="https://res.cloudinary.com/dwgwb5vro/image/upload/v1741447763/buku_yxhzod.png" width={300} height={200} alt="Workspace Illustration" className="w-full max-w-xs" />
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-5 mt-6">
@@ -87,7 +82,6 @@ export default function CreateWorkspace({ onWorkspaceAdded }) {
               autoFocus
               className={`mt-1 w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 ${errors.name ? 'focus:ring-red-500' : 'focus:ring-blue-300'}`}
             />
-
             {errors.name && <InputError message={errors.name} />}
           </div>
 
@@ -98,7 +92,7 @@ export default function CreateWorkspace({ onWorkspaceAdded }) {
                 <SelectValue placeholder="Select priority" />
               </SelectTrigger>
               <SelectContent>
-              <SelectItem value={PRIORITY.URGENT}>URGENT</SelectItem>
+                <SelectItem value={PRIORITY.URGENT}>URGENT</SelectItem>
                 <SelectItem value={PRIORITY.HIGH}>HIGH</SelectItem>
                 <SelectItem value={PRIORITY.MEDIUM}>MEDIUM</SelectItem>
                 <SelectItem value={PRIORITY.LOW}>LOW</SelectItem>

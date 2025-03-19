@@ -3,11 +3,11 @@ import "react-circular-progressbar/dist/styles.css";
 
 const Progress = ({ value }) => {
   return (
-    <div className="flex items-center justify-between bg-blue-100 rounded-lg p-2">
+    <div className="flex flex-col md:flex-row items-center justify-between bg-blue-100 rounded-lg p-2 md:p-4 w-full">
       {/* Progress Bar */}
-      <div className="flex-1">
-        <div className="text-xs font-medium text-gray-700">{value}% It will be complete soon</div>
-        <div className="w-36 h-2 bg-blue-300 rounded-full overflow-hidden mt-1">
+      <div className="flex-1 w-full text-center md:text-left">
+        <div className="text-xs md:text-sm font-medium text-gray-700">{value}% It will be complete soon</div>
+        <div className="w-full md:w-36 h-2 bg-blue-300 rounded-full overflow-hidden mt-1">
           <div
             className="h-full bg-blue-600 transition-all duration-300"
             style={{ width: `${value}%` }}
@@ -15,8 +15,8 @@ const Progress = ({ value }) => {
         </div>
       </div>
 
-      {/* Circular Progress (Kecil di Pojok Kanan) */}
-      <div className="w-12 h-12 ml-2">
+      {/* Circular Progress */}
+      <div className="w-12 h-12 mt-2 md:mt-0 md:ml-2">
         <CircularProgressbar
           value={value}
           text={`${value}%`}
@@ -32,4 +32,4 @@ const Progress = ({ value }) => {
   );
 };
 
-export default Progress; 
+export default Progress;
