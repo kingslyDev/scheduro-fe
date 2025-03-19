@@ -55,9 +55,9 @@ const AboutSection = () => {
               whileHover={{ scale: 1.08, transition: { duration: 0.3 } }}
             >
               <motion.img
-                src="https://res.cloudinary.com/dwgwb5vro/image/upload/v1741287251/iPhone_16_Pro_1_tqqkm2.png"
+                src="https://res.cloudinary.com/dy8fe8tbe/image/upload/v1742232295/widgets_b9ap96.svg"
                 alt="Scheduro app on iPhone"
-                className="w-full max-w-[500px] md:max-w-[700px] rounded-lg shadow-xl"
+                className="w-full max-w-[500px] md:max-w-[700px] scale-100 rounded-lg shadow-xl"
                 loading="lazy"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0, transition: { duration: 0.6 } }}

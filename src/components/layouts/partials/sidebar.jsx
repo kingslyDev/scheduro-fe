@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
-import { PiHouse, PiLockKeyOpen, PiSquaresFour, PiPlus } from "react-icons/pi";
 import { Sheet, SheetTrigger } from "@/components/ui/sheet";
 import CreateWorkspace from "@/components/workspace/CreateWorkspace";
 import GetPriorityBadge from "@/components/task/GetPriorityBadge";
@@ -40,9 +39,28 @@ export default function Sidebar({ url }) {
   };
 
   return (
-    <nav className="flex flex-1 flex-col">
-      <ul className="flex flex-1 flex-col gap-y-7">
+    <nav className="flex flex-col w-full bg-white">
+      <ul className="flex-col gap-y-8 pl-6">
         {/* Navigation */}
+        <li className="mt-2">
+          <a
+            href="/"
+            className={cn(
+              url === "/"
+                ? "text-black"
+                : "text-foreground",
+              "group flex items-center gap-x-3 rounded-md p-3 text-xl font-extrabold leading-relaxed pl-1 mt-5"
+            )}
+          >
+            <img
+              src="https://res.cloudinary.com/dy8fe8tbe/image/upload/v1742279884/logo_ovq2n3.svg"
+              className="w-10 h-10"
+              alt="Scheduro Logo"
+            />
+            <span className="leading-none">Scheduro</span>
+          </a>
+        </li>
+
         <li>
           <ul className="-mx-2 space-y-2">
             <li>
@@ -50,12 +68,12 @@ export default function Sidebar({ url }) {
                 href="/dashboard"
                 className={cn(
                   url?.startsWith("/dashboard")
-                    ? "bg-blue-300 text-white"
+                    ? "bg-[#CCDAF1] text-black"
                     : "text-foreground hover:bg-gray-100",
                   "group flex gap-x-3 rounded-md p-3 text-sm font-semibold leading-relaxed"
                 )}
               >
-                <PiHouse className="h-6 w-6 shrink-0" />
+                <img src="https://res.cloudinary.com/dy8fe8tbe/image/upload/v1742273460/icon-home_ks1yym.svg" className="w-6 h-6" />
                 Dashboard
               </a>
             </li>
@@ -64,12 +82,12 @@ export default function Sidebar({ url }) {
                 href="/my-tasks"
                 className={cn(
                   url?.startsWith("/my-tasks")
-                    ? "bg-blue-300 text-white"
+                    ? "bg-[#CCDAF1] text-black"
                     : "text-foreground hover:bg-gray-100",
                   "group flex gap-x-3 rounded-md p-3 text-sm font-semibold leading-relaxed"
                 )}
               >
-                <PiSquaresFour className="h-6 w-6 shrink-0" />
+                <img src="https://res.cloudinary.com/dy8fe8tbe/image/upload/v1742270944/tasks_dic2lo.svg" className="w-6 h-6" />
                 My Tasks
               </a>
             </li>
@@ -78,7 +96,7 @@ export default function Sidebar({ url }) {
                 onClick={handleLogout}
                 className="group flex w-full gap-x-3 rounded-md p-3 text-sm font-semibold leading-relaxed text-foreground hover:bg-gray-100"
               >
-                <PiLockKeyOpen className="h-6 w-6 shrink-0" />
+                <img src="https://res.cloudinary.com/dy8fe8tbe/image/upload/v1742270927/logout_jbrths.svg" className="w-6 h-6" />
                 Logout
               </button>
             </li>
@@ -87,8 +105,8 @@ export default function Sidebar({ url }) {
 
         {/* Workspaces Section */}
         <li>
-          <div className="flex items-center justify-between">
-            <div className="text-xs font-semibold uppercase leading-relaxed text-foreground">
+          <div className="py-3 flex items-center justify-between">
+            <div className="py-2 text-sm font-bold leading-relaxed text-foreground">
               Workspaces
             </div>
             <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>

@@ -13,8 +13,8 @@ const Navbar = ({ className }) => {
     <nav className={`bg-gray-50 py-4 px-5 flex items-center justify-between mt-5 sticky top-0 z-50 ${className}`}>
       {/* Logo and Brand */}
       <div className="flex items-center ml-2 md:ml-[85px]">
-        <Image src="https://res.cloudinary.com/dwgwb5vro/image/upload/v1741287175/splash_ymsobt.png" alt="Scheduro Logo" width={50} height={50} className="object-contain" />
-        <span className="text-[22px] md:text-[28px] font-[700] ml-2 font-poppins">Scheduro</span>
+        <Image src="https://res.cloudinary.com/dwgwb5vro/image/upload/v1741287175/splash_ymsobt.png" alt="Scheduro Logo" width={48} height={48} className="object-contain" />
+        <span className="text-[19px] md:text-[26px] font-[650] ml-2 font-poppins">Scheduro</span>
       </div>
 
       {/* Mobile Menu Button */}

@@ -31,7 +31,7 @@ const Footer = () => {
       {/* Footer */}
       <footer className="bg-[#CCDAF1] pt-6 pb-6 shadow-inner">
         <div className="container mx-auto px-4 text-center">
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-gray-700">
             © Copyright {new Date().getFullYear()} Scheduro. All Rights Reserved
           </p>
         </div>

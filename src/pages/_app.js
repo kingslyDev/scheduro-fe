@@ -9,7 +9,7 @@ const poppins = Poppins({
 
 export default function App({ Component, pageProps }) {
   // Gunakan layout dari halaman, atau fallback ke AppLayout
-  const getLayout = Component.getLayout || ((page) => <AppLayout title="Default Title">{page}</AppLayout>);
+  const getLayout = Component.getLayout || ((page) => <AppLayout title="My Tasks">{page}</AppLayout>);
 
   return <div className={poppins.className}>{getLayout(<Component {...pageProps} />)}</div>;
 }
