@@ -35,12 +35,12 @@ const WorkspaceHeader = ({ workspace, completedTasks, totalTasks }) => {
   return (
     <div className="relative w-full">
       <div className="h-32 md:h-40 lg:h-48 w-full overflow-hidden flex items-start md:items-center">
-      <img
-        className="h-full w-full object-cover md:object-center"
-        src={workspace.cover || randomImage}
-        alt={workspace.name}
-      />
-    </div>
+        <img
+          className="h-full w-full object-cover md:object-center"
+          src={workspace.cover || randomImage}
+          alt={workspace.name}
+        />
+      </div>
 
       {/* Container Workspace Header */}
       <div className="px-4 sm:px-6 relative">
@@ -93,9 +93,9 @@ const WorkspaceHeader = ({ workspace, completedTasks, totalTasks }) => {
 
         {/* Progress Bar */}
         <div className="mt-4 md:mt-0 md:absolute md:top-[15px] md:right-4 bg-blue-100 text-blue-700 px-4 py-2 rounded-lg max-w-xs shadow-md w-full md:w-auto">
-      <h2 className="text-sm font-semibold">Progress</h2>
-      <Progress value={progressValue} max={100} />
-    </div>
+          <h2 className="text-sm font-semibold">Progress</h2>
+          <Progress value={progressValue} max={100} />
+        </div>
       </div>
     </div>
   );

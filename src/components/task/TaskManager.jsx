@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -79,7 +79,9 @@ const TaskManager = () => {
           <AddTaskSidebar
             open={isSidebarOpen}
             onClose={() => setIsSidebarOpen(false)}
-            onSave={(task) => setTasks([...tasks, { id: tasks.length + 1, ...task }])}
+            onSave={(task) =>
+              setTasks([...tasks, { id: tasks.length + 1, ...task }])
+            }
           />
 
           {/* Task Table */}

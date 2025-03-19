@@ -8,7 +8,6 @@ import { Sheet, SheetTrigger } from "@/components/ui/sheet";
 import CreateWorkspace from "@/components/workspace/CreateWorkspace";
 import GetPriorityBadge from "@/components/task/GetPriorityBadge";
 
-
 export default function Sidebar({ url }) {
   const [auth, setAuth] = useState(null);
   const [workspaces, setWorkspaces] = useState([]);
