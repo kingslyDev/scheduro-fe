@@ -39,16 +39,14 @@ export default function Sidebar({ url }) {
   };
 
   return (
-    <nav className="flex flex-col w-full bg-white">
-      <ul className="flex-col gap-y-8 pl-6">
+    <nav className="flex flex-col w-full bg-white overflow-y-auto">
+      <ul className="flex flex-col gap-y-8 pl-6">
         {/* Navigation */}
         <li className="mt-2">
           <a
             href="/"
             className={cn(
-              url === "/"
-                ? "text-black"
-                : "text-foreground",
+              url === "/" ? "text-black" : "text-foreground",
               "group flex items-center gap-x-3 rounded-md p-3 text-xl font-extrabold leading-relaxed pl-1 mt-5"
             )}
           >
@@ -62,7 +60,7 @@ export default function Sidebar({ url }) {
         </li>
 
         <li>
-          <ul className="-mx-2 space-y-2">
+          <ul className="space-y-2">
             <li>
               <a
                 href="/dashboard"
@@ -119,7 +117,7 @@ export default function Sidebar({ url }) {
           </div>
 
           {/* Workspace List */}
-          <ul className="-mx-2 mt-2 space-y-2">
+          <ul className="mt-2 space-y-2">
             {workspaces.map((workspace) => (
               <li key={workspace.slug}>
                 <a
@@ -140,7 +138,7 @@ export default function Sidebar({ url }) {
         </li>
 
         {/* User Profile */}
-        <li className="-mx-6 mt-auto">
+        <li className="mt-auto">
           {auth && (
             <a
               href="#"
