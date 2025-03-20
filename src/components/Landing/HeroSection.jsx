@@ -23,7 +23,7 @@ const HeroSection = () => {
         >
           <motion.h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight">
             <span className="relative z-10">Seamless </span>
-      
+
             <motion.span
               className="text-[#6387CE] relative z-10"
               initial={{ opacity: 0, y: 20 }}
@@ -34,7 +34,7 @@ const HeroSection = () => {
             </motion.span>
             <br />
             <span className="relative z-10">Ultimate </span>
-          
+
             <motion.span
               className="text-[#6387CE] relative z-10"
               initial={{ opacity: 0, y: 20 }}
@@ -86,23 +86,25 @@ const HeroSection = () => {
             </motion.button>
           </Link>
         ) : (
-          <motion.button
-            className="bg-[#6387CE] text-white px-6 py-3 rounded-lg flex items-center shadow-md hover:bg-[#4058A4] mt-8 md:mt-12 mx-auto md:mx-0 transition-all duration-300"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1, duration: 0.6 }}
-            whileHover={{
-              scale: 1.05,
-              boxShadow: "0 10px 25px -5px rgba(99, 135, 206, 0.4)",
-            }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <Play className="w-5 h-5 mr-2" />
-            <div className="text-left flex flex-col">
-              <span className="text-xs">GET IT ON</span>
-              <span className="text-base font-medium">Google Play</span>
-            </div>
-          </motion.button>
+          // Mobile
+          <Link href="/dashboard" passHref>
+            <motion.button
+              className="bg-[#6387CE] text-white px-6 py-3 rounded-lg flex items-center shadow-md hover:bg-[#4058A4] mt-8 md:mt-12 mx-auto md:mx-0 transition-all duration-300"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1, duration: 0.6 }}
+              whileHover={{
+                scale: 1.05,
+                boxShadow: "0 10px 25px -5px rgba(99, 135, 206, 0.4)",
+              }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <ArrowRight className="w-5 h-5 mr-2" />
+              <div className="text-left flex flex-col">
+                <span className="text-base font-medium">Try it now</span>
+              </div>
+            </motion.button>
+          </Link>
         )}
       </motion.div>
 
