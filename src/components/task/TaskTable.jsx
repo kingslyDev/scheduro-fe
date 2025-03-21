@@ -4,9 +4,9 @@ import AddTaskSidebar from "./AddTaskSidebar";
 import DetailTaskSidebar from "./DetailTaskSidebar";
 
 const statusColors = {
-  todo: "bg-[#354273] text-white",
-  ongoing: "bg-[#5171C7] text-white",
-  done: "bg-[#879ADA] text-white",
+  todo: "bg-blue-300 text-white",
+  ongoing: "bg-blue-500 text-white",
+  done: "bg-blue-900 text-white",
 };
 
 const TaskTable = () => {

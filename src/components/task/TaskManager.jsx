@@ -11,11 +11,14 @@ import {
 } from "@/components/ui/select";
 import AddTaskSidebar from "@/components/task/AddTaskSidebar";
 import TaskTable from "@/components/task/TaskTable";
+import { ArrowUpDown } from "lucide-react";
 
 const TaskManager = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [sort, setSort] = useState("");
+  const [sortOrder, setSortOrder] = useState("asc");
   const [tasks, setTasks] = useState([]);
+  const [filteredTasks, setFilteredTasks] = useState([]);
 
   useEffect(() => {
     const storedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
@@ -29,16 +32,18 @@ const TaskManager = () => {
   }, [tasks]);
 
   useEffect(() => {
+    let sortedTasks = [...tasks];
     if (sort) {
-      const sortedTasks = [...tasks].sort((a, b) => {
-        if (sort === "10") return a.title.localeCompare(b.title);
-        if (sort === "20") return new Date(a.startDate) - new Date(b.startDate);
-        if (sort === "50") return new Date(a.dueDate) - new Date(b.dueDate);
-        return 0;
+      sortedTasks.sort((a, b) => {
+        let comparison = 0;
+        if (sort === "title") comparison = a.title.localeCompare(b.title);
+        if (sort === "start date") comparison = new Date(a.startDate) - new Date(b.startDate);
+        if (sort === "due date") comparison = new Date(a.dueDate) - new Date(b.dueDate);
+        return sortOrder === "asc" ? comparison : -comparison;
       });
-      setTasks(sortedTasks);
     }
-  }, [sort]);
+    setFilteredTasks(sortedTasks);
+  }, [sort, sortOrder, tasks]);
 
   return (
     <div className="min-h-screen bg-white p-4 md:p-6">
@@ -53,17 +58,27 @@ const TaskManager = () => {
             />
 
             {/* Sort Dropdown */}
-            <Select value={sort} onValueChange={setSort}>
-              <SelectTrigger className="w-full md:w-30 bg-[#E6EEFF] shadow-sm border-0">
-                <SelectValue placeholder="Filter" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="title">Title</SelectItem>
-                <SelectItem value="status">Status</SelectItem>
-                <SelectItem value="start date">Start Date</SelectItem>
-                <SelectItem value="due date">Due Date</SelectItem>
-              </SelectContent>
-            </Select>
+            <div className="flex items-center gap-2">
+              <Select value={sort} onValueChange={setSort}>
+                <SelectTrigger className="w-full md:w-40 bg-[#E6EEFF] shadow-sm border-0">
+                  <SelectValue placeholder="Filter" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="title">Title</SelectItem>
+                  <SelectItem value="start date">Start Date</SelectItem>
+                  <SelectItem value="due date">Due Date</SelectItem>
+                </SelectContent>
+              </Select>
+              
+              {/* Sort Order Button */}
+              <Button
+                variant="outline"
+                className="bg-[#E6EEFF] border-0 shadow-sm p-2"
+                onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
+              >
+                <ArrowUpDown className="w-4 h-4" />
+              </Button>
+            </div>
 
             {/* Create Task Button */}
             <Button
@@ -84,7 +99,7 @@ const TaskManager = () => {
           />
 
           {/* Task Table */}
-          <TaskTable tasks={tasks} />
+          <TaskTable tasks={filteredTasks} />
         </div>
       </main>
     </div>
