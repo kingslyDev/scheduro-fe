@@ -17,8 +17,9 @@ const StatusColumn = React.memo(({ status, cards, slug, onAddTask, activeId }) =
       initial={{ y: 20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.4 }}
-      className="w-full sm:w-1/4 flex flex-col"
+      className="w-full sm:w-1/4 flex flex-col h-full"
     >
+      {/* Header Kolom */}
       <div className="flex items-center justify-between mb-4 px-4">
         <span className="text-xl font-semibold text-gray-800">{status}</span>
         <TaskFormSheet
@@ -33,9 +34,10 @@ const StatusColumn = React.memo(({ status, cards, slug, onAddTask, activeId }) =
         />
       </div>
 
+      {/* Container untuk daftar task */}
       <div
         ref={setNodeRef}
-        className={`flex-grow space-y-4 bg-gray-50 p-3 rounded-lg min-h-[70vh]
+        className={`flex flex-col space-y-4 bg-gray-50 p-3 rounded-lg h-full overflow-y-auto
           transition-colors duration-300 ease-in-out
           ${isOver && status === 'In Progress' ? 'bg-blue-50 ring-2 ring-blue-300' : ''}
           ${isOver && status === 'Done' ? 'bg-green-50 ring-2 ring-green-300' : ''}
@@ -44,7 +46,7 @@ const StatusColumn = React.memo(({ status, cards, slug, onAddTask, activeId }) =
         <SortableContext items={filteredCards.map((card) => card.id)} strategy={verticalListSortingStrategy}>
           <AnimatePresence>
             {filteredCards.length > 0 ? (
-              <div className="flex flex-col gap-4 min-h-[100px]">
+              <div className="flex flex-col gap-4">
                 {filteredCards.map((card) => (
                   <TaskCard key={card.id} card={card} status={status} isActive={card.id === activeId} />
                 ))}
