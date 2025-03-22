@@ -8,6 +8,7 @@ import {
   defaultDropAnimationSideEffects,
 } from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
+import { toast } from "sonner"; // Impor toast
 
 export function useDragAndDrop(cards, statuses, saveToLocalStorage, setCards) {
   const [activeId, setActiveId] = useState(null);
@@ -56,7 +57,17 @@ export function useDragAndDrop(cards, statuses, saveToLocalStorage, setCards) {
       const draggedCard = updatedCards[oldIndex];
 
       if (statuses.includes(over.id)) {
-        draggedCard.status = over.id;
+        const oldStatus = draggedCard.status; // Simpan status lama
+        draggedCard.status = over.id; // Perbarui status
+        const newStatus = draggedCard.status;
+
+        // Tampilkan toast jika status berubah
+        if (oldStatus !== newStatus) {
+          toast.success("Status updated", {
+            description: `Task "${draggedCard.title}" has been moved to "${newStatus}".`,
+          });
+        }
+
         const newCards = [
           ...updatedCards.filter((card) => card.id !== active.id),
           draggedCard,
@@ -70,8 +81,17 @@ export function useDragAndDrop(cards, statuses, saveToLocalStorage, setCards) {
         if (newIndex === -1) return;
 
         const overCardStatus = cardsRef.current[newIndex].status;
+        const oldStatus = draggedCard.status; // Simpan status lama
         if (draggedCard.status !== overCardStatus) {
           draggedCard.status = overCardStatus;
+          const newStatus = draggedCard.status;
+
+          // Tampilkan toast jika status berubah
+          if (oldStatus !== newStatus) {
+            toast.success("Status updated", {
+              description: `Task "${draggedCard.title}" has been moved to "${newStatus}".`,
+            });
+          }
         }
 
         const newCards = arrayMove(updatedCards, oldIndex, newIndex);

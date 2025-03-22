@@ -1,41 +1,128 @@
-import { clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+// utils.js
 
+import { clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+/**
+ * Menggabungkan class names menggunakan clsx dan twMerge untuk Tailwind CSS.
+ * @param {...(string | object | Array<string | object>)} inputs - Class names atau objek kondisional.
+ * @returns {string} Class names yang sudah digabungkan.
+ */
 export function cn(...inputs) {
   return twMerge(clsx(inputs));
 }
 
-const getPriorityColor = (priority) => {
+/**
+ * Konstanta untuk status task.
+ * @type {{ TODO: string, INPROGRESS: string, DONE: string }}
+ */
+export const STATUS = {
+  TODO: "To Do",
+  INPROGRESS: "In Progress",
+  DONE: "Done",
+};
+
+/**
+ * Konstanta untuk prioritas task.
+ * @type {{ URGENT: string, HIGH: string, MEDIUM: string, LOW: string }}
+ */
+export const PRIORITY = {
+  URGENT: "Urgent",
+  HIGH: "High",
+  MEDIUM: "Medium",
+  LOW: "Low",
+};
+
+/**
+ * Mendapatkan array class Tailwind CSS untuk gradient berdasarkan prioritas task.
+ * Gradient akan berakhir dengan transparansi (to-transparent).
+ * @param {string} priority - Prioritas task (URGENT, HIGH, MEDIUM, LOW).
+ * @returns {string[]} Array class Tailwind CSS untuk gradient.
+ */
+export const getPriorityColor = (priority) => {
   switch (priority) {
     case PRIORITY.URGENT:
-      return 'bg-orange-500 text-white';
+      return ["from-red-600", "via-red-500", "to-red-600", "to-transparent"];
     case PRIORITY.HIGH:
-      return 'bg-blue-900 text-white'; // Biru tua
+      return [
+        "from-violet-600",
+        "via-purple-500",
+        "to-purple-600",
+        "to-transparent",
+      ];
     case PRIORITY.MEDIUM:
-      return 'bg-blue-500 text-white'; // Biru sedang
+      return ["from-blue-600", "via-blue-500", "to-blue-600", "to-transparent"];
     case PRIORITY.LOW:
-      return 'bg-blue-300 text-white'; // Biru muda
-    case PRIORITY.UNSORTED:
-      return 'bg-gray-400 text-white'; // Abu-abu
+      return ["from-teal-600", "via-teal-500", "to-teal-600", "to-transparent"];
     default:
-      return 'bg-gray-200 text-gray-800'; // Fallback
+      return [
+        "from-slate-600",
+        "via-slate-500",
+        "to-slate-600",
+        "to-transparent",
+      ];
   }
 };
 
-export const STATUS = {
-  TODO: 'To Do',
-  INPROGRESS: 'In Progress',
-  DONE: 'Done',
+/**
+ * Mendapatkan class Tailwind CSS untuk warna teks berdasarkan prioritas task.
+ * @param {string} priority - Prioritas task (URGENT, HIGH, MEDIUM, LOW).
+ * @returns {string} Class Tailwind CSS untuk warna teks.
+ */
+export const getPriorityTextColor = (priority) => {
+  switch (priority) {
+    case PRIORITY.URGENT:
+    case PRIORITY.HIGH:
+    case PRIORITY.MEDIUM:
+    case PRIORITY.LOW:
+      return "text-white";
+    default:
+      return "text-gray-800";
+  }
 };
 
-export const PRIORITY = {
-  URGENT: 'Urgent',
-  HIGH: 'High',
-  MEDIUM: 'Medium',
-  LOW: 'Low',
-  Unsorted: 'Unsorted',
+/**
+ * Mendapatkan array prioritas yang valid.
+ * @returns {string[]} Array prioritas yang valid.
+ */
+export const getValidPriorities = () => {
+  return Object.values(PRIORITY);
 };
 
-export function flashMessage(params) {
-  return params.props.flash_message;
+/**
+ * Memeriksa apakah prioritas valid.
+ * @param {string} priority - Prioritas task (URGENT, HIGH, MEDIUM, LOW).
+ * @returns {boolean} True jika prioritas valid, false jika tidak.
+ */
+export const isValidPriority = (priority) => {
+  return getValidPriorities().includes(priority);
+};
+
+/**
+ * Mendapatkan class Tailwind CSS untuk badge prioritas.
+ * @param {string} priority - Prioritas task (URGENT, HIGH, MEDIUM, LOW).
+ * @returns {string[]} Array class Tailwind CSS untuk badge.
+ */
+export const getPriorityBadgeStyles = (priority) => {
+  switch (priority) {
+    case PRIORITY.URGENT:
+      return ["bg-red-600", "hover:bg-red-700", "text-white"];
+    case PRIORITY.HIGH:
+      return ["bg-violet-600", "hover:bg-violet-700", "text-white"];
+    case PRIORITY.MEDIUM:
+      return ["bg-blue-600", "hover:bg-blue-700", "text-white"];
+    case PRIORITY.LOW:
+      return ["bg-teal-600", "hover:bg-teal-700", "text-white"];
+    default:
+      return ["bg-slate-600", "hover:bg-slate-700", "text-gray-800"];
+  }
+};
+
+/**
+ * Mendapatkan pesan flash dari parameter props.
+ * @param {{ props?: { flash_message?: string } }} params - Objek parameter yang berisi props.
+ * @returns {string | undefined} Pesan flash, atau undefined jika tidak ada.
+ */
+export function getFlashMessage(params) {
+  return params?.props?.flash_message;
 }

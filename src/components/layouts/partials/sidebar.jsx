@@ -5,7 +5,6 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 import { Sheet, SheetTrigger } from "@/components/ui/sheet";
 import CreateWorkspace from "@/components/workspace/CreateWorkspace";
-import GetPriorityBadge from "@/components/task/GetPriorityBadge";
 
 export default function Sidebar({ url }) {
   const [auth, setAuth] = useState(null);
@@ -71,7 +70,10 @@ export default function Sidebar({ url }) {
                   "group flex gap-x-3 rounded-md p-3 text-sm font-semibold leading-relaxed"
                 )}
               >
-                <img src="https://res.cloudinary.com/dy8fe8tbe/image/upload/v1742273460/icon-home_ks1yym.svg" className="w-6 h-6" />
+                <img
+                  src="https://res.cloudinary.com/dy8fe8tbe/image/upload/v1742273460/icon-home_ks1yym.svg"
+                  className="w-6 h-6"
+                />
                 Dashboard
               </a>
             </li>
@@ -85,7 +87,10 @@ export default function Sidebar({ url }) {
                   "group flex gap-x-3 rounded-md p-3 text-sm font-semibold leading-relaxed"
                 )}
               >
-                <img src="https://res.cloudinary.com/dy8fe8tbe/image/upload/v1742270944/tasks_dic2lo.svg" className="w-6 h-6" />
+                <img
+                  src="https://res.cloudinary.com/dy8fe8tbe/image/upload/v1742270944/tasks_dic2lo.svg"
+                  className="w-6 h-6"
+                />
                 My Tasks
               </a>
             </li>
@@ -94,7 +99,10 @@ export default function Sidebar({ url }) {
                 onClick={handleLogout}
                 className="group flex w-full gap-x-3 rounded-md p-3 text-sm font-semibold leading-relaxed text-foreground hover:bg-gray-100"
               >
-                <img src="https://res.cloudinary.com/dy8fe8tbe/image/upload/v1742270927/logout_jbrths.svg" className="w-6 h-6" />
+                <img
+                  src="https://res.cloudinary.com/dy8fe8tbe/image/upload/v1742270927/logout_jbrths.svg"
+                  className="w-6 h-6"
+                />
                 Logout
               </button>
             </li>
@@ -130,7 +138,6 @@ export default function Sidebar({ url }) {
                     </span>
                     <span className="truncate">{workspace.name}</span>
                   </div>
-                  <GetPriorityBadge priority={workspace.priority || "LOW"} />
                 </a>
               </li>
             ))}
