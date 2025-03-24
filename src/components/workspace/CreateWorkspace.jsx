@@ -4,7 +4,7 @@ import InputLabel from '@/components/InputLabel';
 import TextInput from '@/components/TextInput';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
-import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetHeader, SheetTrigger, SheetTitle } from '@/components/ui/sheet';
 import { PiPlus } from 'react-icons/pi';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Image from 'next/image';
@@ -61,8 +61,9 @@ export default function CreateWorkspace({ onWorkspaceAdded }) {
         </button>
       </SheetTrigger>
       <SheetContent side="right" className="w-full sm:w-2/3 md:w-1/2 lg:w-1/3 !max-w-full rounded-l-2xl p-6 bg-gray-50 border-l shadow-xl">
-        <SheetHeader className="mb-6">
-          <p className="text-sm text-gray-500">Add new workspace</p>
+        <SheetHeader className="mb-4 md:-ml-4">
+          <SheetTitle className="text-base font-semibold">Add Workspace</SheetTitle>
+          <p className="text-sm text-muted-foreground">Add new workspace</p>
         </SheetHeader>
 
         <div className="flex justify-center">
@@ -92,10 +93,10 @@ export default function CreateWorkspace({ onWorkspaceAdded }) {
                 <SelectValue placeholder="Select priority" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value={PRIORITY.URGENT}>URGENT</SelectItem>
-                <SelectItem value={PRIORITY.HIGH}>HIGH</SelectItem>
-                <SelectItem value={PRIORITY.MEDIUM}>MEDIUM</SelectItem>
-                <SelectItem value={PRIORITY.LOW}>LOW</SelectItem>
+                <SelectItem value={PRIORITY.URGENT}>Urgent</SelectItem>
+                <SelectItem value={PRIORITY.HIGH}>High</SelectItem>
+                <SelectItem value={PRIORITY.MEDIUM}>Medium</SelectItem>
+                <SelectItem value={PRIORITY.LOW}>Low</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -104,7 +105,7 @@ export default function CreateWorkspace({ onWorkspaceAdded }) {
             <Button type="button" variant="outline" className="bg-gray-300 text-gray-700" onClick={() => setOpen(false)}>
               Cancel
             </Button>
-            <Button type="submit" className="bg-blue-300 text-white hover:bg-blue-700">
+            <Button type="submit" className="bg-blue-700 text-white font-semibold rounded-md hover:bg-blue-400">
               Save
             </Button>
           </div>

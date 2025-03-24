@@ -78,7 +78,7 @@ export default function TaskFormSheet({ slug, onAddTask, initialStatus, trigger 
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>{trigger}</SheetTrigger>
       <SheetContent side="right" className="w-full sm:w-3/4 md:w-1/2 lg:w-1/3 !max-w-full sm:!max-w-[75%] md:!max-w-[50%] lg:!max-w-[33%] rounded-l-2xl p-6 bg-gray-50 border-l shadow-xl">
-        <SheetHeader className="mb-6">
+        <SheetHeader className="mb-4 md:-ml-4">
           <p className="text-sm text-gray-500">Add new task</p>
         </SheetHeader>
 
@@ -138,7 +138,7 @@ export default function TaskFormSheet({ slug, onAddTask, initialStatus, trigger 
 
           <div className="flex justify-end gap-3 mt-6">
             <Button type="button" variant="outline" className="bg-gray-300 text-gray-700" onClick={() => setOpen(false)}>Cancel</Button>
-            <Button type="submit" className="bg-blue-500 text-white hover:bg-blue-700">Save</Button>
+            <Button type="submit" className="bg-blue-700 text-white font-semibold rounded-md hover:bg-blue-400">Save</Button>
           </div>
         </form>
       </SheetContent>

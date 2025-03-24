@@ -26,7 +26,7 @@ const features = [
 export default function FeatureSection() {
   return (
     <section id="feature" className="py-16 px-4">
-      <div className="max-w-screen-lg mx-auto text-center">
+      <div className="max-w-screen-lg mx-auto text-center -mt-12">
         <h3 className="text-[#6387CE] text-xl mb-8 font-bold tracking-wider uppercase">FEATURES</h3>
         <h2 className="text-2xl font-bold text-gray-900 mt-4 tracking-wider">Everything You Need to Stay on Track</h2>
 

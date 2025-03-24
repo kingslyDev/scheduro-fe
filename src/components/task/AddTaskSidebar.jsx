@@ -83,8 +83,8 @@ const AddTaskSidebar = ({ open, onClose, onSave }) => {
         className="w-full sm:max-w-2xl max-h-screen overflow-y-auto p-0 border-l"
       >
         <div className="h-full flex flex-col p-8">
-          <SheetHeader className="text-left pb-6">
-            <SheetTitle className="text-xl font-bold">Add Task</SheetTitle>
+          <SheetHeader className="text-left pb-6 mb-4 md:-ml-4">
+            <SheetTitle className="text-base font-semibold">Add Task</SheetTitle>
             <p className="text-sm text-muted-foreground">Add new task</p>
           </SheetHeader>
 
@@ -229,7 +229,7 @@ const AddTaskSidebar = ({ open, onClose, onSave }) => {
             </Button>
             <Button
               onClick={handleSave}
-              className="w-full sm:w-auto px-6 py-2 bg-blue-300 text-white hover:bg-blue-500"
+              className="bg-blue-700 text-white font-semibold rounded-md hover:bg-blue-400"
             >
               Save
             </Button>

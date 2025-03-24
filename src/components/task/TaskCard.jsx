@@ -412,7 +412,7 @@ const TaskCard = React.memo(({ card, status, isActive, onTaskUpdate }) => {
             <DialogTitle className="text-xl text-center text-destructive">
               Delete Task
             </DialogTitle>
-            <DialogDescription className="text-md font-normal text-center mt-2">
+            <DialogDescription className="text-base font-normal text-center mt-2">
               Are you sure you want to delete this task? This action cannot be
               undone.
             </DialogDescription>

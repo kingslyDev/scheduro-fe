@@ -1,14 +1,29 @@
 "use client"
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { Play, ArrowRight } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import { useMediaQuery } from "@/hooks/useMobile"
 
 const HeroSection = () => {
   const isDesktop = useMediaQuery("(min-width: 768px)")
 
   return (
-    <section className="bg-gradient-to-br from-gray-50 to-gray-100 min-h-[90vh] flex flex-col md:flex-row justify-between items-center px-6 sm:px-10 md:px-20 py-16 overflow-hidden">
+    <section className="bg-gradient-to-br from-gray-50 to-gray-100 min-h-[90vh] flex flex-col md:flex-row justify-between items-center px-16 sm:px-10 md:px-20 py-16 overflow-hidden md:ml-6">
+      <motion.img
+        src="https://res.cloudinary.com/dwgwb5vro/image/upload/v1741287250/char_1_1_ugxw4a.png"
+        alt="Character with productivity icons"
+        className="w-72 md:w-96 lg:w-[450px] drop-shadow-2xl  md:hidden block mb-8 -mt-2"
+        initial={{ y: 20 }}
+        animate={{ y: 0 }}
+        transition={{
+          y: {
+            duration: 3,
+            repeat: Number.POSITIVE_INFINITY,
+            repeatType: "reverse",
+            ease: "easeInOut",
+          },
+        }}
+      />
       <motion.div
         className="w-full md:w-1/2 text-center md:text-left"
         initial={{ opacity: 0, x: -50 }}
@@ -124,7 +139,7 @@ const HeroSection = () => {
           <motion.img
             src="https://res.cloudinary.com/dwgwb5vro/image/upload/v1741287250/char_1_1_ugxw4a.png"
             alt="Character with productivity icons"
-            className="w-72 md:w-96 lg:w-[450px] drop-shadow-2xl"
+            className="w-72 md:w-96 lg:w-[450px] drop-shadow-2xl md:block hidden"
             initial={{ y: 20 }}
             animate={{ y: 0 }}
             transition={{
@@ -157,4 +172,3 @@ const HeroSection = () => {
 }
 
 export default HeroSection
-
