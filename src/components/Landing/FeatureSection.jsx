@@ -25,7 +25,7 @@ const features = [
 
 export default function FeatureSection() {
   return (
-    <section id="feature" className="py-16 px-4">
+    <section id="feature" className="py-24 px-4">
       <div className="max-w-screen-lg mx-auto text-center -mt-12">
         <h3 className="text-[#6387CE] text-xl mb-8 font-bold tracking-wider uppercase">FEATURES</h3>
         <h2 className="text-2xl font-bold text-gray-900 mt-4 tracking-wider">Everything You Need to Stay on Track</h2>
@@ -35,7 +35,7 @@ export default function FeatureSection() {
           <span className="text-l block text-center text-gray-700 mt-2">effortlessly!</span>
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 mt-14">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 mt-14 px-5">
           {features.map((feature, index) => (
             <div key={index} className="bg-[#CCDAF1] p-6 rounded-lg shadow-md text-left transition hover:scale-105 flex flex-col items-start">
               <img src={feature.icon} alt={feature.title} className="w-14 h-14 mb-4 rounded-sm flex-shrink-0 ml-4" />

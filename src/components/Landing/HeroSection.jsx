@@ -1,18 +1,26 @@
 "use client"
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { ArrowRight } from "lucide-react"
+import { Play, ArrowDown } from "lucide-react"
 import { useMediaQuery } from "@/hooks/useMobile"
 
 const HeroSection = () => {
   const isDesktop = useMediaQuery("(min-width: 768px)")
 
+// Function to scroll to the About section
+const scrollToAbout = () => {
+  const aboutSection = document.getElementById('about')
+  if (aboutSection) {
+    aboutSection.scrollIntoView({ behavior: 'smooth' })
+  }
+}
+
   return (
-    <section className="bg-gradient-to-br from-gray-50 to-gray-100 min-h-[90vh] flex flex-col md:flex-row justify-between items-center px-16 sm:px-10 md:px-20 py-16 overflow-hidden md:ml-6">
+    <section className="min-h-[90vh] flex flex-col md:flex-row justify-between items-center px-16 sm:px-10 md:px-20 py-16 overflow-hidden md:ml-6">
       <motion.img
         src="https://res.cloudinary.com/dwgwb5vro/image/upload/v1741287250/char_1_1_ugxw4a.png"
         alt="Character with productivity icons"
-        className="w-72 md:w-96 lg:w-[450px] drop-shadow-2xl  md:hidden block mb-8 -mt-2"
+        className="w-72 md:w-96 lg:w-[450px] drop-shadow-2xl md:hidden block mb-8 -mt-2"
         initial={{ y: 20 }}
         animate={{ y: 0 }}
         transition={{
@@ -31,12 +39,12 @@ const HeroSection = () => {
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
         <motion.div
-          className="relative inline-block"
+          className="relative inline-block py-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.8 }}
         >
-          <motion.h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight">
+          <motion.h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold leading-tight tracking-tight">
             <span className="relative z-10">Seamless </span>
 
             <motion.span
@@ -45,7 +53,7 @@ const HeroSection = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.6 }}
             >
-              Scheduling,
+              Scheduling
             </motion.span>
             <br />
             <span className="relative z-10">Ultimate </span>
@@ -74,35 +82,32 @@ const HeroSection = () => {
         </motion.div>
 
         <motion.p
-          className="text-lg text-gray-700 mt-8 md:mt-12 max-w-md mx-auto md:mx-0"
+          className="text-lg text-gray-700 mt-8 md:mt-8 max-w-sm mx-auto md:mx-0 text-justify"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8, duration: 0.8 }}
         >
-          Scheduro helps you manage your tasks and time effectively, giving you the control to focus on what truly
-          matters.
+          Scheduro helps you manage your tasks and time effectively, giving you the control to focus on what truly matters.
         </motion.p>
 
         {isDesktop ? (
-          <Link href="/dashboard" passHref>
-            <motion.button
-              className="bg-[#6387CE] text-white px-6 py-3 rounded-lg flex items-center shadow-md hover:bg-[#4058A4] mt-8 md:mt-12 mx-auto md:mx-0 transition-all duration-300 cursor-pointer"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1, duration: 0.6 }}
-              whileHover={{
-                scale: 1.05,
-                boxShadow: "0 10px 25px -5px rgba(99, 135, 206, 0.4)",
-              }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <ArrowRight className="w-5 h-5 mr-2" />
-              <span className="text-base font-medium">Try it now</span>
-            </motion.button>
-          </Link>
+          <motion.button
+            onClick={scrollToAbout}
+            className="bg-[#6387CE] text-white px-5 py-3 rounded-lg flex items-center shadow-md hover:bg-[#4058A4] mt-8 md:mt-12 mx-auto md:mx-0 transition-all duration-300 cursor-pointer"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1, duration: 0.6 }}
+            whileHover={{
+              scale: 1.05,
+              boxShadow: "0 10px 25px -5px rgba(99, 135, 206, 0.4)",
+            }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <ArrowDown className="w-5 h-5 mr-2" />
+            <span className="text-base font-medium">Explore!</span>
+          </motion.button>
         ) : (
           // Mobile
-          <Link href="/dashboard" passHref>
             <motion.button
               className="bg-[#6387CE] text-white px-6 py-3 rounded-lg flex items-center shadow-md hover:bg-[#4058A4] mt-8 md:mt-12 mx-auto md:mx-0 transition-all duration-300"
               initial={{ opacity: 0, y: 20 }}
@@ -114,12 +119,12 @@ const HeroSection = () => {
               }}
               whileTap={{ scale: 0.98 }}
             >
-              <ArrowRight className="w-5 h-5 mr-2" />
+              <Play className="w-5 h-5 mr-2" />
               <div className="text-left flex flex-col">
-                <span className="text-base font-medium">Try it now</span>
+                <span className="text-sm font-medium">GET IN ON</span>
+                <span className="text-normal font-semibold">Google Play</span>
               </div>
             </motion.button>
-          </Link>
         )}
       </motion.div>
 
@@ -135,7 +140,7 @@ const HeroSection = () => {
           animate={{ scale: 1 }}
           transition={{ delay: 0.5, duration: 1 }}
         />
-        <motion.div className="relative z-10" whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}>
+        <motion.div className="relative z-10 md:ml-32" whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}>
           <motion.img
             src="https://res.cloudinary.com/dwgwb5vro/image/upload/v1741287250/char_1_1_ugxw4a.png"
             alt="Character with productivity icons"

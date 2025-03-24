@@ -14,8 +14,6 @@ const ScheduloWebsite = () => {
       <main></main>
       {/* Hero Section */}
       <HeroSection />
-      {/* Gradient Divider */}
-      <GradientDivider />
       {/* About Section */}
       <AboutSection />
       {/* Feature Section */}
