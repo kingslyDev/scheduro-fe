@@ -10,20 +10,49 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import TaskCard from "../task/TaskCard";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const StatusColumn = React.memo(
-  ({ status, cards, slug, onAddTask, activeId, onTaskUpdate }) => {
+  ({
+    status,
+    tasks,
+    slug,
+    onAddTask,
+    activeId,
+    onTaskUpdate,
+    isLoading = false,
+  }) => {
     const { setNodeRef, isOver } = useDroppable({ id: status });
-    const filteredCards = cards.filter((card) => card.status === status);
+    const filteredTask = tasks.filter((task) => task.status === status);
+
+    if (isLoading) {
+      return (
+        <motion.div
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.4 }}
+          className="w-full sm:w-1/4 flex flex-col h-full"
+        >
+          <div className="flex items-center justify-between mb-4 px-4 shrink-0">
+            <Skeleton className="h-6 w-1/3" />
+            <Skeleton className="h-8 w-8 rounded-full" />
+          </div>
+          <div className="flex-1 flex flex-col space-y-4 bg-gray-50 p-3 rounded-lg overflow-y-auto">
+            {[...Array(3)].map((_, index) => (
+              <TaskCard key={index} isLoading={true} />
+            ))}
+          </div>
+        </motion.div>
+      );
+    }
 
     return (
       <motion.div
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.4 }}
-        className="w-full sm:w-1/4 flex flex-col max-h-screen" // Batasi tinggi maksimum ke layar
+        className="w-full sm:w-1/4 flex flex-col h-full"
       >
-        {/* Header Kolom */}
         <div className="flex items-center justify-between mb-4 px-4 shrink-0">
           <span className="text-xl font-semibold text-gray-800">{status}</span>
           <TaskFormSheet
@@ -37,8 +66,6 @@ const StatusColumn = React.memo(
             }
           />
         </div>
-
-        {/* Container untuk daftar task */}
         <div
           ref={setNodeRef}
           className={`flex-1 flex flex-col space-y-4 bg-gray-50 p-3 rounded-lg overflow-y-auto
@@ -56,20 +83,21 @@ const StatusColumn = React.memo(
           `}
         >
           <SortableContext
-            items={filteredCards.map((card) => card.id)}
+            items={filteredTask.map((task) => task.id)}
             strategy={verticalListSortingStrategy}
           >
             <AnimatePresence>
-              {filteredCards.length > 0 ? (
+              {filteredTask.length > 0 ? (
                 <div className="flex flex-col gap-4">
-                  {filteredCards.map((card) => (
+                  {filteredTask.map((task) => (
                     <TaskCard
-                      key={card.id}
-                      card={card}
+                      key={task.id}
+                      task={task}
                       status={status}
-                      isActive={card.id === activeId}
+                      isActive={task.id === activeId}
                       onTaskUpdate={onTaskUpdate}
                       slug={slug}
+                      isLoading={false}
                     />
                   ))}
                 </div>

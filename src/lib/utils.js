@@ -1,5 +1,3 @@
-// utils.js
-
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -115,6 +113,24 @@ export const getPriorityBadgeStyles = (priority) => {
       return ["bg-teal-600", "hover:bg-teal-700", "text-white"];
     default:
       return ["bg-slate-600", "hover:bg-slate-700", "text-gray-800"];
+  }
+};
+
+/**
+ * Mendapatkan class Tailwind CSS untuk badge status.
+ * @param {string} status - Status task (To Do, In Progress, Done).
+ * @returns {string[]} Array class Tailwind CSS untuk badge.
+ */
+export const getStatusBadgeStyles = (status) => {
+  switch (status) {
+    case STATUS.TODO:
+      return ["bg-blue-300", "hover:bg-blue-400", "text-white"];
+    case STATUS.INPROGRESS:
+      return ["bg-blue-500", "hover:bg-blue-600", "text-white"];
+    case STATUS.DONE:
+      return ["bg-blue-900", "hover:bg-blue-800", "text-white"];
+    default:
+      return ["bg-gray-200", "hover:bg-gray-300", "text-gray-700"];
   }
 };
 

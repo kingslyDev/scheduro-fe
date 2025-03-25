@@ -10,12 +10,12 @@ import {
 import { arrayMove } from "@dnd-kit/sortable";
 import { toast } from "sonner"; // Impor toast
 
-export function useDragAndDrop(cards, statuses, saveToLocalStorage, setCards) {
+export function useDragAndDrop(tasks, statuses, saveToLocalStorage, setTask) {
   const [activeId, setActiveId] = useState(null);
   const [activeCard, setActiveCard] = useState(null);
-  const cardsRef = useRef(cards);
+  const tasksRef = useRef(tasks);
 
-  cardsRef.current = cards;
+  tasksRef.current = tasks;
 
   const sensors = useSensors(useSensor(PointerSensor));
 
@@ -35,7 +35,7 @@ export function useDragAndDrop(cards, statuses, saveToLocalStorage, setCards) {
   const handleDragStart = useCallback((event) => {
     const { active } = event;
     setActiveId(active.id);
-    const draggedCard = cardsRef.current.find((card) => card.id === active.id);
+    const draggedCard = tasksRef.current.find((task) => task.id === active.id);
     setActiveCard(draggedCard);
   }, []);
 
@@ -48,13 +48,13 @@ export function useDragAndDrop(cards, statuses, saveToLocalStorage, setCards) {
 
       if (!over || active.id === over.id) return;
 
-      const oldIndex = cardsRef.current.findIndex(
-        (card) => card.id === active.id
+      const oldIndex = tasksRef.current.findIndex(
+        (task) => task.id === active.id
       );
       if (oldIndex === -1) return;
 
-      const updatedCards = [...cardsRef.current];
-      const draggedCard = updatedCards[oldIndex];
+      const updatedTask = [...tasksRef.current];
+      const draggedCard = updatedTask[oldIndex];
 
       if (statuses.includes(over.id)) {
         const oldStatus = draggedCard.status; // Simpan status lama
@@ -68,19 +68,19 @@ export function useDragAndDrop(cards, statuses, saveToLocalStorage, setCards) {
           });
         }
 
-        const newCards = [
-          ...updatedCards.filter((card) => card.id !== active.id),
+        const newTask = [
+          ...updatedTask.filter((task) => task.id !== active.id),
           draggedCard,
         ];
-        setCards(newCards);
-        saveToLocalStorage(newCards);
+        setTask(newTask);
+        saveToLocalStorage(newTask);
       } else {
-        const newIndex = cardsRef.current.findIndex(
-          (card) => card.id === over.id
+        const newIndex = tasksRef.current.findIndex(
+          (task) => task.id === over.id
         );
         if (newIndex === -1) return;
 
-        const overCardStatus = cardsRef.current[newIndex].status;
+        const overCardStatus = tasksRef.current[newIndex].status;
         const oldStatus = draggedCard.status; // Simpan status lama
         if (draggedCard.status !== overCardStatus) {
           draggedCard.status = overCardStatus;
@@ -94,12 +94,12 @@ export function useDragAndDrop(cards, statuses, saveToLocalStorage, setCards) {
           }
         }
 
-        const newCards = arrayMove(updatedCards, oldIndex, newIndex);
-        setCards(newCards);
-        saveToLocalStorage(newCards);
+        const newTask = arrayMove(updatedTask, oldIndex, newIndex);
+        setTask(newTask);
+        saveToLocalStorage(newTask);
       }
     },
-    [statuses, saveToLocalStorage, setCards]
+    [statuses, saveToLocalStorage, setTask]
   );
 
   return {

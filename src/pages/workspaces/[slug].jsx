@@ -1,10 +1,10 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { useWorkspaceData } from "@/hooks/useWorkspaceData";
 import { useDragAndDrop } from "@/hooks/useDragAndDrop";
 import WorkspaceHeader from "@/components/workspace/WorkspaceHeader";
 import StatusColumn from "@/components/workspace/StatusColumn";
-import LoadingState from "@/components/workspace/LoadingState";
 import NotFoundState from "@/components/workspace/NotFoundState";
 import { STATUS } from "@/lib/utils";
 import {
@@ -21,8 +21,8 @@ import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 export default function WorkspaceShow({ workspace: initialWorkspace }) {
   const {
     workspace,
-    cards,
-    setCards,
+    tasks,
+    setTask,
     loading,
     handleAddTask,
     saveToLocalStorage,
@@ -38,28 +38,65 @@ export default function WorkspaceShow({ workspace: initialWorkspace }) {
     dropAnimation,
     activeId,
     activeCard,
-  } = useDragAndDrop(cards, statuses, saveToLocalStorage, setCards);
+  } = useDragAndDrop(tasks, statuses, saveToLocalStorage, setTask);
 
-  const handleTaskUpdate = (updatedTask, deletedId) => {
-    let updatedCards = [...cards];
-    if (updatedTask) {
-      updatedCards = updatedCards.map((card) =>
-        card.id === updatedTask.id ? updatedTask : card
+  const [isCheckingWorkspace, setIsCheckingWorkspace] = useState(true);
+
+  useEffect(() => {
+    if (!loading) {
+      const timeout = setTimeout(() => {
+        setIsCheckingWorkspace(false);
+      }, 500);
+      return () => clearTimeout(timeout);
+    }
+  }, [loading]);
+
+  const handleTaskUpdate = (taskToUpdate, deletedId) => {
+    let updatedTasks = [...tasks];
+    if (taskToUpdate) {
+      updatedTasks = updatedTasks.map((task) =>
+        task.id === taskToUpdate.id ? taskToUpdate : task
       );
     } else if (deletedId) {
-      updatedCards = updatedCards.filter((card) => card.id !== deletedId);
+      updatedTasks = updatedTasks.filter((task) => task.id !== deletedId);
     }
-    setCards(updatedCards);
-    saveToLocalStorage(updatedCards);
+    setTask(updatedTasks);
+    saveToLocalStorage(updatedTasks);
   };
 
-  if (loading) return <LoadingState />;
+  if (loading || isCheckingWorkspace) {
+    return (
+      <div className="h-screen overflow-hidden flex flex-col">
+        <WorkspaceHeader
+          workspace={workspace || { name: "Loading..." }}
+          className="shrink-0"
+        />
+        <div className="flex-1 px-2 sm:px-4 overflow-hidden">
+          <div className="mt-4 flex w-full flex-col sm:flex-row gap-4 justify-between h-full overflow-y-auto">
+            {statuses.map((status) => (
+              <StatusColumn
+                key={status}
+                status={status}
+                tasks={[]}
+                slug={slug}
+                onAddTask={handleAddTask}
+                activeId={activeId}
+                onTaskUpdate={handleTaskUpdate}
+                isLoading={true}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   if (!workspace) return <NotFoundState />;
 
   return (
     <div className="h-screen overflow-hidden flex flex-col">
       <WorkspaceHeader workspace={workspace} className="shrink-0" />
-      <div className="flex-1 px-2 sm:px-4 bg overflow-hidden">
+      <div className="flex-1 px-2 sm:px-4 overflow-hidden">
         <DndContext
           sensors={sensors}
           collisionDetection={closestCenter}
@@ -67,16 +104,17 @@ export default function WorkspaceShow({ workspace: initialWorkspace }) {
           onDragEnd={handleDragEnd}
           modifiers={[restrictToWindowEdges]}
         >
-          <div className="mt-8 flex w-full flex-col sm:flex-row gap-16 justify-between h-full">
+          <div className="mt-4 flex w-full flex-col sm:flex-row gap-4 justify-between h-full overflow-y-auto">
             {statuses.map((status) => (
               <StatusColumn
                 key={status}
                 status={status}
-                cards={cards}
+                tasks={tasks}
                 slug={slug}
                 onAddTask={handleAddTask}
                 activeId={activeId}
                 onTaskUpdate={handleTaskUpdate}
+                isLoading={false}
               />
             ))}
           </div>

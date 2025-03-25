@@ -8,18 +8,18 @@ export function useWorkspaceData(initialWorkspace) {
     [pathname]
   );
   const [workspace, setWorkspace] = useState(initialWorkspace || null);
-  const [cards, setCards] = useState([]);
+  const [tasks, setTask] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Muat data workspace dan cards dari localStorage atau initialWorkspace
+  // Muat data workspace dan tasks dari localStorage atau initialWorkspace
   useEffect(() => {
     try {
       setLoading(true);
 
       if (initialWorkspace) {
         setWorkspace(initialWorkspace);
-        const initialCards = initialWorkspace.cards || []; // Pastikan initialCards ada
-        setCards(initialCards);
+        const initialTask = initialWorkspace.tasks || []; // Pastikan initialTask ada
+        setTask(initialTask);
         setLoading(false);
         return;
       }
@@ -33,36 +33,36 @@ export function useWorkspaceData(initialWorkspace) {
       const foundWorkspace = workspaces.find((ws) => ws.slug === slug);
       if (foundWorkspace) {
         setWorkspace(foundWorkspace);
-        const initialCards = foundWorkspace.cards || [];
-        setCards(initialCards);
+        const initialTask = foundWorkspace.tasks || [];
+        setTask(initialTask);
       } else {
         setWorkspace(null);
-        setCards([]);
+        setTask([]);
       }
       setLoading(false);
     } catch (error) {
       console.error("Error loading workspace data:", error);
       setWorkspace(null);
-      setCards([]);
+      setTask([]);
       setLoading(false);
     }
   }, [slug, initialWorkspace]);
 
-  // Simpan cards ke localStorage
+  // Simpan tasks ke localStorage
   const saveToLocalStorage = useCallback(
-    (updatedCards) => {
+    (updatedTask) => {
       try {
         const workspaces = JSON.parse(localStorage.getItem("workspaces")) || [];
         const workspaceIndex = workspaces.findIndex((ws) => ws.slug === slug);
         if (workspaceIndex !== -1) {
           workspaces[workspaceIndex] = {
             ...workspaces[workspaceIndex], // Pertahankan properti lain dari workspace
-            cards: updatedCards,
+            tasks: updatedTask,
           };
           localStorage.setItem("workspaces", JSON.stringify(workspaces));
         } else {
           // Jika workspace tidak ditemukan, tambahkan workspace baru
-          const newWorkspace = { slug, name: slug, cards: updatedCards };
+          const newWorkspace = { slug, name: slug, tasks: updatedTask };
           workspaces.push(newWorkspace);
           localStorage.setItem("workspaces", JSON.stringify(workspaces));
           setWorkspace(newWorkspace);
@@ -78,17 +78,17 @@ export function useWorkspaceData(initialWorkspace) {
   // Tambah tugas baru
   const handleAddTask = useCallback(
     (newTask) => {
-      const updatedCards = [...cards, { ...newTask, id: Date.now() }]; // Tambahkan ID unik
-      setCards(updatedCards);
-      saveToLocalStorage(updatedCards);
+      const updatedTask = [...tasks, { ...newTask, id: Date.now() }]; // Tambahkan ID unik
+      setTask(updatedTask);
+      saveToLocalStorage(updatedTask);
     },
-    [cards, saveToLocalStorage]
+    [tasks, saveToLocalStorage]
   );
 
   return {
     workspace,
-    cards,
-    setCards,
+    tasks,
+    setTask,
     loading,
     handleAddTask,
     saveToLocalStorage,

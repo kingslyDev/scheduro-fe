@@ -1,8 +1,17 @@
 "use client";
+
 import { useState, useEffect } from "react";
+import InputError from "@/components/InputError";
+import InputLabel from "@/components/InputLabel";
+import TextInput from "@/components/TextInput";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { toast } from "sonner";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import {
   Select,
   SelectTrigger,
@@ -10,231 +19,304 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet";
-import { UploadIcon } from "lucide-react";
+import { STATUS, PRIORITY } from "@/lib/utils";
 
-// Daftar workspace yang tersedia
-const workspaces = [
-  { id: 1, name: "Frontend", slug: "frontend" },
-  { id: 2, name: "Backend", slug: "backend" },
-  { id: 3, name: "UI/UX Design", slug: "design" },
-];
+const AddTaskSidebar = ({ slug, onAddTask, initialStatus, trigger }) => {
+  const [open, setOpen] = useState(false);
+  const [availableWorkspaces, setAvailableWorkspaces] = useState([]);
+  const [task, setTask] = useState({
+    title: "",
+    description: "",
+    deadline: "",
+    status: initialStatus || STATUS.TODO,
+    priority: PRIORITY.UNKNOWN,
+    workspace: "", // Akan diperbarui di useEffect
+  });
+  const [errors, setErrors] = useState({});
 
-const AddTaskSidebar = ({ open, onClose, onSave }) => {
-  const [title, setTitle] = useState("");
-  const [workspace, setWorkspace] = useState(workspaces[0]); // Default ke workspace pertama
-  const [priority, setPriority] = useState("medium");
-  const [status, setStatus] = useState("todo");
-  const [description, setDescription] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [dueDate, setDueDate] = useState("");
-  const [file, setFile] = useState(null);
-
+  // Muat workspace dari localStorage saat komponen dimount
   useEffect(() => {
-    // Mengambil task dari localStorage jika ada
-    const storedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    console.log("Stored Tasks:", storedTasks);
-  }, []);
+    const loadWorkspacesFromLocalStorage = () => {
+      try {
+        const storedWorkspaces =
+          JSON.parse(localStorage.getItem("workspaces")) || [];
+        console.log("Loaded workspaces:", storedWorkspaces);
+        setAvailableWorkspaces(storedWorkspaces);
 
-  const handleFileChange = (event) => {
-    setFile(event.target.files[0]);
-  };
+        // Tentukan nilai default workspace
+        let defaultWorkspace = "default";
+        if (slug && storedWorkspaces.some((ws) => ws.slug === slug)) {
+          defaultWorkspace = slug;
+        } else if (storedWorkspaces.length > 0) {
+          defaultWorkspace = storedWorkspaces[0].slug;
+        }
 
-  const handleSave = () => {
-    const newTask = {
-      title,
-      workspace: workspace.slug, // Simpan slug, bukan objek
-      priority,
-      status,
-      description,
-      startDate,
-      dueDate,
+        setTask((prev) => ({ ...prev, workspace: defaultWorkspace }));
+      } catch (error) {
+        console.error("Error loading workspaces from localStorage:", error);
+        toast.error("Error", {
+          description: "Failed to load workspaces. Using default.",
+        });
+        setAvailableWorkspaces([]);
+        setTask((prev) => ({ ...prev, workspace: "default" }));
+      }
     };
 
-    const storedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    localStorage.setItem("tasks", JSON.stringify([...storedTasks, newTask]));
+    loadWorkspacesFromLocalStorage();
+  }, [slug]);
 
-    if (onSave) {
-      onSave(newTask);
+  // Reset form saat sheet ditutup
+  useEffect(() => {
+    if (!open) handleReset();
+  }, [open, availableWorkspaces, slug]); // Tambahkan dependensi untuk memastikan reset sesuai data terbaru
+
+  const handleChange = (e) => {
+    setTask({ ...task, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setErrors({});
+
+    if (!task.title.trim()) {
+      setErrors({ title: "Task title is required" });
+      return;
     }
 
-    // Reset form setelah menyimpan
-    setTitle("");
-    setWorkspace(workspaces[0]);
-    setPriority("medium");
-    setStatus("todo");
-    setDescription("");
-    setStartDate("");
-    setDueDate("");
-    setFile(null);
+    if (!task.workspace) {
+      setErrors({ workspace: "Workspace is required" });
+      return;
+    }
 
-    onClose();
+    let workspaces = JSON.parse(localStorage.getItem("workspaces")) || [];
+    let workspaceIndex = workspaces.findIndex(
+      (ws) => ws.slug === task.workspace
+    );
+
+    if (workspaceIndex === -1) {
+      const workspaceName =
+        availableWorkspaces.find((ws) => ws.slug === task.workspace)?.name ||
+        task.workspace;
+      const newWorkspace = {
+        slug: task.workspace,
+        name: workspaceName,
+        tasks: [],
+      };
+      workspaces.push(newWorkspace);
+      workspaceIndex = workspaces.length - 1;
+      setAvailableWorkspaces(workspaces);
+      toast.info(`New workspace "${workspaceName}" created`);
+    }
+
+    if (!workspaces[workspaceIndex].tasks) {
+      workspaces[workspaceIndex].tasks = [];
+    }
+
+    const newTask = { id: Date.now(), ...task };
+    workspaces[workspaceIndex].tasks.push(newTask);
+
+    try {
+      localStorage.setItem("workspaces", JSON.stringify(workspaces));
+      if (typeof onAddTask === "function") {
+        onAddTask(newTask);
+      }
+      toast.success("Task added successfully");
+      setOpen(false);
+    } catch (error) {
+      console.error("Error saving to localStorage:", error);
+      toast.error("Error", {
+        description: "Failed to save task. Please try again.",
+      });
+    }
+  };
+
+  const handleReset = () => {
+    let defaultWorkspace = "default";
+    if (slug && availableWorkspaces.some((ws) => ws.slug === slug)) {
+      defaultWorkspace = slug;
+    } else if (availableWorkspaces.length > 0) {
+      defaultWorkspace = availableWorkspaces[0].slug;
+    }
+
+    setTask({
+      title: "",
+      description: "",
+      deadline: "",
+      status: initialStatus || STATUS.TODO,
+      priority: PRIORITY.UNKNOWN,
+      workspace: defaultWorkspace,
+    });
+    setErrors({});
   };
 
   return (
-    <Sheet open={open} onOpenChange={onClose}>
+    <Sheet open={open} onOpenChange={setOpen}>
+      <SheetTrigger asChild>{trigger}</SheetTrigger>
       <SheetContent
         side="right"
-        className="w-full sm:max-w-2xl max-h-screen overflow-y-auto p-0 border-l"
+        className="w-full sm:w-3/4 md:w-1/2 lg:w-1/3 !max-w-full sm:!max-w-[75%] md:!max-w-[50%] lg:!max-w-[33%] rounded-l-2xl p-6 bg-gray-50 border-l shadow-xl"
       >
-        <div className="h-full flex flex-col p-8">
-          <SheetHeader className="text-left pb-6 mb-4 md:-ml-4">
-            <SheetTitle className="text-base font-semibold">Add Task</SheetTitle>
-            <p className="text-sm text-muted-foreground">Add new task</p>
-          </SheetHeader>
+        <SheetHeader className="mb-4 md:-ml-4">
+          <p className="text-sm text-gray-500">Add new task</p>
+        </SheetHeader>
 
-          <div className="space-y-6 flex-1 overflow-y-auto max-h-[70vh]">
-            {/* Title */}
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Title</label>
-              <Input
-                type="text"
-                placeholder="Enter title"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                className="w-full"
-              />
-            </div>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Title */}
+          <div>
+            <InputLabel
+              htmlFor="title"
+              value="Title"
+              className="text-sm font-medium"
+            />
+            <TextInput
+              id="title"
+              name="title"
+              type="text"
+              placeholder="Enter task title"
+              value={task.title}
+              onChange={handleChange}
+              autoFocus
+              className={`mt-1 w-full border rounded-lg px-3 py-2 focus:outline-none ${
+                errors.title
+                  ? "border-red-300"
+                  : "border-gray-300 focus:ring-blue-300"
+              }`}
+            />
+            {errors.title && <InputError message={errors.title} />}
+          </div>
 
-            {/* Workspace */}
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Workspace</label>
-              <Select
-                value={workspace.slug}
-                onValueChange={(val) => {
-                  const selectedWorkspace = workspaces.find(
-                    (w) => w.slug === val
-                  );
-                  if (selectedWorkspace) setWorkspace(selectedWorkspace);
-                }}
-              >
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Select a workspace">
-                    {workspace ? workspace.name : "Select a workspace"}
-                  </SelectValue>
-                </SelectTrigger>
-                <SelectContent>
-                  {workspaces.map((ws) => (
+          {/* Description */}
+          <div>
+            <InputLabel
+              htmlFor="description"
+              value="Description"
+              className="text-sm font-medium"
+            />
+            <TextInput
+              id="description"
+              name="description"
+              type="text"
+              placeholder="Enter task description"
+              value={task.description}
+              onChange={handleChange}
+              className="mt-1 w-full border rounded-lg px-3 py-2 resize-y"
+            />
+          </div>
+
+          {/* Workspace */}
+          <div>
+            <InputLabel
+              htmlFor="workspace"
+              value="Workspace"
+              className="text-sm font-medium"
+            />
+            <Select
+              value={task.workspace}
+              onValueChange={(value) => setTask({ ...task, workspace: value })}
+            >
+              <SelectTrigger className="mt-1 w-full border rounded-lg px-3 py-2">
+                <SelectValue placeholder="Select a workspace" />
+              </SelectTrigger>
+              <SelectContent>
+                {availableWorkspaces.length > 0 ? (
+                  availableWorkspaces.map((ws) => (
                     <SelectItem key={ws.id} value={ws.slug}>
                       {ws.name}
                     </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
+                  ))
+                ) : (
+                  <SelectItem value="default">
+                    Workspace not available
+                  </SelectItem>
+                )}
+              </SelectContent>
+            </Select>
+            {errors.workspace && <InputError message={errors.workspace} />}
+          </div>
 
-            {/* Priority */}
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Priority</label>
-              <Select value={priority} onValueChange={setPriority}>
-                <SelectTrigger className="w-full">
-                  <SelectValue>
-                    {priority.charAt(0).toUpperCase() + priority.slice(1)}
-                  </SelectValue>
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="low">Low</SelectItem>
-                  <SelectItem value="medium">Medium</SelectItem>
-                  <SelectItem value="high">High</SelectItem>
-                  <SelectItem value="urgent">Urgent</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
+          {/* Deadline */}
+          <div>
+            <InputLabel
+              htmlFor="deadline"
+              value="Deadline"
+              className="text-sm font-medium"
+            />
+            <TextInput
+              id="deadline"
+              name="deadline"
+              type="date"
+              value={task.deadline}
+              onChange={handleChange}
+              className="mt-1 w-full border rounded-lg px-3 py-2"
+            />
+          </div>
 
-            {/* Status */}
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Status</label>
-              <Select value={status} onValueChange={setStatus}>
-                <SelectTrigger className="w-full">
-                  <SelectValue>
-                    {status.charAt(0).toUpperCase() + status.slice(1)}
-                  </SelectValue>
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="todo">To Do</SelectItem>
-                  <SelectItem value="ongoing">Ongoing</SelectItem>
-                  <SelectItem value="done">Done</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
+          {/* Status */}
+          <div>
+            <InputLabel
+              htmlFor="status"
+              value="Status"
+              className="text-sm font-medium"
+            />
+            <Select
+              value={task.status}
+              onValueChange={(value) => setTask({ ...task, status: value })}
+            >
+              <SelectTrigger className="mt-1 w-full border rounded-lg px-3 py-2">
+                <SelectValue placeholder="Select status" />
+              </SelectTrigger>
+              <SelectContent>
+                {Object.values(STATUS).map((status) => (
+                  <SelectItem key={status} value={status}>
+                    {status}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
 
-            {/* Description */}
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Description</label>
-              <Textarea
-                placeholder="Enter description"
-                className="min-h-[150px] resize-none w-full"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-              />
-            </div>
-
-            {/* File Upload */}
-            <div className="space-y-2">
-              <label className="text-sm font-medium">File</label>
-              <div className="flex items-center border rounded-md px-3 py-2 bg-background hover:bg-accent/50 cursor-pointer w-full">
-                <Input
-                  type="file"
-                  className="hidden"
-                  id="file-upload"
-                  onChange={handleFileChange}
-                />
-                <label
-                  htmlFor="file-upload"
-                  className="flex items-center cursor-pointer w-full"
-                >
-                  <UploadIcon className="w-4 h-4 mr-2 text-muted-foreground" />
-                  <span className="text-muted-foreground">
-                    {file ? file.name : "Select attachment"}
-                  </span>
-                </label>
-              </div>
-            </div>
-
-            {/* Start Date & Due Date */}
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Start Date</label>
-              <Input
-                type="date"
-                value={startDate}
-                onChange={(e) => setStartDate(e.target.value)}
-                className="w-full"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Due Date</label>
-              <Input
-                type="date"
-                value={dueDate}
-                onChange={(e) => setDueDate(e.target.value)}
-                className="w-full"
-              />
-            </div>
+          {/* Priority */}
+          <div>
+            <InputLabel
+              htmlFor="priority"
+              value="Priority"
+              className="text-sm font-medium"
+            />
+            <Select
+              value={task.priority}
+              onValueChange={(value) => setTask({ ...task, priority: value })}
+            >
+              <SelectTrigger className="mt-1 w-full border rounded-lg px-3 py-2">
+                <SelectValue placeholder="Select priority" />
+              </SelectTrigger>
+              <SelectContent>
+                {Object.values(PRIORITY).map((priority) => (
+                  <SelectItem key={priority} value={priority}>
+                    {priority}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
 
           {/* Buttons */}
-          <div className="flex flex-col sm:flex-row justify-end gap-4 pt-8 w-full">
+          <div className="flex justify-end gap-3 mt-6">
             <Button
+              type="button"
               variant="outline"
-              onClick={onClose}
-              className="w-full sm:w-auto px-6 py-2 bg-gray-300 text-gray-700"
+              className="bg-gray-300 text-gray-700"
+              onClick={() => setOpen(false)}
             >
               Cancel
             </Button>
             <Button
-              onClick={handleSave}
+              type="submit"
               className="bg-blue-700 text-white font-semibold rounded-md hover:bg-blue-400"
             >
               Save
             </Button>
           </div>
-        </div>
+        </form>
       </SheetContent>
     </Sheet>
   );

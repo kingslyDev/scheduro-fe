@@ -2,7 +2,6 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import HeroSection from "../components/Landing/HeroSection";
 import AboutSection from "../components/Landing/AboutSection";
-import GradientDivider from "../components/Landing/GradientDivider";
 import FeatureSection from "@/components/Landing/FeatureSection";
 import Footer from "@/components/Landing/Footer";
 

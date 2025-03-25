@@ -1,7 +1,4 @@
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { CardTitle } from "@/components/ui/card";
-import { Pencil } from "lucide-react";
 
 const WorkspaceHeader = ({ workspace, completedTasks, totalTasks }) => {
   const [randomImage, setRandomImage] = useState("");
@@ -32,11 +29,13 @@ const WorkspaceHeader = ({ workspace, completedTasks, totalTasks }) => {
     <div className="relative w-full">
       {/* Cover Image */}
       <div className="w-full h-24 sm:h-32 md:h-40 lg:h-48 overflow-hidden flex items-center">
-        <img
-          className="w-full h-full object-cover"
-          src={workspace.cover || randomImage}
-          alt={workspace.name}
-        />
+        {(workspace.cover || randomImage) && (
+          <img
+            className="w-full h-full object-cover"
+            src={workspace.cover || randomImage}
+            alt={workspace.name}
+          />
+        )}
       </div>
 
       {/* Container Avatar + Nama Workspace */}

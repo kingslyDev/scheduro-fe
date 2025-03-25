@@ -1,4 +1,6 @@
-import { useState } from "react";
+"use client";
+
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -9,20 +11,78 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
-import { CalendarIcon, UploadIcon } from "lucide-react";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
+import { CalendarIcon, Save } from "lucide-react";
+import { STATUS } from "@/lib/utils"; // Impor STATUS dari utils.js
+import { toast } from "sonner"; // Impor toast untuk notifikasi
 
 const DetailTaskSidebar = ({ open, onClose, task, onSave }) => {
-  const [taskName, setTaskName] = useState(task?.title || "");
-  const [description, setDescription] = useState(task?.description || "");
-  const [status, setStatus] = useState(task?.status || "To Do");
-  const [startDate, setStartDate] = useState(task?.startDate || "");
-  const [dueDate, setDueDate] = useState(task?.dueDate || "");
-  const [file, setFile] = useState(null);
+  // Inisialisasi state dengan data dari task
+  const [taskName, setTaskName] = useState("");
+  const [description, setDescription] = useState("");
+  const [status, setStatus] = useState(STATUS.TODO);
+  const [deadline, setDeadline] = useState("");
 
+  // Sinkronkan state dengan prop task setiap kali task berubah
+  useEffect(() => {
+    if (task) {
+      setTaskName(task.title || "");
+      setDescription(task.description || "");
+      setStatus(task.status || STATUS.TODO);
+      setDeadline(
+        task.deadline ? new Date(task.deadline).toISOString().split("T")[0] : ""
+      );
+    } else {
+      // Reset state jika task tidak ada
+      setTaskName("");
+      setDescription("");
+      setStatus(STATUS.TODO);
+      setDeadline("");
+    }
+  }, [task]);
+
+  // Fungsi untuk menyimpan perubahan tugas
   const handleSave = () => {
-    onSave({ ...task, title: taskName, description, status, startDate, dueDate });
-    onClose();
+    try {
+      if (!task?.id) throw new Error("Task ID is missing");
+      if (!taskName.trim()) throw new Error("Title cannot be empty");
+
+      // Konversi deadline ke format ISO jika ada
+      let formattedDeadline = null;
+      if (deadline) {
+        const date = new Date(deadline);
+        if (isNaN(date.getTime())) throw new Error("Invalid deadline format");
+        formattedDeadline = date.toISOString();
+      }
+
+      // Buat objek tugas yang diperbarui
+      const updatedTask = {
+        ...task,
+        title: taskName,
+        description,
+        status,
+        deadline: formattedDeadline,
+      };
+
+      // Panggil onSave untuk memberi tahu parent tentang perubahan
+      if (onSave) {
+        onSave(updatedTask);
+      }
+      toast.success("Task updated", {
+        description: "Your task has been successfully updated.",
+      });
+      onClose();
+    } catch (error) {
+      console.error("Error saving task:", error);
+      toast.error("Error", {
+        description: error.message || "Failed to save task. Please try again.",
+      });
+    }
   };
 
   return (
@@ -33,64 +93,74 @@ const DetailTaskSidebar = ({ open, onClose, task, onSave }) => {
         </SheetHeader>
 
         <div className="space-y-6">
-          {/* File Display Section */}
-          <div className="border rounded-lg p-4 relative">
-            <img src="/flowchart-sample.png" alt="Task Attachment" className="w-full rounded-md" />
-            <label className="absolute bottom-2 right-2 text-blue-500 cursor-pointer flex items-center text-sm">
-              <UploadIcon className="w-4 h-4 mr-1" /> Edit File
-              <input type="file" className="hidden" onChange={(e) => setFile(e.target.files[0])} />
-            </label>
-          </div>
-
           {/* Task Name */}
           <div>
             <label className="text-sm font-medium">Task Name</label>
-            <Input type="text" className="w-full" value={taskName} onChange={(e) => setTaskName(e.target.value)} />
+            <Input
+              type="text"
+              className="w-full"
+              value={taskName}
+              onChange={(e) => setTaskName(e.target.value)}
+              disabled={!task} // Nonaktifkan jika tidak ada task
+            />
           </div>
 
           {/* Description */}
           <div>
             <label className="text-sm font-medium">Description</label>
-            <Textarea className="w-full" value={description} onChange={(e) => setDescription(e.target.value)} />
+            <Textarea
+              className="w-full"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              disabled={!task} // Nonaktifkan jika tidak ada task
+            />
           </div>
 
           {/* Status */}
           <div>
             <label className="text-sm font-medium">Status</label>
-            <Select value={status} onValueChange={setStatus}>
+            <Select value={status} onValueChange={setStatus} disabled={!task}>
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="Select status" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="To Do">To Do</SelectItem>
-                <SelectItem value="In Progress">In Progress</SelectItem>
-                <SelectItem value="Done">Done</SelectItem>
+                <SelectItem value={STATUS.TODO}>{STATUS.TODO}</SelectItem>
+                <SelectItem value={STATUS.INPROGRESS}>
+                  {STATUS.INPROGRESS}
+                </SelectItem>
+                <SelectItem value={STATUS.DONE}>{STATUS.DONE}</SelectItem>
               </SelectContent>
             </Select>
           </div>
 
-          {/* Dates */}
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="text-sm font-medium">Start Date</label>
-              <div className="relative">
-                <Input type="date" className="w-full" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
-                <CalendarIcon className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              </div>
-            </div>
-            <div>
-              <label className="text-sm font-medium">Due Date</label>
-              <div className="relative">
-                <Input type="date" className="w-full" value={dueDate} onChange={(e) => setDueDate(e.target.value)} />
-                <CalendarIcon className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              </div>
+          {/* Deadline */}
+          <div>
+            <label className="text-sm font-medium">Deadline</label>
+            <div className="relative">
+              <Input
+                type="date"
+                className="w-full"
+                value={deadline}
+                onChange={(e) => setDeadline(e.target.value)}
+                disabled={!task} // Nonaktifkan jika tidak ada task
+              />
+              <CalendarIcon className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             </div>
           </div>
 
           {/* Buttons */}
           <div className="flex justify-end gap-2 pt-4">
-            <Button variant="outline" onClick={onClose}>Cancel</Button>
-            <Button onClick={handleSave} className="bg-blue-500 text-white">Save</Button>
+            <Button variant="outline" onClick={onClose}>
+              Cancel
+            </Button>
+            <Button
+              onClick={handleSave}
+              className="bg-blue-500 text-white"
+              disabled={!task} // Nonaktifkan tombol Save jika tidak ada task
+            >
+              <Save className="mr-2 h-4 w-4" />
+              Save
+            </Button>
           </div>
         </div>
       </SheetContent>

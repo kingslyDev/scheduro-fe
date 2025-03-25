@@ -1,21 +1,37 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import InputError from '@/components/InputError';
-import InputLabel from '@/components/InputLabel';
-import TextInput from '@/components/TextInput';
-import { Button } from '@/components/ui/button';
-import { toast } from 'sonner';
-import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '@/components/ui/sheet';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { STATUS, PRIORITY } from '@/lib/utils';
+import { useState, useEffect } from "react";
+import InputError from "@/components/InputError";
+import InputLabel from "@/components/InputLabel";
+import TextInput from "@/components/TextInput";
+import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { STATUS, PRIORITY } from "@/lib/utils";
 
-export default function TaskFormSheet({ slug, onAddTask, initialStatus, trigger }) {
+export default function TaskFormSheet({
+  slug,
+  onAddTask,
+  initialStatus,
+  trigger,
+}) {
   const [open, setOpen] = useState(false);
   const [task, setTask] = useState({
-    title: '',
-    description: '',
-    deadline: '',
+    title: "",
+    description: "",
+    deadline: "",
     status: initialStatus || STATUS.TODO,
     priority: PRIORITY.UNKNOWN,
   });
@@ -34,40 +50,40 @@ export default function TaskFormSheet({ slug, onAddTask, initialStatus, trigger 
     setErrors({});
 
     if (!task.title.trim()) {
-      setErrors({ title: 'Task title is required' });
+      setErrors({ title: "Task title is required" });
       return;
     }
 
-    let workspaces = JSON.parse(localStorage.getItem('workspaces')) || [];
+    let workspaces = JSON.parse(localStorage.getItem("workspaces")) || [];
     let workspaceIndex = workspaces.findIndex((ws) => ws.slug === slug);
 
     if (workspaceIndex === -1) {
-      const newWorkspace = { slug, cards: [] };
+      const newWorkspace = { slug, tasks: [] };
       workspaces.push(newWorkspace);
       workspaceIndex = workspaces.length - 1;
-      toast.info('New workspace created');
+      toast.info("New workspace created");
     }
 
-    if (!workspaces[workspaceIndex].cards) {
-      workspaces[workspaceIndex].cards = [];
+    if (!workspaces[workspaceIndex].tasks) {
+      workspaces[workspaceIndex].tasks = [];
     }
 
     const newTask = { id: Date.now(), ...task };
-    workspaces[workspaceIndex].cards.push(newTask);
-    localStorage.setItem('workspaces', JSON.stringify(workspaces));
+    workspaces[workspaceIndex].tasks.push(newTask);
+    localStorage.setItem("workspaces", JSON.stringify(workspaces));
 
-    if (typeof onAddTask === 'function') {
+    if (typeof onAddTask === "function") {
       onAddTask(newTask);
     }
-    toast.success('Task added successfully');
+    toast.success("Task added successfully");
     setOpen(false);
   };
 
   const handleReset = () => {
     setTask({
-      title: '',
-      description: '',
-      deadline: '',
+      title: "",
+      description: "",
+      deadline: "",
       status: initialStatus || STATUS.TODO,
       priority: PRIORITY.UNKNOWN,
     });
@@ -77,14 +93,21 @@ export default function TaskFormSheet({ slug, onAddTask, initialStatus, trigger 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>{trigger}</SheetTrigger>
-      <SheetContent side="right" className="w-full sm:w-3/4 md:w-1/2 lg:w-1/3 !max-w-full sm:!max-w-[75%] md:!max-w-[50%] lg:!max-w-[33%] rounded-l-2xl p-6 bg-gray-50 border-l shadow-xl">
+      <SheetContent
+        side="right"
+        className="w-full sm:w-3/4 md:w-1/2 lg:w-1/3 !max-w-full sm:!max-w-[75%] md:!max-w-[50%] lg:!max-w-[33%] rounded-l-2xl p-6 bg-gray-50 border-l shadow-xl"
+      >
         <SheetHeader className="mb-4 md:-ml-4">
           <p className="text-sm text-gray-500">Add new task</p>
         </SheetHeader>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <InputLabel htmlFor="title" value="Title" className="text-sm font-medium" />
+            <InputLabel
+              htmlFor="title"
+              value="Title"
+              className="text-sm font-medium"
+            />
             <TextInput
               id="title"
               name="title"
@@ -93,52 +116,109 @@ export default function TaskFormSheet({ slug, onAddTask, initialStatus, trigger 
               value={task.title}
               onChange={handleChange}
               autoFocus
-              className={`mt-1 w-full border rounded-lg px-3 py-2 focus:outline-none ${errors.title ? 'border-red-500' : 'border-gray-300 focus:ring-blue-300'}`}
+              className={`mt-1 w-full border rounded-lg px-3 py-2 focus:outline-none ${
+                errors.title
+                  ? "border-red-500"
+                  : "border-gray-300 focus:ring-blue-300"
+              }`}
             />
             {errors.title && <InputError message={errors.title} />}
           </div>
 
           <div>
-            <InputLabel htmlFor="description" value="Description" className="text-sm font-medium" />
-            <TextInput id="description" name="description" type="text" placeholder="Enter task description" value={task.description} onChange={handleChange} className="mt-1 w-full border rounded-lg px-3 py-2" />
+            <InputLabel
+              htmlFor="description"
+              value="Description"
+              className="text-sm font-medium"
+            />
+            <TextInput
+              id="description"
+              name="description"
+              type="text"
+              placeholder="Enter task description"
+              value={task.description}
+              onChange={handleChange}
+              className="mt-1 w-full border rounded-lg px-3 py-2"
+            />
           </div>
 
           <div>
-            <InputLabel htmlFor="deadline" value="Deadline" className="text-sm font-medium" />
-            <TextInput id="deadline" name="deadline" type="date" value={task.deadline} onChange={handleChange} className="mt-1 w-full border rounded-lg px-3 py-2" />
+            <InputLabel
+              htmlFor="deadline"
+              value="Deadline"
+              className="text-sm font-medium"
+            />
+            <TextInput
+              id="deadline"
+              name="deadline"
+              type="date"
+              value={task.deadline}
+              onChange={handleChange}
+              className="mt-1 w-full border rounded-lg px-3 py-2"
+            />
           </div>
 
           <div>
-            <InputLabel htmlFor="status" value="Status" className="text-sm font-medium" />
-            <Select value={task.status} onValueChange={(value) => setTask({ ...task, status: value })}>
+            <InputLabel
+              htmlFor="status"
+              value="Status"
+              className="text-sm font-medium"
+            />
+            <Select
+              value={task.status}
+              onValueChange={(value) => setTask({ ...task, status: value })}
+            >
               <SelectTrigger className="mt-1 w-full border rounded-lg px-3 py-2">
                 <SelectValue placeholder="Select status" />
               </SelectTrigger>
               <SelectContent>
                 {Object.values(STATUS).map((status) => (
-                  <SelectItem key={status} value={status}>{status}</SelectItem>
+                  <SelectItem key={status} value={status}>
+                    {status}
+                  </SelectItem>
                 ))}
               </SelectContent>
             </Select>
           </div>
 
           <div>
-            <InputLabel htmlFor="priority" value="Priority" className="text-sm font-medium" />
-            <Select value={task.priority} onValueChange={(value) => setTask({ ...task, priority: value })}>
+            <InputLabel
+              htmlFor="priority"
+              value="Priority"
+              className="text-sm font-medium"
+            />
+            <Select
+              value={task.priority}
+              onValueChange={(value) => setTask({ ...task, priority: value })}
+            >
               <SelectTrigger className="mt-1 w-full border rounded-lg px-3 py-2">
                 <SelectValue placeholder="Select priority" />
               </SelectTrigger>
               <SelectContent>
                 {Object.values(PRIORITY).map((priority) => (
-                  <SelectItem key={priority} value={priority}>{priority}</SelectItem>
+                  <SelectItem key={priority} value={priority}>
+                    {priority}
+                  </SelectItem>
                 ))}
               </SelectContent>
             </Select>
           </div>
 
           <div className="flex justify-end gap-3 mt-6">
-            <Button type="button" variant="outline" className="bg-gray-300 text-gray-700" onClick={() => setOpen(false)}>Cancel</Button>
-            <Button type="submit" className="bg-blue-700 text-white font-semibold rounded-md hover:bg-blue-400">Save</Button>
+            <Button
+              type="button"
+              variant="outline"
+              className="bg-gray-300 text-gray-700"
+              onClick={() => setOpen(false)}
+            >
+              Cancel
+            </Button>
+            <Button
+              type="submit"
+              className="bg-blue-700 text-white font-semibold rounded-md hover:bg-blue-400"
+            >
+              Save
+            </Button>
           </div>
         </form>
       </SheetContent>

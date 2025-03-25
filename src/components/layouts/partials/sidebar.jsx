@@ -1,10 +1,28 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Sheet, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
 import CreateWorkspace from "@/components/workspace/CreateWorkspace";
+import {
+  Home,
+  CheckSquare,
+  Plus,
+  Settings,
+  LogOut,
+  ChevronRight,
+} from "lucide-react";
 
 export default function Sidebar({ url }) {
   const [auth, setAuth] = useState(null);
@@ -37,128 +55,181 @@ export default function Sidebar({ url }) {
     localStorage.setItem("workspaces", JSON.stringify(updatedWorkspaces));
   };
 
+  // Generate a color based on workspace name for consistent colors
+  const getWorkspaceColor = (name) => {
+    const colors = ["bg-blue-300 text-blue-800"];
+
+    const hash = name
+      .split("")
+      .reduce((acc, char) => acc + char.charCodeAt(0), 0);
+    return colors[hash % colors.length];
+  };
+
   return (
-    <nav className="flex flex-col w-full bg-white overflow-y-auto">
-      <ul className="flex flex-col gap-y-8 pl-6">
-        {/* Navigation */}
-        <li className="mt-2">
-          <a
-            href="/"
-            className={cn(
-              url === "/" ? "text-black" : "text-foreground",
-              "group flex items-center gap-x-3 rounded-md p-3 text-xl font-extrabold leading-relaxed pl-1 mt-5"
-            )}
-          >
-            <img
-              src="https://res.cloudinary.com/dy8fe8tbe/image/upload/v1742279884/logo_ovq2n3.svg"
-              className="w-10 h-10"
-              alt="Scheduro Logo"
-            />
-            <span className="leading-none">Scheduro</span>
-          </a>
-        </li>
+    <div className="flex flex-col h-full bg-white border-r border-border">
+      <div className="flex items-center gap-x-3 p-4 border-b">
+        <a
+          href="/"
+          className="flex items-center gap-x-3 rounded-md text-xl font-extrabold"
+        >
+          <img
+            src="https://res.cloudinary.com/dy8fe8tbe/image/upload/v1742279884/logo_ovq2n3.svg"
+            className="w-8 h-8"
+            alt="Scheduro Logo"
+          />
+          <span className="leading-none bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+            Scheduro
+          </span>
+        </a>
+      </div>
 
-        <li>
-          <ul className="space-y-2">
-            <li>
-              <a
-                href="/dashboard"
-                className={cn(
-                  url?.startsWith("/dashboard")
-                    ? "bg-[#CCDAF1] text-black"
-                    : "text-foreground hover:bg-gray-100",
-                  "group flex gap-x-3 rounded-md p-3 text-sm font-semibold leading-relaxed"
-                )}
-              >
-                <img
-                  src="https://res.cloudinary.com/dy8fe8tbe/image/upload/v1742273460/icon-home_ks1yym.svg"
-                  className="w-6 h-6"
-                />
-                Dashboard
-              </a>
-            </li>
-            <li>
-              <a
-                href="/my-tasks"
-                className={cn(
-                  url?.startsWith("/my-tasks")
-                    ? "bg-[#CCDAF1] text-black"
-                    : "text-foreground hover:bg-gray-100",
-                  "group flex gap-x-3 rounded-md p-3 text-sm font-semibold leading-relaxed"
-                )}
-              >
-                <img
-                  src="https://res.cloudinary.com/dy8fe8tbe/image/upload/v1742270944/tasks_dic2lo.svg"
-                  className="w-6 h-6"
-                />
-                My Tasks
-              </a>
-            </li>
-            <li>
-              <button
-                onClick={handleLogout}
-                className="group flex w-full gap-x-3 rounded-md p-3 text-sm font-semibold leading-relaxed text-foreground hover:bg-gray-100"
-              >
-                <img
-                  src="https://res.cloudinary.com/dy8fe8tbe/image/upload/v1742270927/logout_jbrths.svg"
-                  className="w-6 h-6"
-                />
-                Logout
-              </button>
-            </li>
-          </ul>
-        </li>
-
-        {/* Workspaces Section */}
-        <li>
-          <div className="py-3 flex items-center justify-between">
-            <div className="py-2 text-sm font-bold leading-relaxed text-foreground">
-              Workspaces
-            </div>
-            <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
-              <SheetTrigger asChild></SheetTrigger>
-              <CreateWorkspace
-                onClose={() => setIsSheetOpen(false)}
-                onWorkspaceAdded={handleWorkspaceAdded}
-              />
-            </Sheet>
-          </div>
-
-          {/* Workspace List */}
-          <ul className="mt-2 space-y-2">
-            {workspaces.map((workspace) => (
-              <li key={workspace.slug}>
+      <ScrollArea className="flex-1 px-3 py-2">
+        <nav className="space-y-6">
+          {/* Main Navigation */}
+          <div>
+            <h3 className="text-xs font-medium text-muted-foreground mb-2 px-2">
+              NAVIGATION
+            </h3>
+            <ul className="space-y-1">
+              <li>
                 <a
-                  href={`/workspaces/${workspace.slug}`}
-                  className="group flex w-full items-center justify-between rounded-md p-3 text-sm font-semibold leading-relaxed text-foreground hover:bg-gray-100"
+                  href="/dashboard"
+                  className={cn(
+                    "group flex items-center gap-x-3 rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                    url?.startsWith("/dashboard")
+                      ? "bg-[#CCDAF1] text-blue-800"
+                      : "text-muted-foreground hover:bg-slate-100 hover:text-foreground"
+                  )}
                 >
-                  <div className="flex items-center gap-3">
-                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border bg-white text-[0.625rem] font-medium border-foreground text-foreground">
-                      {workspace.name?.charAt(0) || "W"}
-                    </span>
-                    <span className="truncate">{workspace.name}</span>
-                  </div>
+                  <Home className="h-5 w-5" />
+                  <span>Dashboard</span>
+                  {url?.startsWith("/dashboard") && (
+                    <div className="ml-auto h-1.5 w-1.5 rounded-full bg-blue-600"></div>
+                  )}
                 </a>
               </li>
-            ))}
-          </ul>
-        </li>
+              <li>
+                <a
+                  href="/my-tasks"
+                  className={cn(
+                    "group flex items-center gap-x-3 rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                    url?.startsWith("/my-tasks")
+                      ? "bg-[#CCDAF1] text-blue-800"
+                      : "text-muted-foreground hover:bg-slate-100 hover:text-foreground"
+                  )}
+                >
+                  <CheckSquare className="h-5 w-5" />
+                  <span>My Tasks</span>
+                </a>
+              </li>
+            </ul>
+          </div>
 
-        {/* User Profile */}
-        <li className="mt-auto">
-          {auth && (
-            <a
-              href="#"
-              className="flex items-center gap-4 px-6 py-3 text-sm font-semibold leading-relaxed text-foreground hover:bg-gray-100"
-            >
-              <Avatar>
-                <AvatarFallback>{auth.name?.charAt(0) || "U"}</AvatarFallback>
-              </Avatar>
-              <span>{auth.name || "User"}</span>
-            </a>
-          )}
-        </li>
-      </ul>
-    </nav>
+          {/* Workspaces Section */}
+          <div>
+            {console.log("Rendering Workspaces Section")} {/* Debugging */}
+            <div className="flex items-center justify-between px-2 mb-2">
+              <h3 className="text-xs font-medium text-muted-foreground">
+                WORKSPACES
+              </h3>
+              <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
+                <SheetTrigger asChild></SheetTrigger>
+                <CreateWorkspace
+                  onClose={() => setIsSheetOpen(false)}
+                  onWorkspaceAdded={handleWorkspaceAdded}
+                />
+              </Sheet>
+            </div>
+            {/* Workspace List */}
+            <ul className="space-y-1">
+              {workspaces.map((workspace) => (
+                <li key={workspace.slug}>
+                  <a
+                    href={`/workspaces/${workspace.slug}`}
+                    className={cn(
+                      "group flex items-center justify-between rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                      url?.includes(`/workspaces/${workspace.slug}`)
+                        ? "bg-[#CCDAF1] text-blue-800"
+                        : "text-muted-foreground hover:bg-slate-100 hover:text-foreground"
+                    )}
+                  >
+                    <div className="flex items-center gap-3 min-w-0">
+                      <span
+                        className={cn(
+                          "flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-[0.625rem] font-medium",
+                          getWorkspaceColor(workspace.name)
+                        )}
+                      >
+                        {workspace.name?.charAt(0) || "W"}
+                      </span>
+                      <span className="truncate">{workspace.name}</span>
+                    </div>
+                    <ChevronRight className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </nav>
+      </ScrollArea>
+
+      {/* User Profile */}
+      {auth && (
+        <>
+          <Separator />
+          <div className="p-3">
+            <div className="flex items-center justify-between rounded-md p-2 hover:bg-slate-100 transition-colors">
+              <div className="flex items-center gap-3 min-w-0">
+                <Avatar>
+                  <AvatarFallback className="bg-blue-100 text-blue-800">
+                    {auth.name?.charAt(0) || "U"}
+                  </AvatarFallback>
+                  {auth.avatar && <AvatarImage src={auth.avatar} />}
+                </Avatar>
+                <div className="flex flex-col min-w-0">
+                  <span className="font-medium truncate">
+                    {auth.name || "User"}
+                  </span>
+                  <span className="text-xs text-muted-foreground truncate">
+                    {auth.email || "user@example.com"}
+                  </span>
+                </div>
+              </div>
+              <div className="flex gap-1">
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button variant="ghost" size="icon" className="h-8 w-8">
+                        <Settings className="h-4 w-4 text-muted-foreground" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Settings</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-8 w-8"
+                        onClick={handleLogout}
+                      >
+                        <LogOut className="h-4 w-4 text-muted-foreground" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Logout</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+    </div>
   );
 }
