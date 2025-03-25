@@ -32,26 +32,26 @@ const TaskTable = ({ tasks, onTaskUpdate }) => {
   };
 
   return (
-    <div className="overflow-x-auto p-4">
-      <table className="w-full min-w-[800px] table-auto border border-gray-200 rounded-lg shadow-sm">
+    <div className="overflow-x-auto p-4 bg-white rounded-lg">
+      <table className="w-full min-w-[800px] table-auto border border-gray-200 rounded-lg shadow-sm bg-white">
         <thead>
           <tr className="bg-[#E6EEFF] text-gray-700">
-            <th className="text-left py-4 px-6 font-medium text-sm uppercase tracking-wider">
+            <th className="text-left py-4 px-6 font-medium text-sm tracking-wider">
               Title
             </th>
-            <th className="text-left py-4 px-6 font-medium text-sm uppercase tracking-wider">
+            <th className="text-left py-4 px-6 font-medium text-sm tracking-wider">
               Description
             </th>
-            <th className="text-center py-4 px-6 font-medium text-sm uppercase tracking-wider">
+            <th className="text-center py-4 px-6 font-medium text-sm tracking-wider">
               Status
             </th>
-            <th className="text-left py-4 px-6 font-medium text-sm uppercase tracking-wider">
+            <th className="text-left py-4 px-6 font-medium text-sm tracking-wider">
               Deadline
             </th>
-            <th className="text-left py-4 px-6 font-medium text-sm uppercase tracking-wider">
+            <th className="text-left py-4 px-6 font-medium text-sm tracking-wider">
               Workspace
             </th>
-            <th className="text-left py-4 px-6 font-medium text-sm uppercase tracking-wider">
+            <th className="text-left py-4 px-7   font-medium text-sm tracking-wider">
               Priority
             </th>
           </tr>

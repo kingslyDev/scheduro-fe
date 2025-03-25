@@ -92,7 +92,7 @@ const DetailTaskSidebar = ({ open, onClose, task, onSave }) => {
           <SheetTitle className="text-lg font-semibold">Task Detail</SheetTitle>
         </SheetHeader>
 
-        <div className="space-y-6">
+        <div className="space-y-4">
           {/* Task Name */}
           <div>
             <label className="text-sm font-medium">Task Name</label>

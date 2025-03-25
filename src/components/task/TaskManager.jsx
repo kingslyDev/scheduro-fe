@@ -148,7 +148,7 @@ const TaskManager = () => {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-6">
                   <Select value={sort} onValueChange={setSort}>
                     <SelectTrigger className="w-full md:w-40 bg-[#E6EEFF] shadow-sm border-0">
                       <SelectValue placeholder="Sort by" />
