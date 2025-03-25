@@ -30,13 +30,6 @@ const Navbar = ({ className }) => {
 
       {/* Mobile Try it now button and Menu */}
       <div className="flex items-center gap-3 md:hidden">
-        {/* Mobile Try it now button */}
-        <Link href="/dashboard" passHref className="cursor-pointer">
-          <Button className="bg-[#6387CE] text-white px-3 py-2 rounded-lg shadow-md hover:bg-[#4058A4] text-sm">
-            Try it now
-          </Button>
-        </Link>
-
         {/* Mobile Menu Button */}
         <button
           className="md:hidden flex items-center p-2"
@@ -139,7 +132,7 @@ const Navbar = ({ className }) => {
 
         <div className="ml-8 mr-20">
           <Link href="/dashboard" passHref>
-            <Button className="bg-[#6387CE] text-white px-6 py-6 rounded-lg shadow-md hover:bg-[#4058A4]">
+            <Button className="bg-[#6387CE] text-white px-6 py-6 rounded-lg shadow-md hover:bg-[#4058A4] cursor-pointer">
               <span className="text-base font-medium">Try it now</span>
             </Button>
           </Link>
