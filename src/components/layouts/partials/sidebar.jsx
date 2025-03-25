@@ -118,7 +118,7 @@ export default function Sidebar({ url }) {
                       : "text-muted-foreground hover:bg-slate-100 hover:text-foreground"
                   )}
                 >
-                  <CheckSquare className="h-5 w-5" />
+                  <img src="https://res.cloudinary.com/dy8fe8tbe/image/upload/v1742270944/tasks_dic2lo.svg" alt="My Tasks" className="h-5 w-5" />
                   <span>My Tasks</span>
                 </a>
               </li>

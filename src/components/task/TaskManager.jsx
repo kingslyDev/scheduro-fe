@@ -144,7 +144,7 @@ const TaskManager = () => {
               <>
                 <Input
                   placeholder="Search by title..."
-                  className="bg-[#E6EEFF] border-0 h-10 w-full md:w-60 pl-3 shadow-sm"
+                  className="w-full md:w-65 bg-[#E6EEFF] shadow-sm border-0"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />

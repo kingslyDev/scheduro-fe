@@ -345,11 +345,10 @@ const TaskCard = React.memo(
               <div className="flex items-center justify-between border-t border-dashed border-muted/40 pt-1.5 mt-1">
                 <div className="flex items-center gap-1">
                   <div
-                    className={`flex items-center text-[10px] ${
-                      deadline && new Date(deadline) < new Date()
-                        ? "bg-gray-200 text-gray-900"
-                        : "bg-gray-300 text-gray-900"
-                    } px-2 py-1 rounded-full`}
+                    className={`flex items-center text-[10px] ${deadline && new Date(deadline) < new Date()
+                      ? "bg-gray-200 text-gray-900"
+                      : "bg-gray-300 text-gray-900"
+                      } px-2 py-1 rounded-full`}
                   >
                     <Clock className="h-3 w-3 mr-1" />
                     <span className="font-medium">{formattedTime}</span>
@@ -444,8 +443,8 @@ const TaskCard = React.memo(
                     value={
                       editedTask.deadline
                         ? new Date(editedTask.deadline)
-                            .toISOString()
-                            .split("T")[0]
+                          .toISOString()
+                          .split("T")[0]
                         : ""
                     }
                     onChange={handleInputChange}
@@ -455,12 +454,16 @@ const TaskCard = React.memo(
             )}
 
             <DialogFooter>
-              <Button variant="outline" onClick={handleCloseDialog}>
+              <Button variant="outline" onClick={handleCloseDialog}
+                className="bg-gray-300 text-gray-700"
+              >
                 Cancel
               </Button>
-              <Button onClick={handleSaveTask}>
-                <Save className="mr-2 h-4 w-4" />
-                Save Changes
+              <Button
+                onClick={handleSaveTask}
+                className="bg-blue-700 text-white font-semibold rounded-md hover:bg-blue-400"
+              >
+                Save
               </Button>
             </DialogFooter>
           </DialogContent>
@@ -485,8 +488,11 @@ const TaskCard = React.memo(
               >
                 Cancel
               </Button>
-              <Button variant="destructive" onClick={handleDeleteTask}>
-                <Trash2 className="mr-2 h-4 w-4" />
+              <Button
+                variant="destructive"
+                onClick={handleDeleteTask}
+                className="bg-red-600 text-white font-semibold rounded-md hover:bg-red-400 transition duration-200"
+              >
                 Delete
               </Button>
             </DialogFooter>

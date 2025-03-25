@@ -87,9 +87,9 @@ const DetailTaskSidebar = ({ open, onClose, task, onSave }) => {
 
   return (
     <Sheet open={open} onOpenChange={onClose}>
-      <SheetContent side="right" className="w-full sm:max-w-2xl p-8 border-l">
-        <SheetHeader className="text-left pb-6">
-          <SheetTitle className="text-xl font-bold">Task Detail</SheetTitle>
+      <SheetContent side="right" className="w-full sm:max-w-2xl p-8 border-l max-w-lg mx-auto">
+        <SheetHeader className="text-left pb-6 md:px-0">
+          <SheetTitle className="text-lg font-semibold">Task Detail</SheetTitle>
         </SheetHeader>
 
         <div className="space-y-6">
@@ -144,7 +144,6 @@ const DetailTaskSidebar = ({ open, onClose, task, onSave }) => {
                 onChange={(e) => setDeadline(e.target.value)}
                 disabled={!task} // Nonaktifkan jika tidak ada task
               />
-              <CalendarIcon className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             </div>
           </div>
 
@@ -155,10 +154,9 @@ const DetailTaskSidebar = ({ open, onClose, task, onSave }) => {
             </Button>
             <Button
               onClick={handleSave}
-              className="bg-blue-500 text-white"
+              className="bg-blue-700 text-white font-semibold rounded-md hover:bg-blue-400"
               disabled={!task} // Nonaktifkan tombol Save jika tidak ada task
             >
-              <Save className="mr-2 h-4 w-4" />
               Save
             </Button>
           </div>
