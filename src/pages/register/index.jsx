@@ -67,10 +67,12 @@ const Register = () => {
 
   return (
     <div className="min-h-screen grid grid-cols-1 md:grid-cols-2">
-      {/* LEFT: Form Section */}
-      <div className="flex flex-col justify-center px-10 py-16">
+      {/* LEFT: Form */}
+      <div className="flex items-center justify-center p-8">
         <div className="w-full max-w-md mx-auto">
-          <h2 className="text-2xl font-bold text-[#6387CE] mb-8 text-center">Create an account</h2>
+          <h2 className="text-3xl font-bold text-[#6387CE] mb-8 text-center">
+            Start Your Journey !
+          </h2>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Username */}
@@ -82,8 +84,11 @@ const Register = () => {
                 placeholder="Enter username"
                 value={formData.username}
                 onChange={handleChange}
-                className={`w-full border rounded-md px-4 py-2 text-sm focus:outline-none ${errors.username ? "border-red-500" : "focus:ring-2 focus:ring-[#6387CE]"
-                  }`}
+                className={`w-full border rounded-md px-4 py-2 text-sm focus:outline-none ${
+                  errors.username
+                    ? "border-red-500"
+                    : "focus:ring-2 focus:ring-[#6387CE]"
+                }`}
               />
               {errors.username && (
                 <p className="text-sm text-red-500 mt-1">{errors.username}</p>
@@ -99,8 +104,11 @@ const Register = () => {
                 placeholder="example@gmail.com"
                 value={formData.email}
                 onChange={handleChange}
-                className={`w-full border rounded-md px-4 py-2 text-sm focus:outline-none ${errors.email ? "border-red-500" : "focus:ring-2 focus:ring-[#6387CE]"
-                  }`}
+                className={`w-full border rounded-md px-4 py-2 text-sm focus:outline-none ${
+                  errors.email
+                    ? "border-red-500"
+                    : "focus:ring-2 focus:ring-[#6387CE]"
+                }`}
               />
               {errors.email && (
                 <p className="text-sm text-red-500 mt-1">{errors.email}</p>
@@ -116,8 +124,11 @@ const Register = () => {
                 placeholder="Enter phone number"
                 value={formData.phone}
                 onChange={handleChange}
-                className={`w-full border rounded-md px-4 py-2 text-sm focus:outline-none ${errors.phone ? "border-red-500" : "focus:ring-2 focus:ring-[#6387CE]"
-                  }`}
+                className={`w-full border rounded-md px-4 py-2 text-sm focus:outline-none ${
+                  errors.phone
+                    ? "border-red-500"
+                    : "focus:ring-2 focus:ring-[#6387CE]"
+                }`}
               />
               {errors.phone && (
                 <p className="text-sm text-red-500 mt-1">{errors.phone}</p>
@@ -133,8 +144,11 @@ const Register = () => {
                 placeholder="At least 8 characters"
                 value={formData.password}
                 onChange={handleChange}
-                className={`w-full border rounded-md px-4 py-2 text-sm focus:outline-none ${errors.password ? "border-red-500" : "focus:ring-2 focus:ring-[#6387CE]"
-                  }`}
+                className={`w-full border rounded-md px-4 py-2 text-sm focus:outline-none ${
+                  errors.password
+                    ? "border-red-500"
+                    : "focus:ring-2 focus:ring-[#6387CE]"
+                }`}
               />
               <div
                 className="absolute top-9 right-3 cursor-pointer text-gray-500"
@@ -149,15 +163,20 @@ const Register = () => {
 
             {/* Confirm Password */}
             <div className="relative mt-4">
-              <label className="block font-semibold mb-1">Confirm Password</label>
+              <label className="block font-semibold mb-1">
+                Confirm Password
+              </label>
               <input
                 type={showConfirmPassword ? "text" : "password"}
                 name="confirmPassword"
                 placeholder="Enter confirm password"
                 value={formData.confirmPassword}
                 onChange={handleChange}
-                className={`w-full border rounded-md px-4 py-2 text-sm focus:outline-none ${errors.confirmPassword ? "border-red-500" : "focus:ring-2 focus:ring-[#6387CE]"
-                  }`}
+                className={`w-full border rounded-md px-4 py-2 text-sm focus:outline-none ${
+                  errors.confirmPassword
+                    ? "border-red-500"
+                    : "focus:ring-2 focus:ring-[#6387CE]"
+                }`}
               />
               <div
                 className="absolute top-9 right-3 cursor-pointer text-gray-500"
@@ -166,7 +185,9 @@ const Register = () => {
                 {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </div>
               {errors.confirmPassword && (
-                <p className="text-sm text-red-500 mt-1">{errors.confirmPassword}</p>
+                <p className="text-sm text-red-500 mt-1">
+                  {errors.confirmPassword}
+                </p>
               )}
             </div>
 
@@ -191,7 +212,9 @@ const Register = () => {
                   </Link>
                 </label>
               </div>
-              {errors.terms && <p className="text-red-500 text-sm">{errors.terms}</p>}
+              {errors.terms && (
+                <p className="text-red-500 text-sm">{errors.terms}</p>
+              )}
             </div>
 
             {/* Submit Button */}
@@ -204,7 +227,10 @@ const Register = () => {
 
             <p className="text-center text-sm mt-4">
               Already have an account?{" "}
-              <a href="/login" className="text-[#6387CE] font-medium hover:underline">
+              <a
+                href="/login"
+                className="text-[#6387CE] font-medium hover:underline"
+              >
                 Login
               </a>
             </p>
@@ -213,31 +239,16 @@ const Register = () => {
       </div>
 
       {/* RIGHT: Illustration Section */}
-      <div
-        className="hidden md:flex flex-col justify-center items-center relative w-full min-h-screen h-full ml-8"
-        style={{
-          backgroundImage:
-            "url('https://res.cloudinary.com/dy8fe8tbe/image/upload/v1745079384/background_kajdxm.png')",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <div className="text-center px-8 z-10">
-          <h1 className="text-xl md:text-xl font-bold text-[#333333] mb-4">
-            Too Busy? Just <span className="text-[#6387CE]">Scheduro</span> It!
-          </h1>
-          <p className="text-[#333333] text-base md:text-lg mb-6">
-            Register now & manage your time and tasks with ease!
-          </p>
-          <Image
-            src="https://res.cloudinary.com/dy8fe8tbe/image/upload/v1744596970/register_jioycx.svg"
-            alt="Register Illustration"
-            width={500}
-            height={500}
-            className="mx-auto object-contain"
-          />
-        </div>
+      <div className="hidden md:block h-screen w-full m-0 p-0 overflow-hidden">
+        <div
+          className="absolute right-0 bottom-0 h-full w-1/2"
+          style={{
+            backgroundImage: "url('/images/register.png')",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "contain",
+            backgroundPosition: "right bottom",
+          }}
+        />
       </div>
     </div>
   );
