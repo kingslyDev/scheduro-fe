@@ -51,7 +51,7 @@ const TaskTable = ({ tasks, onTaskUpdate }) => {
             <th className="text-left py-4 px-6 font-medium text-sm tracking-wider">
               Workspace
             </th>
-            <th className="text-left py-4 px-7   font-medium text-sm tracking-wider">
+            <th className="text-left py-4 px-7 font-medium text-sm tracking-wider">
               Priority
             </th>
           </tr>

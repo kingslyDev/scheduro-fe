@@ -64,9 +64,8 @@ const Navbar = ({ className }) => {
 
       {/* Mobile & Tablet Menu (This section now uses the toggle button) */}
       <div
-        className={`md:hidden ${
-          isMenuOpen ? "block" : "hidden"
-        } absolute top-full left-0 right-0 bg-white p-4 shadow-md z-50 border-t border-gray-100`}
+        className={`md:hidden ${isMenuOpen ? "block" : "hidden"
+          } absolute top-full left-0 right-0 bg-white p-4 shadow-md z-50 border-t border-gray-100`}
       >
         <ul className="flex flex-col space-y-4 mb-4">
           <li>
@@ -130,10 +129,15 @@ const Navbar = ({ className }) => {
           </ul>
         </div>
 
-        <div className="ml-8 mr-20">
-          <Link href="/dashboard" passHref>
-            <Button className="bg-[#6387CE] text-white px-6 py-6 rounded-lg shadow-md hover:bg-[#4058A4] cursor-pointer">
-              <span className="text-base font-medium">Try it now</span>
+        <div className="ml-8 mr-20 flex items-center space-x-4">
+          <Link href="/login" passHref>
+            <Button variant="outline" className="bg-[#6387CE] text-white px-10 py-6 rounded-full shadow-md hover:bg-[#4F6EC1] hover:text-white cursor-pointer">
+              <span className="text-base font-medium">Login</span>
+            </Button>
+          </Link>
+          <Link href="/register" passHref>
+            <Button variant="outline" className="border-[#6387CE] text-[#6387CE] bg-transparent px-10 py-6 rounded-full shadow-md hover:bg-[#4F6EC1] hover:text-white cursor-pointer">
+              <span className="text-base font-medium">Register</span>
             </Button>
           </Link>
         </div>
