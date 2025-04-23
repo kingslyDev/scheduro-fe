@@ -455,13 +455,13 @@ const TaskCard = React.memo(
 
             <DialogFooter>
               <Button variant="outline" onClick={handleCloseDialog}
-                className="bg-gray-300 text-gray-700"
+                className="bg-gray-300 text-gray-700 hover:bg-gray-200"
               >
                 Cancel
               </Button>
               <Button
                 onClick={handleSaveTask}
-                className="bg-blue-700 text-white font-semibold rounded-md hover:bg-blue-400"
+                className="bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-400"
               >
                 Save
               </Button>
@@ -484,6 +484,7 @@ const TaskCard = React.memo(
             <DialogFooter className="flex justify-center gap-4 sm:justify-center">
               <Button
                 variant="outline"
+                className="bg-gray-300 text-gray-700 hover:bg-gray-200"
                 onClick={() => setIsDeleteDialogOpen(false)}
               >
                 Cancel

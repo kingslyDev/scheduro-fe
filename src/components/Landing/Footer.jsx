@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="text-center mb-4">
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="bg-white px-4 py-2 rounded-md text-sm text-gray-600 shadow-sm hover:shadow-md transition-all"
+          className="bg-[#6387CE] text-white px-4 py-2 rounded-md text-sm hover:bg-[#4058A4] shadow-sm hover:shadow-md transition-all"
         >
           Back to top ↑
         </button>
@@ -33,6 +33,9 @@ const Footer = () => {
         <div className="container mx-auto px-4 text-center">
           <p className="text-sm text-gray-700">
             © Copyright {new Date().getFullYear()} Scheduro. All Rights Reserved
+          </p>
+          <p className="text-sm text-gray-700">
+            📩 <a href="mailto:support@scheduro.com">support@scheduro.com</a>
           </p>
         </div>
       </footer>

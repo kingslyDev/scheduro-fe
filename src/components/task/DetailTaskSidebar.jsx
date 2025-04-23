@@ -88,8 +88,8 @@ const DetailTaskSidebar = ({ open, onClose, task, onSave }) => {
   return (
     <Sheet open={open} onOpenChange={onClose}>
       <SheetContent side="right" className="w-full sm:max-w-2xl p-8 border-l max-w-lg mx-auto">
-        <SheetHeader className="text-left pb-6 md:px-0">
-          <SheetTitle className="text-lg font-semibold">Task Detail</SheetTitle>
+        <SheetHeader className=" -mb-1 text-left pb-6 md:px-0">
+          <SheetTitle className="text-l font-semibold text-black">Task Detail</SheetTitle>
         </SheetHeader>
 
         <div className="space-y-4">
@@ -149,12 +149,12 @@ const DetailTaskSidebar = ({ open, onClose, task, onSave }) => {
 
           {/* Buttons */}
           <div className="flex justify-end gap-2 pt-4">
-            <Button variant="outline" onClick={onClose}>
+            <Button variant="outline" onClick={onClose} className="bg-gray-300 text-gray-700 hover:bg-gray-200"> 
               Cancel
             </Button>
             <Button
               onClick={handleSave}
-              className="bg-blue-700 text-white font-semibold rounded-md hover:bg-blue-400"
+              className="bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-400"
               disabled={!task} // Nonaktifkan tombol Save jika tidak ada task
             >
               Save

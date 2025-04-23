@@ -40,7 +40,7 @@ const AboutSection = () => {
   return (
     <section id="about" className="py-16 px-8 md:px-16 bg-gray-50">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-center text-[#6387CE] font-bold mb-10 text-xl">ABOUT</h2>
+        <h2 className="text-center text-[#6387CE] font-bold mb-10 text-lg">ABOUT</h2>
         <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-12">
           <div
             className="w-full md:w-1/2 flex justify-center overflow-hidden rounded-lg"

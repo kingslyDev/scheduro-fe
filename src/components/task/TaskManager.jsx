@@ -127,93 +127,91 @@ const TaskManager = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white p-4 md:p-6">
-      <main className="container mx-auto">
-        <div className="bg-[#F8FAFF] rounded-lg border border-gray-200 shadow-sm">
-          <div className="bg-white p-4 flex flex-wrap items-center gap-4 md:gap-6 rounded-t-lg">
-            {isLoading ? (
-              <>
-                <Skeleton className="h-10 w-full md:w-60 bg-[#E6EEFF]" />
-                <div className="flex items-center gap-2">
-                  <Skeleton className="h-10 w-full md:w-40 bg-[#E6EEFF]" />
-                  <Skeleton className="h-10 w-10 bg-[#E6EEFF]" />
-                </div>
-                <Skeleton className="h-10 w-full md:w-32 bg-[#4F74E8] ml-auto" />
-              </>
-            ) : (
-              <>
-                <Input
-                  placeholder="Search by title..."
-                  className="w-full md:w-65 bg-[#E6EEFF] shadow-sm border-0"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-                <div className="flex items-center gap-6">
-                  <Select value={sort} onValueChange={setSort}>
-                    <SelectTrigger className="w-full md:w-40 bg-[#E6EEFF] shadow-sm border-0">
-                      <SelectValue placeholder="Sort by" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="title">Title</SelectItem>
-                      <SelectItem value="deadline">Deadline</SelectItem>
-                      <SelectItem value="workspace">Workspace</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <Button
-                    variant="outline"
-                    className="bg-[#E6EEFF] border-0 shadow-sm p-2"
-                    onClick={() =>
-                      setSortOrder(sortOrder === "asc" ? "desc" : "asc")
-                    }
-                  >
-                    <ArrowUpDown className="w-4 h-4" />
-                  </Button>
-                </div>
-                <AddTaskSidebar
-                  trigger={
-                    <Button className="bg-[#4F74E8] text-white px-4 py-2 ml-auto hover:bg-[#3E5EB8] w-full md:w-auto">
-                      Create Task
-                    </Button>
-                  }
-                  onAddTask={handleAddTask}
-                />
-              </>
-            )}
-          </div>
+    <main className="container mx-auto">
+      <div className="bg-[#F8FAFF] rounded-lg border border-gray-200 shadow-sm">
+        <div className="bg-white p-4 flex flex-wrap items-center gap-4 md:gap-6 rounded-t-lg">
           {isLoading ? (
-            <div className="p-4">
-              {/* Skeleton untuk header tabel */}
-              <div className="grid grid-cols-5 gap-4 mb-4">
-                {Array(5)
-                  .fill(0)
-                  .map((_, index) => (
-                    <Skeleton key={index} className="h-6 w-full" />
-                  ))}
+            <>
+              <Skeleton className="h-10 w-full md:w-60 bg-[#E6EEFF]" />
+              <div className="flex items-center gap-2">
+                <Skeleton className="h-10 w-full md:w-40 bg-[#E6EEFF]" />
+                <Skeleton className="h-10 w-10 bg-[#E6EEFF]" />
               </div>
-              {/* Skeleton untuk baris tabel */}
-              <div className="space-y-4">
-                {Array(5)
-                  .fill(0)
-                  .map((_, index) => (
-                    <div
-                      key={index}
-                      className="grid grid-cols-5 gap-4 items-center"
-                    >
-                      <Skeleton className="h-8 w-full" />
-                      <Skeleton className="h-8 w-full" />
-                      <Skeleton className="h-8 w-full" />
-                      <Skeleton className="h-8 w-full" />
-                      <Skeleton className="h-8 w-full" />
-                    </div>
-                  ))}
-              </div>
-            </div>
+              <Skeleton className="h-10 w-full md:w-32 bg-[#4F74E8] ml-auto" />
+            </>
           ) : (
-            <TaskTable tasks={filteredTasks} onTaskUpdate={handleTaskUpdate} />
+            <>
+              <Input
+                placeholder="Search by title..."
+                className="w-full md:w-65 bg-[#E6EEFF] shadow-sm border-0"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+              <div className="flex items-center gap-6">
+                <Select value={sort} onValueChange={setSort}>
+                  <SelectTrigger className="w-full md:w-40 bg-[#E6EEFF] shadow-sm border-0">
+                    <SelectValue placeholder="Sort by" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="title">Title</SelectItem>
+                    <SelectItem value="deadline">Deadline</SelectItem>
+                    <SelectItem value="workspace">Workspace</SelectItem>
+                  </SelectContent>
+                </Select>
+                <Button
+                  variant="outline"
+                  className="bg-[#E6EEFF] border-0 shadow-sm p-2"
+                  onClick={() =>
+                    setSortOrder(sortOrder === "asc" ? "desc" : "asc")
+                  }
+                >
+                  <ArrowUpDown className="w-4 h-4" />
+                </Button>
+              </div>
+              <AddTaskSidebar
+                trigger={
+                  <Button className="bg-[#4F74E8] text-white px-4 py-2 ml-auto hover:bg-[#3E5EB8] w-full md:w-auto">
+                    Create Task
+                  </Button>
+                }
+                onAddTask={handleAddTask}
+              />
+            </>
           )}
         </div>
-      </main>
-    </div>
+        {isLoading ? (
+          <div className="p-4">
+            {/* Skeleton untuk header tabel */}
+            <div className="grid grid-cols-5 gap-4 mb-4">
+              {Array(5)
+                .fill(0)
+                .map((_, index) => (
+                  <Skeleton key={index} className="h-6 w-full" />
+                ))}
+            </div>
+            {/* Skeleton untuk baris tabel */}
+            <div className="space-y-4">
+              {Array(5)
+                .fill(0)
+                .map((_, index) => (
+                  <div
+                    key={index}
+                    className="grid grid-cols-5 gap-4 items-center"
+                  >
+                    <Skeleton className="h-8 w-full" />
+                    <Skeleton className="h-8 w-full" />
+                    <Skeleton className="h-8 w-full" />
+                    <Skeleton className="h-8 w-full" />
+                    <Skeleton className="h-8 w-full" />
+                  </div>
+                ))}
+            </div>
+          </div>
+        ) : (
+          <TaskTable tasks={filteredTasks} onTaskUpdate={handleTaskUpdate} />
+        )}
+      </div>
+    </main>
   );
 };
 
