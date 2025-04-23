@@ -246,50 +246,47 @@ const Dashboard = () => {
           </div>
 
           {/* Stats tasks */}
-          <div className="grid gap-2 grid-cols-[repeat(auto-fit,_minmax(180px,_1fr))]">
-  {(isLoading
-    ? Array(3).fill(0)
-    : [
-        {
-          title: "Workspace",
-          value: workspaces.length,
-          icon: "https://res.cloudinary.com/dy8fe8tbe/image/upload/v1742146070/workspaces_shxqcw.svg",
-        },
-        {
-          title: "My Tasks",
-          value: totalTasks,
-          icon: "https://res.cloudinary.com/dy8fe8tbe/image/upload/v1742146054/my-tasks_aoabbt.svg",
-        },
-        {
-          title: "Tasks Done",
-          value: tasksDone,
-          icon: "https://res.cloudinary.com/dy8fe8tbe/image/upload/v1742146010/my-tasks-done_cdnmvn.svg",
-        },
-      ]
-  ).map((stat, index) => (
-    <Card
-      key={index}
-      className="min-w-[180px] h-[88px] border-[#6387CE] flex items-center justify-start p-3"
-    >
-      <CardContent className="px-4 py-2 flex items-center gap-3 w-full">
-  <div className="w-10 h-10 flex items-center justify-center flex-shrink-0">
-    <img
-      src={stat.icon}
-      alt={stat.title}
-      className="max-w-full max-h-full object-contain"
-    />
-  </div>
-  <div className="flex flex-col justify-center text-left leading-tight">
-    <p className="text-sm font-medium truncate">{stat.title}</p>
-    <p className="text-base font-bold">{stat.value}</p>
-  </div>
-</CardContent>
-
-
-    </Card>
-  ))}
-</div>
-
+          <div className=" mb-8 grid gap-4 grid-cols-[repeat(auto-fit,_minmax(180px,_1fr))]">
+            {(isLoading
+              ? Array(3).fill(0)
+              : [
+                {
+                  title: "Workspace",
+                  value: workspaces.length,
+                  icon: "https://res.cloudinary.com/dy8fe8tbe/image/upload/v1742146070/workspaces_shxqcw.svg",
+                },
+                {
+                  title: "My Tasks",
+                  value: totalTasks,
+                  icon: "https://res.cloudinary.com/dy8fe8tbe/image/upload/v1742146054/my-tasks_aoabbt.svg",
+                },
+                {
+                  title: "My Tasks Done",
+                  value: tasksDone,
+                  icon: "https://res.cloudinary.com/dy8fe8tbe/image/upload/v1742146010/my-tasks-done_cdnmvn.svg",
+                },
+              ]
+            ).map((stat, index) => (
+              <Card
+                key={index}
+                className="min-w-[180px] h-[88px] border-[#6387CE] flex items-center justify-start p-3"
+              >
+                <CardContent className="px-4 py-2 flex items-center gap-3 w-full">
+                  <div className="w-10 h-10 flex items-center justify-center flex-shrink-0">
+                    <img
+                      src={stat.icon}
+                      alt={stat.title}
+                      className="max-w-full max-h-full object-contain"
+                    />
+                  </div>
+                  <div className="flex flex-col justify-center text-left leading-tight">
+                    <p className="text-sm font-medium truncate">{stat.title}</p>
+                    <p className="text-base font-bold">{stat.value}</p>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
 
           {/* Your To Do List Tampilan Mobile */}
           <div className="order-4 md:order-none md:hidden block">
