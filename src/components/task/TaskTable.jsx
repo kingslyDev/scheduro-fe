@@ -66,7 +66,7 @@ const TaskTable = ({ tasks, onTaskUpdate }) => {
                 }`}
               >
                 <td
-                  className="py-4 px-6 text-gray-800 cursor-pointer hover:text-blue-600 transition-colors duration-150"
+                  className="py-4 px-6 text-gray-800 cursor-pointer hover:text-blue-400 transition-colors duration-150"
                   onClick={() => openTaskDetails(task)}
                 >
                   {task.title}

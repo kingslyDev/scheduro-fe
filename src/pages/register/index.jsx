@@ -66,12 +66,12 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen grid grid-cols-1 md:grid-cols-2">
+    <div className="h-screen grid grid-cols-1 md:grid-cols-2">
       {/* LEFT: Form */}
       <div className="flex items-center justify-center p-8">
         <div className="w-full max-w-md mx-auto">
-          <h2 className="text-3xl font-bold text-[#6387CE] mb-8 text-center">
-            Start Your Journey !
+          <h2 className="text-2xl font-bold text-[#6387CE] mb-8 text-center">
+            Create an account
           </h2>
 
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -172,7 +172,7 @@ const Register = () => {
                 placeholder="Enter confirm password"
                 value={formData.confirmPassword}
                 onChange={handleChange}
-                className={`w-full border rounded-md px-4 py-2 text-sm focus:outline-none ${
+                className={`w-full border rounded-md px-4 py-2 mb-2 text-sm focus:outline-none ${
                   errors.confirmPassword
                     ? "border-red-500"
                     : "focus:ring-2 focus:ring-[#6387CE]"
@@ -247,6 +247,7 @@ const Register = () => {
             backgroundRepeat: "no-repeat",
             backgroundSize: "contain",
             backgroundPosition: "right bottom",
+            backgroundAttachment: "fixed",
           }}
         />
       </div>

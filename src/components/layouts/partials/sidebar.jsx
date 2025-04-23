@@ -57,12 +57,18 @@ export default function Sidebar({ url }) {
                 My Tasks
               </a>
             </li>
+            <li>
+              <a href="/logout" className={cn('group flex gap-x-3 rounded-md p-3 text-sm font-semibold leading-relaxed', url?.startsWith('/logout') ? 'bg-[#CCDAF1] text-blue-800' : 'text-foreground hover:bg-gray-100')}>
+                <img src="https://res.cloudinary.com/dy8fe8tbe/image/upload/v1742270927/logout_jbrths.svg" className="w-6 h-6" />
+                Logout
+              </a>
+            </li>
           </ul>
         </li>
 
         {/* Workspaces Section */}
         <li>
-          <div className="py-3 flex items-center justify-between">
+          <div className="py-0 flex items-center justify-between">
             <div className="py-2 text-sm font-semibold leading-relaxed text-foreground">WORKSPACES</div>
             <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
               <SheetTrigger asChild></SheetTrigger>

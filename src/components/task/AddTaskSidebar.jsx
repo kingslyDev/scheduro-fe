@@ -156,8 +156,8 @@ const AddTaskSidebar = ({ slug, onAddTask, initialStatus, trigger }) => {
         side="right"
         className="w-full sm:w-3/4 md:w-1/2 lg:w-1/3 !max-w-full sm:!max-w-[75%] md:!max-w-[50%] lg:!max-w-[33%] rounded-l-2xl p-6 bg-gray-50 border-l shadow-xl"
       >
-        <SheetHeader className="mb-4 md:-ml-4">
-          <p className="text-sm text-gray-500">Add new task</p>
+        <SheetHeader className="mb-1 md:-ml-4">
+          <p className="text-l font-semibold text-black">Add New Task</p>
         </SheetHeader>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -178,7 +178,7 @@ const AddTaskSidebar = ({ slug, onAddTask, initialStatus, trigger }) => {
               autoFocus
               className={`mt-1 w-full border rounded-lg px-3 py-2 focus:outline-none ${
                 errors.title
-                  ? "border-red-300"
+                  ? "border-red-500"
                   : "border-gray-300 focus:ring-blue-300"
               }`}
             />
@@ -300,18 +300,18 @@ const AddTaskSidebar = ({ slug, onAddTask, initialStatus, trigger }) => {
           </div>
 
           {/* Buttons */}
-          <div className="flex justify-end gap-3 mt-6">
+          <div className="flex justify-end gap-3 mt-8">
             <Button
               type="button"
               variant="outline"
-              className="bg-gray-300 text-gray-700"
+              className="bg-gray-300 text-gray-700 hover:bg-gray-200"
               onClick={() => setOpen(false)}
             >
               Cancel
             </Button>
             <Button
               type="submit"
-              className="bg-blue-700 text-white font-semibold rounded-md hover:bg-blue-400"
+              className="bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-400"
             >
               Save
             </Button>

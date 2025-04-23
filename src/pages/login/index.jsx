@@ -53,11 +53,14 @@ const Login = () => {
       </div>
 
       {/* RIGHT: Form */}
-      <div className="flex items-center justify-center p-8">
+      <div className="flex items-center justify-center p-8 mb-9">
         <div className="w-full max-w-md mx-auto">
-          <h2 className="text-3xl font-bold text-[#6387CE] mb-8 text-center">
-            Welcome Back !
+          <h2 className="text-2xl font-bold text-[#6387CE] mb-2 text-center">
+            Welcome Back
           </h2>
+          <p className="text-center mb-8 text-l">
+            Login Now & Start Managing Your Time and Tasks More Efficiently!
+          </p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Email */}
@@ -69,11 +72,10 @@ const Login = () => {
                 placeholder="example@email.com"
                 value={formData.email}
                 onChange={handleChange}
-                className={`w-full border rounded-md px-4 py-2 text-sm focus:outline-none ${
-                  errors.email
+                className={`w-full border rounded-md px-4 py-2 text-sm focus:outline-none ${errors.email
                     ? "border-red-500"
                     : "focus:ring-2 focus:ring-[#6387CE]"
-                }`}
+                  }`}
               />
               {errors.email && (
                 <p className="text-sm text-red-500 mt-1">{errors.email}</p>
@@ -89,11 +91,10 @@ const Login = () => {
                 placeholder="At least 8 characters"
                 value={formData.password}
                 onChange={handleChange}
-                className={`w-full border rounded-md px-4 py-2 text-sm focus:outline-none ${
-                  errors.password
+                className={`w-full border rounded-md px-4 py-2 text-sm focus:outline-none ${errors.password
                     ? "border-red-500"
-                    : "focus:ring-2 focus:ring-[#6387CE]"
-                }`}
+                    : "focus:ring-2 focus:ring-[#6387CE] mb-7"
+                  }`}
               />
               <div
                 className="absolute top-9 right-3 cursor-pointer text-gray-500"
@@ -109,7 +110,7 @@ const Login = () => {
             {/* Login Button */}
             <button
               type="submit"
-              className="w-full bg-[#4F6EC1] text-white font-medium py-2 rounded-md mt-4 hover:bg-[#6387CE] transition"
+              className="w-40 bg-[#4F6EC1] text-white font-medium py-2 rounded-md mt-4 hover:bg-[#6387CE] transition mx-auto block"
             >
               Login
             </button>
