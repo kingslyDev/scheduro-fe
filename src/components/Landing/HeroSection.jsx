@@ -94,7 +94,7 @@ const HeroSection = () => {
         {isDesktop ? (
           <motion.button
             onClick={scrollToAbout}
-            className="bg-[#6387CE] text-white px-5 py-3 rounded-lg flex items-center shadow-md hover:bg-[#4058A4] mt-8 md:mt-12 mx-auto md:mx-0 transition-all duration-300 cursor-pointer"
+            className="bg-[#6387CE] text-white px-5 py-3 rounded-lg flex items-center shadow-md hover:bg-[#4058A4] mt-8 md:mt-12 mx-auto md:mx-0 transition-all duration-300 cursor-pointer ease-in-out transform hover:scale-105"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1, duration: 0.6 }}
@@ -117,7 +117,7 @@ const HeroSection = () => {
             <img
               src="https://res.cloudinary.com/dy8fe8tbe/image/upload/v1745657571/play_store_syrqco.png"
               alt="Get it on Google Play"
-              className="h-auto w-50 -mt-4 mx-auto -mb-24"
+              className="h-auto w-50 -mt-4 mx-auto -mb-24 cursor-pointer transition-all duration-300 ease-in-out transform hover:scale-105"
             />
           </motion.a>
         )}

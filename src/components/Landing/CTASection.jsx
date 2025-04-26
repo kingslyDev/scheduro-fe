@@ -44,7 +44,7 @@ const CTASection = () => {
                     {/* Content */}
                     <div className="relative z-10">
                         <h2 className="text-xl md:text-3xl font-bold mb-4">Ready to Boost Your Productivity?</h2>
-                        <p className="text-blue-50 text-sm md:text-lg mx-auto mb-8 text-justify md:text-center">
+                        <p className="text-blue-50 text-sm md:text-lg mx-auto mb-8 md:text-center">
                             Take control of your time, focus on priorities. Start your task management journey with Scheduro today!
                         </p>
                         <a
