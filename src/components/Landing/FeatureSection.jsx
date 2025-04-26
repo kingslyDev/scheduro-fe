@@ -29,16 +29,16 @@ const features = [
 
 export default function FeatureSection() {
   return (
-    <section id="feature" className="py-24 px-6">
+    <section id="feature" className="py-24 px-6 -mb-8">
       <div className="max-w-screen-lg mx-auto text-center -mt-12">
-        <h3 className="text-[#6387CE] text-lg mb-8 font-bold tracking-wider uppercase">
+        <h3 className="text-[#6387CE] text-lg mb-6 md:mb-8 font-bold tracking-wider uppercase">
           FEATURES
         </h3>
-        <h2 className="text-xl font-bold text-gray-900 mt-4 px-8 tracking-wider">
+        <h2 className="text-l md:text-xl font-bold text-gray-900 mt-4 px-4 tracking-wider mb-6">
           Everything You Need to Stay on Track
         </h2>
 
-        <p className="text-l text-gray-700 mt-4 px-6 max-w-2xl mx-auto tracking-wider">
+        <p className="text-sm md:text-base text-gray-700 px-6 -mb-4 md:mt-6 md:mb-10 max-w-2xl mx-auto tracking-wider">
           Manage your schedule with ease and stay ahead effortlessly!
         </p>
 

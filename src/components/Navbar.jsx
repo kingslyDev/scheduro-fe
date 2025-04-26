@@ -13,8 +13,11 @@ const Navbar = ({ className }) => {
     const about = document.getElementById("about");
     const feature = document.getElementById("feature");
     const faq = document.getElementById("faq");
+    const download = document.getElementById("download");
 
-    if (window.scrollY >= (faq?.offsetTop || 0) - 100) {
+    if (window.scrollY >= (download?.offsetTop || 0) - 100) {
+      setActiveSection("download");
+    } else if (window.scrollY >= (faq?.offsetTop || 0) - 100) {
       setActiveSection("faq");
     } else if (window.scrollY >= (feature?.offsetTop || 0) - 100) {
       setActiveSection("feature");
@@ -35,21 +38,20 @@ const Navbar = ({ className }) => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
-      setActiveSection(sectionId); // <-- update langsung active section saat klik
-      setIsMenuOpen(false); // kalau di mobile, tutup menu sekalian
+      setActiveSection(sectionId);
+      setIsMenuOpen(false);
     }
   };
 
   const linkClass = (section) =>
-    `font-poppins transition-colors ${activeSection === section
-      ? "text-[#6387CE] font-bold"
-      : "text-black hover:text-[#6387CE]"
+    `font-poppins transition-colors cursor-pointer ${
+      activeSection === section
+        ? "text-[#6387CE] font-bold"
+        : "text-black hover:text-[#6387CE]"
     }`;
 
   return (
-    <nav
-      className={`bg-gray-50 py-4 px-5 flex items-center justify-between mt-5 sticky top-0 z-50 ${className}`}
-    >
+    <nav className={`bg-gray-50 py-4 px-5 flex items-center justify-between mt-5 sticky top-0 z-50 ${className}`}>
       {/* Logo */}
       <div className="flex items-center ml-2 md:ml-[85px]">
         <Image
@@ -82,9 +84,7 @@ const Navbar = ({ className }) => {
       </div>
 
       {/* Mobile Menu */}
-      <div
-        className={`md:hidden ${isMenuOpen ? "block" : "hidden"} absolute top-full left-0 right-0 bg-white p-4 shadow-md z-50 border-t border-gray-100`}
-      >
+      <div className={`md:hidden ${isMenuOpen ? "block" : "hidden"} absolute top-full left-0 right-0 bg-white p-4 shadow-md z-50 border-t border-gray-100`}>
         <ul className="flex flex-col space-y-4 mb-4">
           <li>
             <Link href="/" className={linkClass("home")} onClick={() => setIsMenuOpen(false)}>Home</Link>
@@ -97,6 +97,9 @@ const Navbar = ({ className }) => {
           </li>
           <li>
             <button onClick={() => handleNavClick("faq")} className={linkClass("faq")}>FAQ</button>
+          </li>
+          <li>
+            <button onClick={() => handleNavClick("download")} className={linkClass("download")}>Download</button>
           </li>
         </ul>
         
@@ -124,19 +127,24 @@ const Navbar = ({ className }) => {
               </Link>
             </li>
             <li className="mx-6">
-              <Link href="#about" className={linkClass("about")}>
+              <button onClick={() => handleNavClick("about")} className={linkClass("about")}>
                 About
-              </Link>
+              </button>
             </li>
             <li className="mx-6">
-              <Link href="#feature" className={linkClass("feature")}>
+              <button onClick={() => handleNavClick("feature")} className={linkClass("feature")}>
                 Features
-              </Link>
+              </button>
             </li>
             <li className="mx-6">
-              <Link href="#faq" className={linkClass("faq")}>
+              <button onClick={() => handleNavClick("faq")} className={linkClass("faq")}>
                 FAQ
-              </Link>
+              </button>
+            </li>
+            <li className="mx-6">
+              <button onClick={() => handleNavClick("download")} className={linkClass("download")}>
+                Download
+              </button>
             </li>
           </ul>
         </div>

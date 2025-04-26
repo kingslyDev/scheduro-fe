@@ -11,9 +11,9 @@ const AccordionItem = ({ question, answer, isOpen, onClick }) => {
                 className="flex w-full justify-between py-4 text-left font-medium focus:outline-none cursor-pointer"
                 onClick={onClick}
             >
-                <span className="text-base md:text-l">{question}</span>
+                <span className="text-base md:text-l flex-1">{question}</span>
                 <svg
-                    className={`h-5 w-5 transform transition-transform ${isOpen ? "rotate-180" : ""}`}
+                    className={`h-5 w-5 transform transition-transform ${isOpen ? "rotate-180" : ""} md:mr-20`}
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -21,7 +21,7 @@ const AccordionItem = ({ question, answer, isOpen, onClick }) => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
             </button>
-            <div className={`overflow-hidden transition-all duration-300 ${isOpen ? "max-h-96 pb-4" : "max-h-0"}`}>
+            <div className={`overflow-hidden transition-all duration-300 ${isOpen ? "max-h-96 pb-4" : "max-h-0"} md:mr-28 mr-2`}>
                 <p className="text-gray-600 text-justify text-sm md:text-l">{answer}</p>
             </div>
         </div>
@@ -39,12 +39,12 @@ export default function FAQSection() {
         {
             question: "Apa itu Scheduro?",
             answer:
-                "Scheduro adalah aplikasi yang dirancang untuk membantumu mengelola tugas dan waktumu secara efektif. Dengan Scheduro, kamu memiliki kendali penuh untuk memprioritaskan dan fokus pada hal-hal yang benar-benar penting bagimu.",
+                "Scheduro adalah aplikasi yang dirancang untuk membantumu mengelola tugas dan waktumu secara efektif. Dengan Scheduro, Anda memiliki kendali penuh untuk memprioritaskan dan fokus pada hal-hal yang benar-benar penting bagimu.",
         },
         {
             question: "Bagaimana Scheduro membantu mengatur tugas?",
             answer:
-                "Scheduro menyediakan fitur untuk membuat daftar tugas, menetapkan tenggat waktu, memberikan prioritas, dan melacak progresnya. Dengan visibilitas yang jelas terhadap semua tugasmu, kamu dapat mengatur tugasmu dengan lebih terstruktur.",
+                "Scheduro menyediakan fitur untuk membuat daftar tugas, menetapkan tenggat waktu, memberikan prioritas, dan melacak progresnya. Dengan visibilitas yang jelas terhadap semua tugasmu, Anda dapat mengatur tugasmu dengan lebih terstruktur.",
         },
         {
             question: "Apa manfaat menggunakan Scheduro untuk manajemen waktu?",
@@ -64,8 +64,9 @@ export default function FAQSection() {
     ]
 
     return (
-        <section id="faq" className="mx-auto max-w-6xl px-6 py-32 text-center">
-            <h2 className="text-[#6387CE] text-3xl mb-4 md:mb-4 font-bold tracking-wider uppercase">FAQ</h2>
+        <section id="faq" className="w-full px-6 py-24 md:py-28 -mb-28 md:-mb-40 text-center bg-gradient-to-b from-[#E2EAF7] to-bg-gray-50">
+            <h2 className="text-[#6387CE] text-2xl mb-2 md:mb-4 font-bold tracking-wider p-4">FAQ's</h2>
+            <h2 className="text-center text-xl md:text-2xl font-bold text-gray-800 mb-2 md:mb-4">Questions? Look here.</h2>
 
             <div className="flex flex-col gap-4 md:gap-8 md:flex-row">
                 {/* Sticky Image Section */}
@@ -83,7 +84,7 @@ export default function FAQSection() {
                 </div>
 
                 {/* FAQ List Section */}
-                <div className="flex-1 -mt-4 md:mt-8 text-left md:-ml-24 md:mr-14">
+                <div className="flex-1 -mt-4 md:mt-8 text-left md:-ml-24 md:mr-20">
                     <div className="rounded-lg space-y-2 p-8 md:p-6">
                         {faqItems.map((item, index) => (
                             <AccordionItem

@@ -4,6 +4,7 @@ import HeroSection from "../components/Landing/HeroSection";
 import AboutSection from "../components/Landing/AboutSection";
 import FeatureSection from "@/components/Landing/FeatureSection";
 import FAQSection from "@/components/Landing/FAQSection";
+import CTASection from "@/components/Landing/CTASection";
 import Footer from "@/components/Landing/Footer";
 
 const ScheduloWebsite = () => {
@@ -20,6 +21,8 @@ const ScheduloWebsite = () => {
       <FeatureSection />
       {/* FAQ Section */}
       <FAQSection />
+      {/* CTA Section */}
+      <CTASection />
       {/* Footer Section */}
       <Footer />
     </div>

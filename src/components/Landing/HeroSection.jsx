@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Play, ArrowDown } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 import { useMediaQuery } from "@/hooks/useMobile";
 
 const HeroSection = () => {
@@ -16,7 +16,7 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="min-h-[90vh] flex flex-col md:flex-row justify-between items-center px-16 sm:px-10 md:px-20 py-16 overflow-hidden md:ml-6">
+    <section className="bg-gray-50 min-h-[90vh] flex flex-col md:flex-row justify-between items-center px-16 sm:px-10 md:px-20 py-16 overflow-hidden md:ml-6">
       <motion.img
         src="https://res.cloudinary.com/dwgwb5vro/image/upload/v1741287250/char_1_1_ugxw4a.png"
         alt="Character with productivity icons"
@@ -82,7 +82,7 @@ const HeroSection = () => {
         </motion.div>
 
         <motion.p
-          className="md:text-lg text-gray-700 mt-8 md:mt-8 mx-auto md:mx-0 md:max-w-lg text-justify text-l"
+          className="md:text-lg text-gray-700 mt-8 md:mt-8 mx-auto md:mx-0 md:max-w-lg text-center md:text-justify text-l"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8, duration: 0.8 }}
@@ -110,24 +110,15 @@ const HeroSection = () => {
         ) : (
           // Mobile
           <motion.a
-            href="https://play.google.com/store/apps/details?id=com.scheduro.app&pcampaignid=web_share"
+            href="https://play.google.com/store/apps/details?id=com.scheduro.app"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-[#6387CE] text-white px-6 py-3 rounded-lg flex items-center shadow-md hover:bg-[#4058A4] mt-8 md:mt-12 mx-auto md:mx-0 cursor-pointer transition-all duration-300 w-fit"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1, duration: 0.6 }}
-            whileHover={{
-              scale: 1.05,
-              boxShadow: "0 10px 25px -5px rgba(99, 135, 206, 0.4)",
-            }}
-            whileTap={{ scale: 0.98 }}
           >
-            <Play className="w-5 h-5 mr-2" />
-            <div className="text-left flex flex-col">
-              <span className="text-sm font-medium">GET IN ON</span>
-              <span className="text-normal font-semibold">Google Play</span>
-            </div>
+            <img
+              src="https://res.cloudinary.com/dy8fe8tbe/image/upload/v1745657571/play_store_syrqco.png"
+              alt="Get it on Google Play"
+              className="h-auto w-50 -mt-4 mx-auto -mb-24"
+            />
           </motion.a>
         )}
       </motion.div>
