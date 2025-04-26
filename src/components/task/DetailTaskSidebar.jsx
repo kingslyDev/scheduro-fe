@@ -87,8 +87,8 @@ const DetailTaskSidebar = ({ open, onClose, task, onSave }) => {
 
   return (
     <Sheet open={open} onOpenChange={onClose}>
-      <SheetContent side="right" className="w-full sm:max-w-2xl p-8 border-l max-w-lg mx-auto">
-        <SheetHeader className=" -mb-1 text-left pb-6 md:px-0">
+      <SheetContent side="right" className="w-full sm:max-w-2xl p-10 border-l max-w-lg mx-auto">
+        <SheetHeader className="-mt-3 -ml-4 md:-ml-0 text-left pb-6 md:px-0">
           <SheetTitle className="text-l font-semibold text-black">Task Detail</SheetTitle>
         </SheetHeader>
 
@@ -98,7 +98,7 @@ const DetailTaskSidebar = ({ open, onClose, task, onSave }) => {
             <label className="text-sm font-medium">Task Name</label>
             <Input
               type="text"
-              className="w-full"
+              className="w-full mt-3"
               value={taskName}
               onChange={(e) => setTaskName(e.target.value)}
               disabled={!task} // Nonaktifkan jika tidak ada task
@@ -109,7 +109,7 @@ const DetailTaskSidebar = ({ open, onClose, task, onSave }) => {
           <div>
             <label className="text-sm font-medium">Description</label>
             <Textarea
-              className="w-full"
+              className="w-full mt-3"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               disabled={!task} // Nonaktifkan jika tidak ada task
@@ -120,7 +120,7 @@ const DetailTaskSidebar = ({ open, onClose, task, onSave }) => {
           <div>
             <label className="text-sm font-medium">Status</label>
             <Select value={status} onValueChange={setStatus} disabled={!task}>
-              <SelectTrigger className="w-full">
+              <SelectTrigger className="w-full mt-3">
                 <SelectValue placeholder="Select status" />
               </SelectTrigger>
               <SelectContent>
@@ -139,7 +139,7 @@ const DetailTaskSidebar = ({ open, onClose, task, onSave }) => {
             <div className="relative">
               <Input
                 type="date"
-                className="w-full"
+                className="w-full mt-3"
                 value={deadline}
                 onChange={(e) => setDeadline(e.target.value)}
                 disabled={!task} // Nonaktifkan jika tidak ada task
@@ -148,7 +148,7 @@ const DetailTaskSidebar = ({ open, onClose, task, onSave }) => {
           </div>
 
           {/* Buttons */}
-          <div className="flex justify-end gap-2 pt-4">
+          <div className="flex justify-end gap-2 pt-6">
             <Button variant="outline" onClick={onClose} className="bg-gray-300 text-gray-700 hover:bg-gray-200"> 
               Cancel
             </Button>

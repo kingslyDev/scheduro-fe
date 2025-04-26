@@ -95,9 +95,9 @@ export default function TaskFormSheet({
       <SheetTrigger asChild>{trigger}</SheetTrigger>
       <SheetContent
         side="right"
-        className="w-full sm:w-3/4 md:w-1/2 lg:w-1/3 !max-w-full sm:!max-w-[75%] md:!max-w-[50%] lg:!max-w-[33%] rounded-l-2xl p-6 bg-gray-50 border-l shadow-xl"
+        className="w-full sm:w-3/4 md:w-1/2 lg:w-1/3 !max-w-full sm:!max-w-[75%] md:!max-w-[50%] lg:!max-w-[33%] rounded-l-2xl p-10 md:p-10 bg-gray-50 border-l shadow-xl"
       >
-        <SheetHeader className="mb-1 md:-ml-4">
+        <SheetHeader className="mb-1 -ml-4 md:-ml-4">
           <p className="text-l font-semibold text-black">Add New Task</p>
         </SheetHeader>
 

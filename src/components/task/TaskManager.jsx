@@ -129,7 +129,8 @@ const TaskManager = () => {
   return (
     <main className="container mx-auto">
       <div className="bg-[#F8FAFF] rounded-lg border border-gray-200 shadow-sm">
-        <div className="bg-white p-4 flex flex-wrap items-center gap-4 md:gap-6 rounded-t-lg">
+        {/* 3 item: Search, Sort, SortOrder */}
+        <div className="bg-white p-4 flex flex-row md:flex-wrap items-center gap-4 md:gap-6 rounded-t-lg">
           {isLoading ? (
             <>
               <Skeleton className="h-10 w-full md:w-60 bg-[#E6EEFF]" />
@@ -143,13 +144,13 @@ const TaskManager = () => {
             <>
               <Input
                 placeholder="Search by title..."
-                className="w-full md:w-65 bg-[#E6EEFF] shadow-sm border-0"
+                className="w-36 md:w-72 bg-[#E6EEFF] shadow-xs md:shadow-sm border-0"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
-              <div className="flex items-center gap-6">
+              <div className="flex items-center gap-4 md:gap-6">
                 <Select value={sort} onValueChange={setSort}>
-                  <SelectTrigger className="w-full md:w-40 bg-[#E6EEFF] shadow-sm border-0">
+                  <SelectTrigger className="hidden md:flex w-28 md:w-40 bg-[#E6EEFF] shadow-sm border-0">
                     <SelectValue placeholder="Sort by" />
                   </SelectTrigger>
                   <SelectContent>
@@ -160,7 +161,7 @@ const TaskManager = () => {
                 </Select>
                 <Button
                   variant="outline"
-                  className="bg-[#E6EEFF] border-0 shadow-sm p-2"
+                  className="hidden md:flex bg-[#E6EEFF] border-0 shadow-sm p-4 w-10 md:w-10"
                   onClick={() =>
                     setSortOrder(sortOrder === "asc" ? "desc" : "asc")
                   }
@@ -168,14 +169,18 @@ const TaskManager = () => {
                   <ArrowUpDown className="w-4 h-4" />
                 </Button>
               </div>
-              <AddTaskSidebar
-                trigger={
-                  <Button className="bg-[#4F74E8] text-white px-4 py-2 ml-auto hover:bg-[#3E5EB8] w-full md:w-auto">
-                    Create Task
-                  </Button>
-                }
-                onAddTask={handleAddTask}
-              />
+
+              {/* Button Create Task Desktop */}
+              <div className="md:flex ml-auto px-8 md:px-0 md:ml-auto">
+                <AddTaskSidebar
+                  trigger={
+                    <Button className="bg-[#4F74E8] text-white px-4 py-2 hover:bg-[#3E5EB8] w-auto cursor-pointer">
+                      Create Task
+                    </Button>
+                  }
+                  onAddTask={handleAddTask}
+                />
+              </div>
             </>
           )}
         </div>
