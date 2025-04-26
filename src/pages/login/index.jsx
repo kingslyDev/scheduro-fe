@@ -42,10 +42,10 @@ const Login = () => {
       {/* LEFT: Form */}
       <div className="flex items-center justify-center p-8 mb-9">
         <div className="w-full max-w-md mx-auto flex flex-col justify-center h-full">
-          <h2 className="text-2xl font-bold text-[#6387CE] mb-2 text-center">
+          <h2 className="text-2xl font-bold text-[#6387CE] mb-3 text-center">
             Welcome Back
           </h2>
-          <p className="text-center mb-8 text-l">
+          <p className="text-center mb-10 text-l">
             Login Now & Start Managing Your Time and Tasks More Efficiently!
           </p>
 
@@ -82,7 +82,7 @@ const Login = () => {
                 className={`w-full border rounded-md px-4 py-2 text-sm focus:outline-none ${
                   errors.password
                     ? "border-red-500"
-                    : "focus:ring-2 focus:ring-[#6387CE] mb-7"
+                    : "focus:ring-2 focus:ring-[#6387CE] mb-8"
                 }`}
               />
               <div
@@ -99,7 +99,7 @@ const Login = () => {
             {/* Login Button */}
             <button
               type="submit"
-              className="w-40 bg-[#4F6EC1] text-white font-medium py-2 rounded-md mt-4 hover:bg-[#6387CE] transition mx-auto block"
+              className="w-40 bg-[#4F6EC1] text-white font-medium py-2 rounded-md mt-4 hover:bg-[#6387CE] transition mx-auto block cursor-pointer"
             >
               Login
             </button>

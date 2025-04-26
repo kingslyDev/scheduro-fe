@@ -105,12 +105,12 @@ const Navbar = ({ className }) => {
         
         <div className="flex flex-col items-start space-y-3">
           <Link href="/login">
-            <Button className="bg-[#6387CE] text-white px-6 py-3 rounded-full shadow-md hover:bg-[#4F6EC1]">
+            <Button className="bg-[#6387CE] text-white px-6 py-3 rounded-full shadow-md hover:bg-[#4F6EC1] cursor-pointer">
               <span className="text-base font-medium">Login</span>
             </Button>
           </Link>
           <Link href="/register">
-            <Button className="border-2 border-[#6387CE] text-[#6387CE] bg-transparent px-6 py-3 rounded-full shadow-md hover:bg-[#4F6EC1] hover:text-white">
+            <Button className="border-2 border-[#6387CE] text-[#6387CE] bg-transparent px-6 py-3 rounded-full shadow-md hover:bg-[#4F6EC1] hover:text-white cursor-pointer">
               <span className="text-base font-medium">Register</span>
             </Button>
           </Link>
@@ -151,12 +151,12 @@ const Navbar = ({ className }) => {
 
         <div className="ml-8 mr-20 flex items-center space-x-4">
           <Link href="/login">
-            <Button className="bg-[#6387CE] text-white px-10 py-6 rounded-full shadow-md hover:bg-[#4F6EC1]">
+            <Button className="bg-[#6387CE] text-white px-10 py-6 rounded-full shadow-md hover:bg-[#4F6EC1] cursor-pointer">
               <span className="text-base font-medium">Login</span>
             </Button>
           </Link>
           <Link href="/register">
-            <Button className="border-2 border-[#6387CE] text-[#6387CE] bg-transparent px-10 py-6 rounded-full shadow-md hover:bg-[#4F6EC1] hover:text-white">
+            <Button className="border-2 border-[#6387CE] text-[#6387CE] bg-transparent px-10 py-6 rounded-full shadow-md hover:bg-[#4F6EC1] hover:text-white cursor-pointer">
               <span className="text-base font-medium">Register</span>
             </Button>
           </Link>
