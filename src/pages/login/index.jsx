@@ -38,10 +38,10 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen grid grid-cols-1 md:grid-cols-2 overflow-hidden">
+    <div className="grid grid-cols-1 md:grid-cols-2 min-h-screen h-screen">
       {/* LEFT: Form */}
       <div className="flex items-center justify-center p-8 mb-9">
-        <div className="w-full max-w-md mx-auto">
+        <div className="w-full max-w-md mx-auto flex flex-col justify-center h-full">
           <h2 className="text-2xl font-bold text-[#6387CE] mb-2 text-center">
             Welcome Back
           </h2>
@@ -59,10 +59,11 @@ const Login = () => {
                 placeholder="example@email.com"
                 value={formData.email}
                 onChange={handleChange}
-                className={`w-full border rounded-md px-4 py-2 text-sm focus:outline-none ${errors.email
+                className={`w-full border rounded-md px-4 py-2 text-sm focus:outline-none ${
+                  errors.email
                     ? "border-red-500"
                     : "focus:ring-2 focus:ring-[#6387CE]"
-                  }`}
+                }`}
               />
               {errors.email && (
                 <p className="text-sm text-red-500 mt-1">{errors.email}</p>
@@ -78,10 +79,11 @@ const Login = () => {
                 placeholder="At least 8 characters"
                 value={formData.password}
                 onChange={handleChange}
-                className={`w-full border rounded-md px-4 py-2 text-sm focus:outline-none ${errors.password
+                className={`w-full border rounded-md px-4 py-2 text-sm focus:outline-none ${
+                  errors.password
                     ? "border-red-500"
                     : "focus:ring-2 focus:ring-[#6387CE] mb-7"
-                  }`}
+                }`}
               />
               <div
                 className="absolute top-9 right-3 cursor-pointer text-gray-500"
