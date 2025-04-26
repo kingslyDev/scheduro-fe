@@ -39,20 +39,7 @@ const Login = () => {
 
   return (
     <div className="min-h-screen grid grid-cols-1 md:grid-cols-2 overflow-hidden">
-      {/* LEFT: Illustration */}
-      <div className="hidden md:block h-screen w-full m-0 p-0 overflow-hidden">
-        <div
-          className="absolute left-0 bottom-0 h-full w-1/2"
-          style={{
-            backgroundImage: "url('/images/login.png')",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "contain",
-            backgroundPosition: "left bottom",
-          }}
-        />
-      </div>
-
-      {/* RIGHT: Form */}
+      {/* LEFT: Form */}
       <div className="flex items-center justify-center p-8 mb-9">
         <div className="w-full max-w-md mx-auto">
           <h2 className="text-2xl font-bold text-[#6387CE] mb-2 text-center">
@@ -126,6 +113,19 @@ const Login = () => {
             </p>
           </form>
         </div>
+      </div>
+
+      {/* LEFT: Illustration */}
+      <div className="hidden md:block h-screen w-full m-0 p-0 overflow-hidden">
+        <div
+          className="absolute right-0 bottom-0 h-full w-1/2"
+          style={{
+            backgroundImage: "url('/images/login.png')",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "contain",
+            backgroundPosition: "right bottom",
+          }}
+        />
       </div>
     </div>
   );

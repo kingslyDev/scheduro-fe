@@ -160,7 +160,7 @@ const AddTaskSidebar = ({ slug, onAddTask, initialStatus, trigger }) => {
           <p className="text-l font-semibold text-black">Add New Task</p>
         </SheetHeader>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-6">
           {/* Title */}
           <div>
             <InputLabel
@@ -304,14 +304,14 @@ const AddTaskSidebar = ({ slug, onAddTask, initialStatus, trigger }) => {
             <Button
               type="button"
               variant="outline"
-              className="bg-gray-300 text-gray-700 hover:bg-gray-200"
+              className="bg-gray-300 text-gray-700 hover:bg-gray-200 cursor-pointer"
               onClick={() => setOpen(false)}
             >
               Cancel
             </Button>
             <Button
               type="submit"
-              className="bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-400"
+              className="bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-400 cursor-pointer"
             >
               Save
             </Button>

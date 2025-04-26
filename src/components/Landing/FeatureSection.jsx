@@ -29,16 +29,16 @@ const features = [
 
 export default function FeatureSection() {
   return (
-    <section id="feature" className="py-24 px-4">
+    <section id="feature" className="py-24 px-6">
       <div className="max-w-screen-lg mx-auto text-center -mt-12">
         <h3 className="text-[#6387CE] text-lg mb-8 font-bold tracking-wider uppercase">
           FEATURES
         </h3>
-        <h2 className="text-xl font-bold text-gray-900 mt-4 tracking-wider">
+        <h2 className="text-xl font-bold text-gray-900 mt-4 px-8 tracking-wider">
           Everything You Need to Stay on Track
         </h2>
 
-        <p className="text-l text-gray-700 mt-4 max-w-2xl mx-auto tracking-wider">
+        <p className="text-l text-gray-700 mt-4 px-6 max-w-2xl mx-auto tracking-wider">
           Manage your schedule with ease and stay ahead effortlessly!
         </p>
 
@@ -54,7 +54,7 @@ export default function FeatureSection() {
                 className="w-14 h-14 mb-4 rounded-sm flex-shrink-0 ml-4"
               />
               <CardContent className="w-full">
-                <h4 className="text-lg font-semibold text-gray-900 mb-2">
+                <h4 className="text-lg font-semibold text-gray-900 mb-4">
                   {feature.title}
                 </h4>
                 <p className="text-m text-gray-600">{feature.description}</p>

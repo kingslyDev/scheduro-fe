@@ -38,7 +38,7 @@ const AboutSection = () => {
   };
 
   return (
-    <section id="about" className="py-16 px-8 md:px-16 bg-gray-50">
+    <section id="about" className="py-12 px-12 md:px-16 bg-gray-50">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-center text-[#6387CE] font-bold mb-10 text-lg">ABOUT</h2>
         <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-12">
@@ -55,9 +55,9 @@ const AboutSection = () => {
               whileHover={{ scale: 1.08, transition: { duration: 0.3 } }}
             >
               <motion.img
-                src="https://res.cloudinary.com/dy8fe8tbe/image/upload/v1742232295/widgets_b9ap96.svg"
-                alt="Scheduro app on iPhone"
-                className="w-full max-w-[500px] md:max-w-[700px] p-4 scale-115 rounded-lg shadow-xl"
+                src="https://res.cloudinary.com/dy8fe8tbe/image/upload/v1745608034/about_new_xva8wf.svg"
+                alt="About Illustration"
+                className="w-full max-w-[500px] md:max-w-[1000px] p-4 scale-100 rounded-lg md:-ml-8"
                 loading="lazy"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0, transition: { duration: 0.6 } }}

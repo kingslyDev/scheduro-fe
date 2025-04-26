@@ -102,10 +102,10 @@ export default function CreateWorkspace({ onWorkspaceAdded }) {
           </div>
 
           <div className="flex justify-end gap-3 mt-8">
-            <Button type="button" variant="outline" className="bg-gray-300 text-gray-700" onClick={() => setOpen(false)}>
+            <Button type="button" variant="outline" className="bg-gray-300 text-gray-700 cursor-pointer" onClick={() => setOpen(false)}>
               Cancel
             </Button>
-            <Button type="submit" className="bg-blue-700 text-white font-semibold rounded-md hover:bg-blue-400">
+            <Button type="submit" className="bg-blue-700 text-white font-semibold rounded-md hover:bg-blue-400 cursor-pointer">
               Save
             </Button>
           </div>

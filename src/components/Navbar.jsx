@@ -12,8 +12,11 @@ const Navbar = ({ className }) => {
   const handleScroll = () => {
     const about = document.getElementById("about");
     const feature = document.getElementById("feature");
+    const faq = document.getElementById("faq");
 
-    if (window.scrollY >= (feature?.offsetTop || 0) - 100) {
+    if (window.scrollY >= (faq?.offsetTop || 0) - 100) {
+      setActiveSection("faq");
+    } else if (window.scrollY >= (feature?.offsetTop || 0) - 100) {
       setActiveSection("feature");
     } else if (window.scrollY >= (about?.offsetTop || 0) - 100) {
       setActiveSection("about");
@@ -28,11 +31,19 @@ const Navbar = ({ className }) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleNavClick = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+      setActiveSection(sectionId); // <-- update langsung active section saat klik
+      setIsMenuOpen(false); // kalau di mobile, tutup menu sekalian
+    }
+  };
+
   const linkClass = (section) =>
-    `font-poppins transition-colors ${
-      activeSection === section
-        ? "text-[#6387CE] font-bold"
-        : "text-black hover:text-[#6387CE]"
+    `font-poppins transition-colors ${activeSection === section
+      ? "text-[#6387CE] font-bold"
+      : "text-black hover:text-[#6387CE]"
     }`;
 
   return (
@@ -76,21 +87,31 @@ const Navbar = ({ className }) => {
       >
         <ul className="flex flex-col space-y-4 mb-4">
           <li>
-            <Link href="/" className={linkClass("home")} onClick={() => setIsMenuOpen(false)}>
-              Home
-            </Link>
+            <Link href="/" className={linkClass("home")} onClick={() => setIsMenuOpen(false)}>Home</Link>
           </li>
           <li>
-            <Link href="#about" className={linkClass("about")} onClick={() => setIsMenuOpen(false)}>
-              About
-            </Link>
+            <button onClick={() => handleNavClick("about")} className={linkClass("about")}>About</button>
           </li>
           <li>
-            <Link href="#feature" className={linkClass("feature")} onClick={() => setIsMenuOpen(false)}>
-              Features
-            </Link>
+            <button onClick={() => handleNavClick("feature")} className={linkClass("feature")}>Features</button>
+          </li>
+          <li>
+            <button onClick={() => handleNavClick("faq")} className={linkClass("faq")}>FAQ</button>
           </li>
         </ul>
+        
+        <div className="flex flex-col items-start space-y-3">
+          <Link href="/login">
+            <Button className="bg-[#6387CE] text-white px-6 py-3 rounded-full shadow-md hover:bg-[#4F6EC1]">
+              <span className="text-base font-medium">Login</span>
+            </Button>
+          </Link>
+          <Link href="/register">
+            <Button className="border-2 border-[#6387CE] text-[#6387CE] bg-transparent px-6 py-3 rounded-full shadow-md hover:bg-[#4F6EC1] hover:text-white">
+              <span className="text-base font-medium">Register</span>
+            </Button>
+          </Link>
+        </div>
       </div>
 
       {/* Desktop Menu */}
@@ -112,6 +133,11 @@ const Navbar = ({ className }) => {
                 Features
               </Link>
             </li>
+            <li className="mx-6">
+              <Link href="#faq" className={linkClass("faq")}>
+                FAQ
+              </Link>
+            </li>
           </ul>
         </div>
 
@@ -122,7 +148,7 @@ const Navbar = ({ className }) => {
             </Button>
           </Link>
           <Link href="/register">
-          <Button className="border-2 border-[#6387CE] text-[#6387CE] bg-transparent px-10 py-6 rounded-full shadow-md hover:bg-[#4F6EC1] hover:text-white">
+            <Button className="border-2 border-[#6387CE] text-[#6387CE] bg-transparent px-10 py-6 rounded-full shadow-md hover:bg-[#4F6EC1] hover:text-white">
               <span className="text-base font-medium">Register</span>
             </Button>
           </Link>

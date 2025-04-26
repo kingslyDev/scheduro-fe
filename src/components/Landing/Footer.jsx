@@ -4,10 +4,10 @@ const Footer = () => {
   return (
     <div className="relative">
       {/* Back to Top Button */}
-      <div className="text-center mb-4">
+      <div className="text-center">
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="bg-[#6387CE] text-white px-4 py-2 rounded-md text-sm hover:bg-[#4058A4] shadow-sm hover:shadow-md transition-all"
+          className="bg-[#6387CE] text-white px-4 py-2 mb-12 mt-2 rounded-md text-sm hover:bg-[#4058A4] shadow-sm hover:shadow-md transition-all"
         >
           Back to top ↑
         </button>

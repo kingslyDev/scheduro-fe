@@ -213,9 +213,9 @@ const Dashboard = () => {
   return (
     <div className="p-6 relative">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div className="col-span-1 md:col-span-3 py-4">
+        <div className="col-span-1 md:col-span-3 py-4 -mt-8">
           {/* Profile - mobile only - MOVED HIGHER */}
-          <div className="py-2 col-span-1 space-y-6 md:hidden flex items-center justify-end mb-4 -mt-14 -mx-2">
+          <div className="py-2 col-span-1 space-y-6 md:hidden flex items-center justify-end mb-4 -mt-8 -mx-2">
             {isLoading ? (
               <>
                 <div className="flex items-center">
@@ -490,7 +490,7 @@ const Dashboard = () => {
         </div>
 
         {/* Profile dan Your To Do List - Desktop */}
-        <div className="py-4 col-span-1 space-y-6 md:block hidden">
+        <div className="py-4 col-span-1 space-y-6 md:block hidden -mt-8">
           {isLoading ? (
             <>
               <div className="p-4 rounded-lg text-center border border-[#6387CE]">
@@ -576,7 +576,7 @@ const Dashboard = () => {
       {isOpen && (
         <div
           ref={popupRef}
-          className={`fixed rounded-xl overflow-hidden shadow-lg bg-white z-[1000] ${window.innerWidth < 768 ? "w-[280px]" : "w-[350px]"
+          className={`fixed rounded-xl overflow-hidden shadow-lg bg-white z-[1000] ${window.innerWidth < 768 ? "w-[280px]" : "w-[355px]"
             }`}
           style={{
             top: `${popupPosition.top}px`,

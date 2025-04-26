@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import HeroSection from "../components/Landing/HeroSection";
 import AboutSection from "../components/Landing/AboutSection";
 import FeatureSection from "@/components/Landing/FeatureSection";
+import FAQSection from "@/components/Landing/FAQSection";
 import Footer from "@/components/Landing/Footer";
 
 const ScheduloWebsite = () => {
@@ -17,6 +18,8 @@ const ScheduloWebsite = () => {
       <AboutSection />
       {/* Feature Section */}
       <FeatureSection />
+      {/* FAQ Section */}
+      <FAQSection />
       {/* Footer Section */}
       <Footer />
     </div>

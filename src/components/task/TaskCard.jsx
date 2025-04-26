@@ -312,7 +312,7 @@ const TaskCard = React.memo(
               <div className="flex items-start justify-between gap-1 mb-2">
                 <h3
                   ref={titleRef}
-                  className="line-clamp-2 text-sm font-medium text-foreground hover:text-primary hover:underline transition-colors cursor-pointer select-none z-10"
+                  className="line-clamp-2 text-sm font-medium text-foreground hover:text-blue-400 hover:underline transition-colors cursor-pointer select-none z-10"
                 >
                   {task?.title}
                 </h3>
@@ -338,7 +338,7 @@ const TaskCard = React.memo(
                 </div>
               )}
               {task?.description && (
-                <p className="line-clamp-2 text-xs text-muted-foreground mb-2 cursor-pointer z-10">
+                <p className="line-clamp-2 text-xs text-muted-foreground mb-2 z-10">
                   {task.description}
                 </p>
               )}
@@ -455,13 +455,13 @@ const TaskCard = React.memo(
 
             <DialogFooter>
               <Button variant="outline" onClick={handleCloseDialog}
-                className="bg-gray-300 text-gray-700 hover:bg-gray-200"
+                className="bg-gray-300 text-gray-700 hover:bg-gray-200 cursor-pointer"
               >
                 Cancel
               </Button>
               <Button
                 onClick={handleSaveTask}
-                className="bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-400"
+                className="bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-400 cursor-pointer"
               >
                 Save
               </Button>
